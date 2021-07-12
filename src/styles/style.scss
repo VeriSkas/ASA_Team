@@ -1,0 +1,12 @@
+@import '../components/sign_in/sign-in.scss';
+@import '../components/sign_up/sign-up.scss';
+@import './content.scss';
+
+body {
+    margin: 0;
+}
+
+.inputError {
+    color: red;
+    font-size: 12px;
+}
