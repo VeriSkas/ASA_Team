@@ -25,6 +25,7 @@ export const signInHandler = () => {
         const password = authPassword.value;
         event.preventDefault();
         signIn(email, password);
+
     });
 
     const checkFormValid = () => {
