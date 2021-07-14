@@ -16,15 +16,14 @@
     "node-sass": "^5.0.0",
     "sass-loader": "^11.0.1",
     "style-loader": "^2.0.0",
+    "file-loader": "^6.2.0",
     "webpack": "^5.36.2",
     "webpack-cli": "^4.6.0",
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
-    "axios": "^0.21.1",
     "firebase": "^8.5.0",
     "html-loader": "^2.1.2",
-    "moment": "^2.29.1",
-    "uuid": "^8.3.2"
+    "moment": "^2.29.1"
   }
 }

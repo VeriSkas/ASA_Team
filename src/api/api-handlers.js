@@ -48,9 +48,19 @@ export const getTodos = () => {
                     id: key
                 }))
                 return tranformedPostsArr;
-            }
-
+            };
         })
+};
+
+export const deleteTodo = ({ id, date, dateDMY, dateTime, todoValue }) => {
+    return fetch(
+        `${databaseURL}/todos/${id}.json`,
+        {
+            method: 'DELETE',
+            headers,
+        }
+    )
+        .then(response => response.json())
 };
 
 export const signIn = (email, password) => {
@@ -69,7 +79,9 @@ export const signIn = (email, password) => {
             if (token) {
                 setToken(token);
                 window.location.href = routes.home;
+                return token;
             }
+
         })
         .catch( err => console.log(err));
 };

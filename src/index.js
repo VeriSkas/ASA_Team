@@ -4,6 +4,7 @@ import { getToken } from './shared/ls-service';
 import { renderTodos, todoHandler } from './dom-handlers/todosRender';
 import { signInHandler } from './components/sign_in/sign-in';
 import { signUpHandler } from './components/sign_up/sign-up';
+import { todosElementHandler } from './dom-handlers/todoElement';
 
 window.onload = () => {
     const pathName = Object.values(paths).find( path => (path === window.location.pathname));
@@ -18,6 +19,7 @@ window.onload = () => {
 
             renderTodos();
             todoHandler();
+            todosElementHandler();
             break;
         case paths.sign_in:
             signInHandler();
