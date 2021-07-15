@@ -15,7 +15,7 @@ export const initApi = async () => {
 initApi();
 
 export const createTodo = post => {
-    const { date, todoValue, dateTime, dateDMY } = post;
+    const { date, todoValue, dateTime, dateDMY, complited, important } = post;
     return fetch(
         `${databaseURL}/todos.json`,
         {
@@ -26,8 +26,8 @@ export const createTodo = post => {
                 todoValue,
                 dateDMY,
                 dateTime,
-                complited: false,
-                important: false,
+                complited,
+                important,
             })
         }
     )
@@ -54,12 +54,32 @@ export const getTodos = () => {
         })
 };
 
-export const deleteTodo = ({ id, date, dateDMY, dateTime, todoValue }) => {
+export const deleteTodo = ({ id }) => {
     return fetch(
         `${databaseURL}/todos/${id}.json`,
         {
             method: 'DELETE',
             headers,
+        }
+    )
+        .then(response => response.json())
+};
+
+export const updateTodo = ( id, complited, important, todoValue, date, dateDMY, dateTime ) => {
+    return fetch(
+        `${databaseURL}/todos/${id}.json`,
+        {
+            method: 'PUT',
+            headers,
+            body: JSON.stringify ({
+                id,
+                date,
+                todoValue,
+                dateDMY,
+                dateTime,
+                complited,
+                important,
+            })
         }
     )
         .then(response => response.json())

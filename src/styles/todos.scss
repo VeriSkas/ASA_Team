@@ -1,5 +1,6 @@
 .content__todo {
     width: 80%;
+    position: relative;
 
     &_form {
         display: flex;
@@ -34,6 +35,12 @@
         background: #80808073;
     }
 
+    #inputTodosError {
+        position: absolute;
+        top: 159px;
+        left: 94px;
+    }
+
     &_todosMain {
         margin: 0;
         padding-inline-start: 0;
@@ -50,6 +57,10 @@
             .todo-complited, .todos-deleteImg, .todo-important {
                 text-align: center;
                 cursor: pointer;
+            }
+
+            .todo-important {
+                font-size: 25px;
             }
 
             .todos-deleteImg {
