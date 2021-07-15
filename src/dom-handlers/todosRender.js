@@ -6,6 +6,7 @@ export const renderTodos = () => {
         .then( todos => {
             const todosContainer = document.querySelector('.content__todo_todosMain');
             todosContainer.innerHTML = null;
+
             if(todos) {
                 todos.forEach( item => {
                     const todoValue = document.createElement('li');
@@ -48,14 +49,18 @@ export const todoHandler = () => {
         date: moment().format(),
         dateTime:moment().format('LTS'),
         dateDMY:moment().format('LL'),
+        complited: false,
+        important: false,
     };
 
     todo_form.addEventListener('submit', event => {
         event.preventDefault();
-        todo.todoValue = formInput.value;
+        if(formInput.value) {
+            todo.todoValue = formInput.value;
 
-        createTodo(todo)
-            .then( () => renderTodos());
+            createTodo(todo)
+                .then( () => renderTodos());
+        }
 
         formInput.value = null;
     });

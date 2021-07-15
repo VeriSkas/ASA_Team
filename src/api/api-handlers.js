@@ -25,7 +25,9 @@ export const createTodo = post => {
                 date,
                 todoValue,
                 dateDMY,
-                dateTime
+                dateTime,
+                complited: false,
+                important: false,
             })
         }
     )
