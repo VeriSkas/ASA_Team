@@ -13,17 +13,15 @@
                 <div class="content__sidebar"></div>
                 <div class="content__todo">
                     <h1 class="content__todo_title">My To-Do List</h1>
-                    <form id="content__todo_form">
-                        <input type="text" id="content__todo_form-input" placeholder="New Todo">
-                        <button type="submit" class="content__todo_form-addTodoBtn">Add</button>
+                    <h4 class="todayDate"></h4>
+                    <form id="content__todo_form" class="content__todo_form">
+                        <button type="submit" class="content__todo_form-todoAddPlus">&#10133;</button>
+                        <input type="text" id="content__todo_form-input" class="content__todo_form-input" placeholder="Add task">
+                        <button type="submit" class="content__todo_form-addTodoBtn"> &#9998; Add... </button>
                     </form>
-                    <ul class="content__todo_todosMain">
-                        <li class="todos_date">
-                            <ul class="todos">
-                                <li class="todosValue"><span class="todos-deleteImg">X</span> задание 1 <span class="todos-time">15.03.21</span> </li>
-                            </ul>
-                        </li>
-                    </ul>
+                    <div class="dividing"></div>
+                    <p id="inputTodosError" class="inputError"></p>
+                    <ul class="content__todo_todosMain"></ul>
                 </div>
                 <div class="content__todoInfo"></div>
             </div>

@@ -15,7 +15,7 @@ export const initApi = async () => {
 initApi();
 
 export const createTodo = post => {
-    const { date, todoValue, dateTime, dateDMY } = post;
+    const { date, todoValue, dateTime, dateDMY, complited, important } = post;
     return fetch(
         `${databaseURL}/todos.json`,
         {
@@ -25,7 +25,9 @@ export const createTodo = post => {
                 date,
                 todoValue,
                 dateDMY,
-                dateTime
+                dateTime,
+                complited,
+                important,
             })
         }
     )
@@ -48,9 +50,39 @@ export const getTodos = () => {
                     id: key
                 }))
                 return tranformedPostsArr;
-            }
-
+            };
         })
+};
+
+export const deleteTodo = ({ id }) => {
+    return fetch(
+        `${databaseURL}/todos/${id}.json`,
+        {
+            method: 'DELETE',
+            headers,
+        }
+    )
+        .then(response => response.json())
+};
+
+export const updateTodo = ( id, complited, important, todoValue, date, dateDMY, dateTime ) => {
+    return fetch(
+        `${databaseURL}/todos/${id}.json`,
+        {
+            method: 'PUT',
+            headers,
+            body: JSON.stringify ({
+                id,
+                date,
+                todoValue,
+                dateDMY,
+                dateTime,
+                complited,
+                important,
+            })
+        }
+    )
+        .then(response => response.json())
 };
 
 export const signIn = (email, password) => {
@@ -69,7 +101,9 @@ export const signIn = (email, password) => {
             if (token) {
                 setToken(token);
                 window.location.href = routes.home;
+                return token;
             }
+
         })
         .catch( err => console.log(err));
 };

@@ -60,7 +60,7 @@ export const signUpHandler = () => {
             inputErrorPassword1Text.innerText = '';
         } else {
             signUpFormFields.password1.isValid = false;
-            inputErrorPassword1Text.innerText = 'Password must be at least 6 characters';
+            inputErrorPassword1Text.innerText = 'Password must be at least 6 characters and consist of numbers or letters';
         }
 
         checkFormValid();
