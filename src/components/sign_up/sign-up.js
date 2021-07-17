@@ -1,5 +1,6 @@
 import { signUp } from '../../api/api-handlers';
 import { checkValidName, checkValidPassword, checkValidEmail } from '../../shared/validators';
+import { errorText } from '../../shared/constants/errorText';
 
 export const signUpHandler = () => {
     const signUpForm = document.querySelector('.components__wrapper_signUp-form');
@@ -48,7 +49,7 @@ export const signUpHandler = () => {
             inputErrorNameText.innerText = '';
         } else {
             signUpFormFields.name.isValid = false;
-            inputErrorNameText.innerText = 'Login must be at least 4 characters and can contain .-_+#`~';
+            inputErrorNameText.innerText = errorText.validLoginText;
         }
 
         checkFormValid();
@@ -60,7 +61,7 @@ export const signUpHandler = () => {
             inputErrorPassword1Text.innerText = '';
         } else {
             signUpFormFields.password1.isValid = false;
-            inputErrorPassword1Text.innerText = 'Password must be at least 6 characters and consist of numbers or letters';
+            inputErrorPassword1Text.innerText = errorText.validPasswordText;
         }
 
         checkFormValid();
@@ -72,7 +73,7 @@ export const signUpHandler = () => {
             inputErrorPassword2Text.innerText = '';
         } else {
             signUpFormFields.password2.isValid = false;
-            inputErrorPassword2Text.innerText = 'Password mismatch';
+            inputErrorPassword2Text.innerText = errorText.repeatPasswordText;
         }
 
         checkFormValid();
@@ -84,7 +85,7 @@ export const signUpHandler = () => {
             inputErrorEmailText.innerText = '';
         } else {
             signUpFormFields.email.isValid = false;
-            inputErrorEmailText.innerText = 'Invalid email entered';
+            inputErrorEmailText.innerText = errorText.validEmailText;
         }
 
         checkFormValid();

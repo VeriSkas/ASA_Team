@@ -1,5 +1,8 @@
 import { signIn } from '../../api/api-handlers';
+import { errorText } from '../../shared/constants/errorText';
 import { checkValidPassword, checkValidEmail } from '../../shared/validators';
+import { setToken } from '../../shared/ls-service';
+import { routes } from '../../shared/constants/routes';
 
 export const signInHandler = () => {
     const signIn_form = document.querySelector('.components__wrapper_auth-form');
@@ -24,8 +27,15 @@ export const signInHandler = () => {
         const email = authEmail.value;
         const password = authPassword.value;
         event.preventDefault();
-        signIn(email, password);
-
+        signIn(email, password)
+            .then( result => {
+                if(result) {
+                    const token = result.idToken;
+                    setToken(token);
+                    window.location.href = routes.home;
+                    return token;
+                }
+            })
     });
 
     const checkFormValid = () => {
@@ -39,7 +49,7 @@ export const signInHandler = () => {
             inputErrorPasswordText.innerText = '';
         } else {
             authFormFields.password.isValid = false;
-            inputErrorPasswordText.innerText = 'Password must be at least 6 characters';
+            inputErrorPasswordText.innerText = errorText.validPasswordText;
         }
         checkFormValid();
     };
@@ -54,7 +64,7 @@ export const signInHandler = () => {
             inputErrorEmailText.innerText = '';
         } else {
             authFormFields.email.isValid = false;
-            inputErrorEmailText.innerText = 'Invalid email entered';
+            inputErrorEmailText.innerText = errorText.validEmailText;
         }
         checkFormValid();
     };
