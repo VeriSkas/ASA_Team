@@ -4,4 +4,4 @@ export const validEmail = /^[a-z0-9.!\-_+#%$‘&*/=?^`{|}~]{1,64}@[a-z0-9\-]{1,2
 
 export const validName = /^[a-z0-9а-я.\-_+#`~]{4,64}$/i;
 
-export const inputTodoLength = /.{3,200}/i;
+export const inputTodoLength = /^.{3,200}$/i;

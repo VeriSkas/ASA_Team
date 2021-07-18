@@ -12,12 +12,14 @@ export const renderTodos = () => {
                 todos.forEach( item => {
                     const { id, complited, important, date, dateDMY, dateTime, todoValue } = item;
 
-                    const todoValueLi = document.createElement('li');
+                    const todoLi = document.createElement('li');
+                    const todoValueLi = document.createElement('p');
                     const complitedTodo = document.createElement('span');
                     const todoTime = document.createElement('span');
                     const todoDelete = document.createElement('div');
                     const todoImportant = document.createElement('span');
 
+                    todoLi.className = 'todoLi';
                     todoValueLi.className = 'todosValue';
                     todoTime.className = 'todos-time';
                     todoImportant.className = 'todo-important';
@@ -26,6 +28,10 @@ export const renderTodos = () => {
 
                     todoValueLi.innerHTML = item.todoValue;
                     todoTime.innerHTML = item.dateTime;
+
+                    if (item.todoValue.length > 50) {
+                        todoValueLi.style.fontSize = '12px';
+                    }
 
                     todoDelete.onclick = () => {
                         deleteTodo(item)
@@ -76,11 +82,12 @@ export const renderTodos = () => {
                         }
                     }
 
-                    todosContainer.append(todoValueLi);
-                    todoValueLi.prepend(complitedTodo);
-                    todoValueLi.append(todoTime);
-                    todoValueLi.append(todoDelete);
-                    todoValueLi.append(todoImportant);
+                    todosContainer.append(todoLi);
+                    todoLi.prepend(complitedTodo);
+                    todoLi.append(todoValueLi);
+                    todoLi.append(todoTime);
+                    todoLi.append(todoDelete);
+                    todoLi.append(todoImportant);
                 });
             };
         });
@@ -92,9 +99,9 @@ export const todoHandler = () => {
     const inputTodosError = document.querySelector('#inputTodosError');
     const todo = {
         todoValue: null,
-        date: moment().format(),
-        dateTime:moment().format('LTS'),
-        dateDMY:moment().format('LL'),
+        date: null,
+        dateTime: null,
+        dateDMY: null,
         complited: false,
         important: false,
     };
@@ -110,6 +117,9 @@ export const todoHandler = () => {
 
         if (checkLengthTodo(formInput.value)) {
             todo.todoValue = formInput.value;
+            todo.date = moment().format();
+            todo.dateTime = moment().format('LTS');
+            todo.dateDMY = moment().format('LL');
 
             createTodo(todo)
                 .then( () => renderTodos());

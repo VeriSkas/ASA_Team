@@ -1,6 +1,11 @@
+@import './temps/colors.scss';
+
 .content__todo {
-    width: 80%;
+    width: 60%;
     position: relative;
+    top: 100px;
+    left: 300px;
+    display: inline-block;
 
     &_form {
         display: flex;
@@ -9,7 +14,7 @@
 
         &-input {
             border: 0;
-            background: #abfddf;
+            background: $color3;
             width: 80%;
             height: 95%;
             outline: none;
@@ -18,7 +23,7 @@
         &-addTodoBtn, &-todoAddPlus {
             padding: 0;
             border: 0;
-            background: #abfddf;
+            background: $color3;
             cursor: pointer;
         }
 
@@ -37,22 +42,27 @@
 
     #inputTodosError {
         position: absolute;
-        top: 159px;
-        left: 94px;
+        top: 105px;
+        left: 50px;
     }
 
     &_todosMain {
         margin: 0;
         padding-inline-start: 0;
 
-        .todosValue {
+        .todoLi {
             width: 100%;
-            height: 50px;
+            height: 100px;
             display: grid;
             grid-template: 1fr/10% 60% 20% 5% 5%;
             align-items: center;
             border-bottom: 1px solid #80808073;
             font-size: 15px;
+
+            .todosValue {
+                width: 95%;
+                word-wrap: break-word;
+            }
 
             .todo-complited, .todos-deleteImg, .todo-important {
                 text-align: center;
