@@ -1,6 +1,7 @@
 import moment from 'moment';
 import { getTodos, createTodo, deleteTodo, updateTodo } from '../api/api-handlers';
 import { checkLengthTodo } from '../shared/validators';
+import { errorText } from '../shared/constants/errorText';
 
 export const renderTodos = () => {
     getTodos()
@@ -13,13 +14,16 @@ export const renderTodos = () => {
                     const { id, complited, important, date, dateDMY, dateTime, todoValue } = item;
 
                     const todoLi = document.createElement('li');
-                    const todoValueLi = document.createElement('p');
+                    const todoLiError = document.createElement('p');
+                    const todoValueLi = document.createElement('textarea');
                     const complitedTodo = document.createElement('span');
                     const todoTime = document.createElement('span');
                     const todoDelete = document.createElement('div');
                     const todoImportant = document.createElement('span');
 
                     todoLi.className = 'todoLi';
+                    todoLiError.className = 'inputError';
+                    todoLiError.id = 'todoLiError';
                     todoValueLi.className = 'todosValue';
                     todoTime.className = 'todos-time';
                     todoImportant.className = 'todo-important';
@@ -31,6 +35,26 @@ export const renderTodos = () => {
 
                     if (item.todoValue.length > 50) {
                         todoValueLi.style.fontSize = '12px';
+                    }
+
+                    todoValueLi.oninput = () => {
+                        checkLengthTodo(todoValueLi.value) ?
+                        todoLiError.innerHTML = '' :
+                        todoLiError.innerHTML = errorText.inputTodoErrorText;
+                    }
+
+                    todoValueLi.onblur = () => {
+                        if ((todoValueLi.value !== item.todoValue) && checkLengthTodo(todoValueLi.value)) {
+                            const date = moment().format();
+                            const dateTime = moment().format('LTS');
+                            const dateDMY = moment().format('LL');
+
+                            updateTodo( id, complited, important, todoValueLi.value, date, dateDMY, dateTime )
+                                .then(() => renderTodos());
+                        } else {
+                            todoLiError.innerHTML = '';
+                            todoValueLi.value = item.todoValue;
+                        }
                     }
 
                     todoDelete.onclick = () => {
@@ -83,6 +107,7 @@ export const renderTodos = () => {
                     }
 
                     todosContainer.append(todoLi);
+                    todosContainer.append(todoLiError);
                     todoLi.prepend(complitedTodo);
                     todoLi.append(todoValueLi);
                     todoLi.append(todoTime);
@@ -109,7 +134,7 @@ export const todoHandler = () => {
     formInput.oninput = () => {
         checkLengthTodo(formInput.value) ?
             inputTodosError.innerHTML = '' :
-            inputTodosError.innerHTML = 'The task must contain from 3 to 200 characters';
+            inputTodosError.innerHTML = errorText.inputTodoErrorText;
     }
 
     todo_form.addEventListener('submit', event => {
