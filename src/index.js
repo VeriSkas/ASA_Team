@@ -15,7 +15,7 @@ window.onload = () => {
             const token = getToken();
 
             if(!token) {
-                window.location.href = routes.sign_in;
+                window.location.href = routes.signIn_Up;
             }
 
             renderTodos();
@@ -23,13 +23,13 @@ window.onload = () => {
             todosElementHandler();
             showSidebar();
             break;
-        case paths.sign_in:
-            signInHandler();
-            break;
-        case paths.sign_up:
-            signUpHandler();
-            break;
-        default:
-            break;
+        // case paths.sign_in:
+        //     signInHandler();
+        //     break;
+        // case paths.sign_up:
+        //     signUpHandler();
+        //     break;
+        // default:
+        //     break;
     }
 };
