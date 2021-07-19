@@ -1,4 +1,5 @@
 import './styles/style.scss';
+import { showSidebar } from './dom-handlers/sidebar';
 import { routes, paths } from './shared/constants/routes';
 import { getToken } from './shared/ls-service';
 import { renderTodos, todoHandler } from './dom-handlers/todosRender';
@@ -20,6 +21,7 @@ window.onload = () => {
             renderTodos();
             todoHandler();
             todosElementHandler();
+            showSidebar();
             break;
         case paths.sign_in:
             signInHandler();

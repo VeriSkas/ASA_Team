@@ -1,8 +1,8 @@
 require('firebase/auth');
 import firebase from 'firebase/app';
+import axios from 'axios';
 import { databaseURL, firebaseConfig, authURL } from './api-config';
-import { setToken } from '../shared/ls-service';
-import { routes } from '../shared/constants/routes';
+import { showErrorNotification } from '../shared/error-handlers';
 
 const headers = {
     'Content-Type': 'application/json'
@@ -86,27 +86,14 @@ export const updateTodo = ( id, complited, important, todoValue, date, dateDMY, 
 };
 
 export const signIn = (email, password) => {
-    return fetch ( authURL, {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({
-            email,
-            password,
-            returnSecureToken: true
-        })
+    return axios.post(authURL, {
+        email,
+        password,
+        returnSequreToken: true
     })
-        .then( response => response.json())
-        .then( result => {
-            const token = result.idToken;
-            if (token) {
-                setToken(token);
-                window.location.href = routes.home;
-                return token;
-            }
-
-        })
-        .catch( err => console.log(err));
-};
+    .then(response => response)
+    .catch(err => showErrorNotification(err))
+}
 
 export const signUp = async (name, email, password) => {
     await firebase
