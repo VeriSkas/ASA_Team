@@ -1,0 +1,25 @@
+@import '../components/sign_in/sign-in.scss';
+@import '../components/sign_up/sign-up.scss';
+@import './content.scss';
+@import './todos.scss';
+
+body {
+    margin: 0;
+}
+
+.inputError {
+    color: red;
+    font-size: 12px;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.dividing {
+    width: 100%;
+    height: 1px;
+}
