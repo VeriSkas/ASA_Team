@@ -33,6 +33,8 @@ export const renderTodos = () => {
                     todoValueLi.innerHTML = item.todoValue;
                     todoTime.innerHTML = item.dateTime;
 
+                    // todoValueLi.setAttribute('rows', '2');
+
                     if (item.todoValue.length > 50) {
                         todoValueLi.style.fontSize = '12px';
                     }

@@ -61,8 +61,10 @@
 
             .todosValue {
                 width: 95%;
+                height: 50px;
                 background: #abfddf;
                 border: none;
+                resize: none;
             }
 
             .todo-complited, .todos-deleteImg, .todo-important {
