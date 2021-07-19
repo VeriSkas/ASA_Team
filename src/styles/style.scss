@@ -4,8 +4,9 @@
 @import './todos.scss';
 @import './sidebar.scss';
 
-body {
+* {
     margin: 0;
+    padding: 0;
 }
 
 .inputError {
