@@ -1,4 +1,5 @@
 import './styles/style.scss';
+import './components/signIn_signUp/signIn-Up';
 import { showSidebar } from './dom-handlers/sidebar';
 import { routes, paths } from './shared/constants/routes';
 import { getToken } from './shared/ls-service';
