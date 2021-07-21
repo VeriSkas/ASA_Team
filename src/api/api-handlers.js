@@ -2,7 +2,9 @@ require('firebase/auth');
 import firebase from 'firebase/app';
 import axios from 'axios';
 import { databaseURL, firebaseConfig, authURL } from './api-config';
-import { showErrorNotification } from '../shared/error-handlers';
+import { showErrorNotification, showErrorNotificationSignUp } from '../shared/error-handlers';
+import { setToken } from '../shared/ls-service';
+import { routes } from '../shared/constants/routes';
 
 const headers = {
     'Content-Type': 'application/json'
@@ -92,24 +94,36 @@ export const signIn = (email, password) => {
         returnSequreToken: true
     })
     .then(response => response)
+    .then( result => {
+        if(result) {
+            const token = result.data.idToken;
+            setToken(token);
+            window.location.href = routes.home;
+            return token;
+        }
+    })
     .catch(err => showErrorNotification(err))
 }
 
-export const signUp = async (name, email, password) => {
-    await firebase
+export const signUp = (name, email, password) => {
+    firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
-        .then( response => response);
+        .then( async (response) => {
+            if(response) {
+                await fetch (`${databaseURL}/users.json`, {
+                    method: 'POST',
+                    headers,
+                    body: JSON.stringify({
+                        name,
+                        email,
+                    })
+                })
+                .then(response => response)
 
-    await fetch (`${databaseURL}/users.json`, {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({
-            name,
-            email,
-        })
+                await signIn(email, password)
+            }
+
     })
-        .then(response => response);
-
-    await signIn(email, password);
+    .catch(err => showErrorNotificationSignUp(err))
 };

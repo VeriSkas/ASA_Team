@@ -1,17 +1,20 @@
-// @import '../components/sign_in/sign-in.scss';
-// @import '../components/sign_up/sign-up.scss';
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
 @import '../components/signIn_signUp/signIn-Up.scss';
-@import './content.scss';
-@import './todos.scss';
 @import './sidebar.scss';
 @import './media.scss';
+@import './content.scss';
+@import './todos.scss';
 
 * {
     margin: 0;
     padding: 0;
+    font-family: "Poppins", sans-serif;
 }
 
 .inputError {
+    position: absolute;
+    left: 25px;
+    top: 55px;
     color: red;
     font-size: 12px;
 }
@@ -21,6 +24,16 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* ползунок скроллбара */
+::-webkit-scrollbar-thumb {
+    background-color: #336ad3a3;
+    border-radius: 30%;
 }
 
 .dividing {
@@ -37,7 +50,13 @@ input:-webkit-autofill:active {
     right: 10px;
     width: 200px;
     height: 100px;
-    background: #f79696;
+    background: #ff5757;
     color: white;
     border-radius: 5px;
+
+    &.signUp {
+        z-index: 30;
+        padding: 10px;
+    }
 }
+

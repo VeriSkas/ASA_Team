@@ -9,59 +9,68 @@
     </head>
     <body>
         <div class="container">
-            <div class="forms-container">
-                <div class="signin-signup">
-                    <form class="signin-signup_form" id="sign-in-form">
-                        <h2 class="title">Sign in</h2>
-                        <div class="input-field">
-                            <i class='bx bxs-user' ></i>
-                            <input type="text" placeholder="Email" />
+            <div class="container__forms">
+                <div class="container__forms_signin-signup">
+                    <form class="container__forms_signin-signup-form sign-in-form">
+                        <h2 class="container__forms_signin-signup-form-title">Sign in</h2>
+                        <div class="container__forms_signin-signup-form-inputField">
+                            <i class='bx bxs-user form' ></i>
+                            <input type="email" placeholder="Email" id="emailSignIn" class="container__forms_signin-signup-form-inputField-input"/>
+                            <p id="inputErrorEmail" class="inputError"></p>
                         </div>
-                        <div class="input-field">
-                            <i class='bx bxs-lock-alt' ></i>
-                            <input type="password" placeholder="Password" />
+                        <div class="container__forms_signin-signup-form-inputField">
+                            <i class='bx bxs-lock-alt form' ></i>
+                            <input type="password" placeholder="Password" id="passwordSignIn" class="container__forms_signin-signup-form-inputField-input"/>
+                            <i class='bx bx-show-alt'></i>
+                            <p id="inputErrorPassword" class="inputError"></p>
                         </div>
-                        <input type="submit" value="Login" class="btn solid" />
+                        <button type="submit" id="signIn" class="btn">Login</button>
                     </form>
-                    <form class="signin-signup_form" id="sign-up-form">
-                        <h2 class="title">Sign up</h2>
-                        <div class="input-field">
-                            <i class='bx bxs-user' ></i>
-                            <input type="text" placeholder="Username" />
+                    <form class="container__forms_signin-signup-form sign-up-form">
+                        <h2 class="container__forms_signin-signup-form-title">Sign up</h2>
+                        <div class="container__forms_signin-signup-form-inputField">
+                            <i class='bx bxs-user form' ></i>
+                            <input type="text" placeholder="Username" id="usernameSignUp" class="container__forms_signin-signup-form-inputField-input"/>
+                            <p id="inputErrorName" class="inputError"></p>
                         </div>
-                        <div class="input-field">
-                            <i class='bx bxs-envelope'></i>
-                            <input type="email" placeholder="Email" />
+                        <div class="container__forms_signin-signup-form-inputField">
+                            <i class='bx bxs-envelope form'></i>
+                            <input type="email" placeholder="Email" id="emailSignUp" class="container__forms_signin-signup-form-inputField-input"/>
+                            <p id="inputErrorEmailSignUp" class="inputError"></p>
                         </div>
-                        <div class="input-field">
-                            <i class='bx bxs-lock-alt' ></i>
-                            <input type="password" placeholder="Password" />
+                        <div class="container__forms_signin-signup-form-inputField">
+                            <i class='bx bxs-lock-alt form' ></i>
+                            <input type="password" placeholder="Password" id="passwordSignUp_1" class="container__forms_signin-signup-form-inputField-input"/>
+                            <i class='bx bx-show-alt'></i>
+                            <p id="inputErrorPassword1" class="inputError"></p>
                         </div>
-                        <div class="input-field">
-                            <i class='bx bxs-lock-alt' ></i>
-                            <input type="password" placeholder="Repeat password" />
+                        <div class="container__forms_signin-signup-form-inputField">
+                            <i class='bx bxs-lock-alt form' ></i>
+                            <input type="password" placeholder="Repeat password" id="passwordSignUp_2" class="container__forms_signin-signup-form-inputField-input"/>
+                            <i class='bx bx-show-alt'></i>
+                            <p id="inputErrorPassword2" class="inputError"></p>
                         </div>
-                        <input type="submit" class="btn" value="Sign up" />
+                        <button type="submit" id="signUp" class="btn">Sign up</button>
                     </form>
                 </div>
             </div>
 
-            <div class="panels-container">
-                <div class="panel left-panel">
-                    <div class="content">
+            <div class="container__panels">
+                <div class="container__panels-panel left-panel">
+                    <div class="container__panels-panel-content">
                         <h3>Don't have an account?</h3>
                         <p>Create it!</p>
                         <button class="btn transparent" id="sign-up-btn">Sign up</button>
                     </div>
-                    <img src="/src/img/log.svg" class="image" alt="" />
+                    <img src="/src/img/signIn.svg" class="container__panels-panel-image"/>
                 </div>
-                <div class="panel right-panel">
-                    <div class="content">
+                <div class="container__panels-panel right-panel">
+                    <div class="container__panels-panel-content">
                         <h3>Already have an account?</h3>
                         <p>Then let's go create...</p>
                         <button class="btn transparent" id="sign-in-btn">Sign in</button>
                     </div>
-                    <img src="/src/img/register.svg" class="image" alt="" />
+                    <img src="/src/img/signUp.svg" class="container__panels-panel-image" />
                 </div>
             </div>
         </div>

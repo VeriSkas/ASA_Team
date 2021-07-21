@@ -3,14 +3,14 @@ import { checkValidName, checkValidPassword, checkValidEmail } from '../../share
 import { errorText } from '../../shared/constants/errorText';
 
 export const signUpHandler = () => {
-    const signUpForm = document.querySelector('.components__wrapper_signUp-form');
-    const nameInput = document.getElementById('name');
-    const emailInput = document.getElementById('email');
-    const password1Input = document.getElementById('password1');
-    const password2Input = document.getElementById('password2');
-    const signUpBtn = document.querySelector('.signUpBtn');
+    const signUpForm = document.querySelector('.container__forms_signin-signup-form.sign-up-form');
+    const nameInput = document.getElementById('usernameSignUp');
+    const emailInput = document.getElementById('emailSignUp');
+    const password1Input = document.getElementById('passwordSignUp_1');
+    const password2Input = document.getElementById('passwordSignUp_2');
+    const signUpBtn = document.querySelector('#signUp');
     const inputErrorNameText = document.getElementById('inputErrorName');
-    const inputErrorEmailText = document.getElementById('inputErrorEmail');
+    const inputErrorEmailText = document.getElementById('inputErrorEmailSignUp');
     const inputErrorPassword1Text = document.getElementById('inputErrorPassword1');
     const inputErrorPassword2Text = document.getElementById('inputErrorPassword2');
     const signUpFormFields = {

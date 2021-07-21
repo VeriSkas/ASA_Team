@@ -6,12 +6,13 @@
     left: 0;
     height: 100%;
     width: 260px;
-    background: $color4;
+    background: $colorSidebar;
     z-index: 100;
     transition: all 0.5s ease;
 
     &.close {
         width: 78px;
+
         & ~ .home-section {
             left: 78px;
             width: 100%;
@@ -32,10 +33,14 @@
                 &:hover .sub-menu {
                     top: 0;
                     opacity: 1;
-                    background: $color2;
-                    color: $color1;
+                    background: $colorSidebar;
+                    color: $colorInput;
                     pointer-events: auto;
                     transition: all 0.4s ease;
+                }
+
+                &:hover i {
+                    color: $colorSidebar;
                 }
 
                 a {
@@ -60,10 +65,10 @@
                         display: block;
                         font-size: 18px;
                         opacity: 1;
-                        background: $color2;
+                        background: $colorSidebar;
 
                         &:hover {
-                            color: $color1;
+                            color: $colorBtn;
                         }
                     }
                 }
@@ -102,10 +107,10 @@
         width: 100%;
         display: flex;
         align-items: center;
+        color: $colorInput;
 
         i {
             font-size: 30px;
-            color: cornsilk;
             height: 50px;
             min-width: 78px;
             text-align: center;
@@ -115,7 +120,6 @@
 
         .logo_name {
             font-size: 22px;
-            color: cornsilk;
             font-weight: bold;
             transition: 0.3s ease;
             transition-delay: 0.1s;
@@ -123,7 +127,8 @@
     }
 
     .nav-links  {
-        background: $color2;
+        background: $color5;
+        background: linear-gradient(240deg, $color5 0%, $color6 50%);
         height: 100%;
         padding: 30px 0 150px 0;
         overflow: auto;
@@ -135,10 +140,13 @@
         li {
             position: relative;
             list-style: none;
-            transition: all 0.3s ease;
 
             &:hover {
                 background: $color3;
+
+                i, a {
+                    color: $colorText;
+                }
 
                 .sub-menu.blank {
                     top: 50%;
@@ -152,7 +160,7 @@
                 min-width: 78px;
                 text-align: center;
                 line-height: 50px;
-                color: cornsilk;
+                color: $colorInput;
                 font-size: 20px;
                 transition: all 0.3s ease;
             }
@@ -161,12 +169,12 @@
                 display: flex;
                 align-items: center;
                 text-decoration: none;
+                color: $colorInput;
             }
 
             .sub-menu {
                 padding: 6px 6px 14px 80px;
                 margin-top: -10px;
-                background: $color2;
                 display: none;
 
                 &.blank {
@@ -177,7 +185,7 @@
                 }
 
                 a {
-                    color: cornsilk;
+                    color: $colorInput;
                     font-size: 15px;
                     padding: 5px 0;
                     white-space: nowrap;
@@ -192,7 +200,6 @@
                 .link_name {
                     display: none;
                 }
-
             }
 
             .profile-details {
@@ -220,7 +227,7 @@
                 }
 
                 .name-job {
-                    color: cornsilk;
+                    color: $colorInput;
                     font-size: 18px;
                     font-weight: 500;
                     white-space: nowrap;
