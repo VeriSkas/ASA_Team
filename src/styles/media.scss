@@ -32,7 +32,7 @@
                 flex-direction: row;
                 justify-content: space-around;
                 align-items: center;
-                padding: 2.5rem 8%;
+                padding: 30px 8%;
                 grid-column: 1 / 2;
 
                 &.right-panel {
@@ -54,18 +54,18 @@
                     transition-delay: 0.8s;
 
                     h3 {
-                        font-size: 1.2rem;
+                        font-size: 20px;
                     }
 
                     p {
-                        font-size: 0.7rem;
-                        padding: 0.5rem 0;
+                        font-size: 12px;
+                        padding: 10px 0;
                     }
 
                     .btn.transparent {
                         width: 110px;
                         height: 35px;
-                        font-size: 0.7rem;
+                        font-size: 15px;
                     }
                 }
 
@@ -115,12 +115,12 @@
 
 @media (max-width: 570px) {
     .container {
-        padding: 1.5rem;
+        padding: 20px;
 
         &__forms {
             &_signin-signup {
                 &-form {
-                    padding: 0 1.5rem;
+                    padding: 0 15px;
                 }
             }
         }
@@ -128,7 +128,7 @@
         .container__panels {
             &-panel {
                 &-content {
-                    padding: 0.5rem 1rem;
+                    padding: 5px 10px;
                 }
 
                 &-image {

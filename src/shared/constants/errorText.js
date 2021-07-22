@@ -1,6 +1,6 @@
 export const errorText = {
-    validLoginText: 'Login must be at least 4 characters and can contain .-_+#`~',
-    validPasswordText: 'Password must be at least 6 characters and consist of numbers or letters',
+    validLoginText: 'Login must contain at least 4 characters (can contain letters, numbers and symbols .-_ + # `~)',
+    validPasswordText: 'Password must be from 6 to 32 characters and consist of numbers or letters',
     repeatPasswordText: 'Password mismatch',
     validEmailText: 'Invalid email entered',
     notificationText: 'Non-existent data entered',
