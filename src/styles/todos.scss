@@ -7,6 +7,11 @@
     left: 300px;
     display: inline-block;
 
+    &_title, .todayDate {
+        color: $colorText;
+
+    }
+
     &_form {
         display: flex;
         align-items: center;
@@ -37,7 +42,7 @@
     }
 
     .dividing {
-        background: #80808073;
+        background: $colorText;
     }
 
     #inputTodosError {
@@ -56,15 +61,19 @@
             display: grid;
             grid-template: 1fr/10% 60% 20% 5% 5%;
             align-items: center;
-            border-bottom: 1px solid #80808073;
+            border-bottom: 1px solid $colorText;
             font-size: 15px;
 
             .todosValue {
                 width: 95%;
-                height: 50px;
-                background: #abfddf;
+                height: 55px;
+                background: $color3;
                 border: none;
                 resize: none;
+
+                &::-webkit-scrollbar {
+                    display: none;
+                }
             }
 
             .todo-complited, .todos-deleteImg, .todo-important {

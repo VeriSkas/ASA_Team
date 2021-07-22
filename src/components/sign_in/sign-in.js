@@ -5,12 +5,12 @@ import { setToken } from '../../shared/ls-service';
 import { routes } from '../../shared/constants/routes';
 
 export const signInHandler = () => {
-    const signIn_form = document.querySelector('.components__wrapper_auth-form');
-    const authEmail = document.querySelector('.inputEmail_input');
-    const authPassword = document.querySelector('.inputPassword_input');
+    const signIn_form = document.querySelector('.container__forms_signin-signup-form.sign-in-form');
+    const authEmail = document.querySelector('#emailSignIn');
+    const authPassword = document.querySelector('#passwordSignIn');
     const inputErrorEmailText = document.querySelector('#inputErrorEmail');
     const inputErrorPasswordText = document.querySelector('#inputErrorPassword');
-    const authBtn = document.querySelector('.auth-form-Btn');
+    const authBtn = document.querySelector('#signIn');
 
     const authFormFields = {
         email: {
@@ -20,7 +20,6 @@ export const signInHandler = () => {
             isValid: false
         }
     }
-
     authBtn.setAttribute('disabled', true);
 
     signIn_form.addEventListener('submit', event => {
@@ -28,14 +27,7 @@ export const signInHandler = () => {
         const password = authPassword.value;
         event.preventDefault();
         signIn(email, password)
-            .then( result => {
-                if(result) {
-                    const token = result.idToken;
-                    setToken(token);
-                    window.location.href = routes.home;
-                    return token;
-                }
-            })
+
     });
 
     const checkFormValid = () => {

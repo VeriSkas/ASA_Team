@@ -1,0 +1,251 @@
+@import '../../styles/temps/colors.scss';
+
+.container {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+
+    &__forms {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+
+        &_signin-signup {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            left: 75%;
+            width: 50%;
+            transition: 1s 0.7s ease-in-out;
+            display: grid;
+            grid-template-columns: 1fr;
+            z-index: 5;
+
+            &-form {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                padding: 0px 10px;
+                transition: all 0.2s 0.7s;
+                overflow: hidden;
+                grid-column: 1 / 2;
+                grid-row: 1 / 2;
+
+                &.sign-in-form {
+                    z-index: 2;
+                }
+
+                &.sign-up-form {
+                    opacity: 0;
+                    z-index: 1;
+                }
+
+                &-title {
+                    font-size: 35px;
+                    color: $colorText;
+                    margin-bottom: 10px;
+                }
+
+                &-inputField {
+                    max-width: 380px;
+                    width: 100%;
+                    background-color: $colorInput;
+                    margin: 17px 0;
+                    height: 55px;
+                    border-radius: 55px;
+                    display: grid;
+                    grid-template-columns: 15% 85%;
+                    padding: 0 5px;
+                    position: relative;
+
+                    i.form {
+                        text-align: center;
+                        line-height: 55px;
+                        color: $colorTextInput;
+                        transition: 0.5s;
+                        font-size: 20px;
+                    }
+
+                    .bx-show-alt {
+                        position: absolute;
+                        top: 17px;
+                        right: 20px;
+                        font-size: 23px;
+                        color: $colorTextInput;
+                    }
+
+                    &-input {
+                        background: none;
+                        outline: none;
+                        border: none;
+                        line-height: 1;
+                        font-weight: 600;
+                        font-size: 20px;
+                        color: $colorText;
+
+                        &::placeholder {
+                            color: $colorTextInput;
+                            font-weight: 500;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .container__panels {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        background: $color3;
+
+    &-panel {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: space-around;
+            text-align: center;
+            z-index: 6;
+
+            &.left-panel {
+                pointer-events: all;
+                padding: 30px 17% 50px 12%;
+            }
+
+            &.right-panel {
+                pointer-events: none;
+                padding: 30px 12% 50px 17%;
+
+                .container__panels-panel-image,
+                .container__panels-panel-content {
+                    transform: translateX(800px);
+                }
+            }
+
+            &-content {
+                transition: transform 0.9s ease-in-out;
+                transition-delay: 0.6s;
+                color: $colorInput;
+
+                h3 {
+                    font-weight: 600;
+                    line-height: 1;
+                    font-size: 25px;
+                }
+
+                p {
+                    font-size: 17px;
+                    padding: 15px 0;
+                }
+
+                .btn.transparent {
+                    margin: 0;
+                    background: none;
+                    border: 3px solid $color3;
+                    width: 130px;
+                    height: 41px;
+                    font-weight: 600;
+                    font-size: 15px;
+                }
+            }
+
+            &-image {
+                width: 100%;
+                transition: transform 1.1s ease-in-out;
+                transition-delay: 0.4s;
+            }
+        }
+    }
+
+    &:before {
+        content: "";
+        position: absolute;
+        height: 2000px;
+        width: 2000px;
+        top: -10%;
+        right: 48%;
+        transform: translateY(-50%);
+        background: $color5;
+        background: radial-gradient(circle, $color5 0%, $color6 88%);
+        transition: 1.8s ease-in-out;
+        border-radius: 50%;
+        z-index: 6;
+    }
+
+    &.sign-up-mode {
+        &:before {
+            transform: translate(100%, -50%);
+            right: 52%;
+        }
+
+        .container__forms {
+            &_signin-signup {
+                left: 25%;
+
+                &-form {
+                    &.sign-in-form {
+                        opacity: 0;
+                        z-index: 1;
+                    }
+
+                    &.sign-up-form {
+                        opacity: 1;
+                        z-index: 2;
+                    }
+                }
+            }
+        }
+
+        .container__panels {
+        &-panel {
+                &.left-panel {
+                    pointer-events: none;
+
+                    .container__panels-panel-image,
+                    .container__panels-panel-content {
+                         transform: translateX(-800px);
+                    }
+                }
+
+                &.right-panel {
+                    pointer-events: all;
+
+                    .container__panels-panel-image,
+                    .container__panels-panel-content {
+                        transform: translateX(0%);
+                    }
+                }
+            }
+        }
+    }
+}
+
+.btn {
+    width: 150px;
+    background-color: $colorBtn;
+    border: none;
+    outline: none;
+    height: 49px;
+    border-radius: 49px;
+    color: $color3;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin:20px 0;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $color6;
+    }
+
+    &:disabled {
+        background-color: $colorDisabledBtn;
+    }
+}

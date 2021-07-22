@@ -1,5 +1,6 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: './src/index.js',
@@ -13,12 +14,8 @@ module.exports = {
             template: './src/index.html'
         }),
         new HTMLWebpackPlugin({
-            filename: 'sign-in.html',
-            template: './src/components/sign_in/sign-in.html'
-        }),
-        new HTMLWebpackPlugin({
-            filename: 'sign-up.html',
-            template: './src/components/sign_up/sign-up.html'
+            filename: 'signIn-Up.html',
+            template: './src/components/signIn_signUp/signIn-Up.html'
         })
     ],
     module: {
@@ -32,8 +29,8 @@ module.exports = {
                 loader: 'html-loader',
             },
             {
-                test: /\.(jpg|png|svg|gif)/,
-                use: ['file-loader']
+                test: /\.(png|jpg|svg)$/,
+                type: 'asset',
             }
         ]
     },

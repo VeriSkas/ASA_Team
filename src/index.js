@@ -1,4 +1,5 @@
 import './styles/style.scss';
+import { switchBetweenSignInAndSignUp } from './components/signIn_signUp/signIn-Up';
 import { showSidebar } from './dom-handlers/sidebar';
 import { routes, paths } from './shared/constants/routes';
 import { getToken } from './shared/ls-service';
@@ -13,9 +14,8 @@ window.onload = () => {
     switch (pathName) {
         case paths.home:
             const token = getToken();
-
             if(!token) {
-                window.location.href = routes.sign_in;
+                window.location.href = routes.signIn_Up;
             }
 
             renderTodos();
@@ -23,10 +23,9 @@ window.onload = () => {
             todosElementHandler();
             showSidebar();
             break;
-        case paths.sign_in:
+        case paths.signIn_Up:
+            switchBetweenSignInAndSignUp();
             signInHandler();
-            break;
-        case paths.sign_up:
             signUpHandler();
             break;
         default:
