@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { getTodos, createTodo, deleteTodo, updateTodo } from '../api/api-handlers';
+import { getTodos, createTodo, deleteTodo, updateTodo, createDeleteTodoList } from '../api/api-handlers';
 import { checkLengthTodo } from '../shared/validators';
 import { errorText } from '../shared/constants/errorText';
 
@@ -33,10 +33,6 @@ export const renderTodos = () => {
                     todoValueLi.innerHTML = item.todoValue;
                     todoTime.innerHTML = item.dateTime;
 
-                    if (item.todoValue.length > 50) {
-                        todoValueLi.style.fontSize = '12px';
-                    }
-
                     todoValueLi.oninput = () => {
                         checkLengthTodo(todoValueLi.value) ?
                         todoLiError.innerHTML = '' :
@@ -57,8 +53,9 @@ export const renderTodos = () => {
                         }
                     }
 
-                    todoDelete.onclick = () => {
-                        deleteTodo(item)
+                    todoDelete.onclick = async () => {
+                        await createDeleteTodoList(item);
+                        await deleteTodo(item)
                             .then(() => renderTodos())
                     }
 

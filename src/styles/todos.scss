@@ -76,6 +76,16 @@
                 }
             }
 
+            .todos-time {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                i {
+                    font-size: 22px;
+                    cursor: pointer;
+                }
+            }
+
             .todo-complited, .todos-deleteImg, .todo-important {
                 text-align: center;
                 cursor: pointer;
