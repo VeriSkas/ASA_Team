@@ -168,7 +168,7 @@ export const signUp = (name, email, password, todoList) => {
                     body: JSON.stringify({
                         name,
                         email,
-                        todoList,
+                        todoList
                     })
                 })
                 .then(response => response)
