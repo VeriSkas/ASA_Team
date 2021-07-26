@@ -16,14 +16,15 @@ export const initApi = async () => {
 
 initApi();
 
-export const createTodo = post => {
-    const { date, todoValue, dateTime, dateDMY, complited, important } = post;
+export const createTodo = todo => {
+    const { title, date, todoValue, dateTime, dateDMY, complited, important } = todo;
     return fetch(
         `${databaseURL}/todos.json`,
         {
             method: 'POST',
             headers,
             body: JSON.stringify({
+                title,
                 date,
                 todoValue,
                 dateDMY,

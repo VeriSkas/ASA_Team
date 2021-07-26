@@ -9,67 +9,88 @@
     </head>
     <body>
         <div class="wrapper">
-            <div class="header"></div>
-            <div class="content">
-                <div class="sidebar">
-                        <div class="logo-details">
-                            <i class='bx bx-menu'></i>
-                            <span class="logo_name">Do IT</span>
-                        </div>
-                        <ul class="nav-links">
-                            <li class="nav-links_allTasks">
+            <div class="wrapper__header"></div>
+            <div class="wrapper__content">
+                <div class="wrapper__content_sidebar">
+                    <div class="wrapper__content_sidebar-logoDetails">
+                        <i class='bx bx-menu'></i>
+                        <span class="wrapper__content_sidebar-logoDetails-logoName">Do IT</span>
+                    </div>
+                    <ul class="wrapper__content_sidebar-navLinks">
+                        <li id="nav-links_allTasks" class="wrapper__content_sidebar-navLinks-link">
+                            <a href="">
+                                <i class='bx bxs-calendar-check' ></i>
+                                <span class="link_name">Tasks </span>
+                            </a>
+                            <ul class="wrapper__content_sidebar-navLinks-link-subMenu blank">
+                                <li><a class="link_name" href="">Tasks</a></li>
+                            </ul>
+                        </li>
+                        <li class="wrapper__content_sidebar-navLinks-link" id="nav-links_importantTodos">
+                            <a href="">
+                                <i class='bx bxs-star-half'></i>
+                                <span class="link_name"> Important </span>
+                            </a>
+                            <ul class="wrapper__content_sidebar-navLinks-link-subMenu blank">
+                                <li><a class="link_name" href="">Important </a></li>
+                            </ul>
+                        </li>
+                        <li class="wrapper__content_sidebar-navLinks-link" id="nav-links_completedTodos">
+                            <a href="">
+                                <i class='bx bx-task-x' ></i>
+                                <span class="link_name">Completed</span>
+                            </a>
+                            <ul class="wrapper__content_sidebar-navLinks-link-subMenu blank">
+                                <li><a class="link_name" href="">Completed</a></li>
+                            </ul>
+                        </li>
+                        <li class="wrapper__content_sidebar-navLinks-link" id="nav-links_lists">
+                            <div class="wrapper__content_sidebar-navLinks-link-lists">
                                 <a href="">
-                                    <i class='bx bxs-calendar-check' ></i>
-                                    <span class="link_name">Tasks </span>
+                                    <i class='bx bx-list-ul'></i>
+                                    <span class="link_name">Lists:</span>
                                 </a>
-                                <ul class="sub-menu blank">
-                                    <li><a class="link_name" href="">Tasks</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-links_importantTodos">
-                                <a href="">
-                                    <i class='bx bxs-star-half'></i>
-                                    <span class="link_name"> Important </span>
-                                </a>
-                                <ul class="sub-menu blank">
-                                    <li><a class="link_name" href="">Important </a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-links_completedTodos">
-                                <a href="">
-                                    <i class='bx bx-task-x' ></i>
-                                    <span class="link_name">Completed</span>
-                                </a>
-                                <ul class="sub-menu blank">
-                                    <li><a class="link_name" href="">Completed</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-links_deletedTodos">
-                                <a href="">
-                                    <i class='bx bxs-trash' ></i>
-                                    <span class="link_name">Deleted</span>
-                                </a>
-                                <ul class="sub-menu blank">
-                                    <li><a class="link_name" href="">Deleted</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <div class="profile-details">
-                                    <div class="profile-content"></div>
-                                    <div class="name-job">
-                                        <div class="profile-name">Sveta</div>
-                                        <div class="job">Developer</div>
-                                    </div>
-                                    <a href="signIn-Up.html">
-                                        <i class='bx bx-log-out' id="logOut"></i>
-                                    </a>
+                                <i class='bx bx-down-arrow arrow'></i>
+                            </div>
+                            <ul class="wrapper__content_sidebar-navLinks-link-subMenu lists">
+                                <li><a class="link_name open" href="">Lists:</a></li>
+                                <li><a href="">Web Design</a></li>
+                                <li><a href="">Web Design</a></li>
+                                <li><a href="">Web Design</a></li>
+                            </ul>
+                        </li>
+                        <li class="wrapper__content_sidebar-navLinks-link" id="nav-links_deletedTodos">
+                            <a href="">
+                                <i class='bx bxs-trash' ></i>
+                                <span class="link_name">Deleted</span>
+                            </a>
+                            <ul class="wrapper__content_sidebar-navLinks-link-subMenu blank">
+                                <li><a class="link_name" href="">Deleted</a></li>
+                            </ul>
+                        </li>
+                        <li class="wrapper__content_sidebar-navLinks-link" id="nav-links_inputList">
+                            <div class="wrapper__content_sidebar-navLinks-link-inputList">
+                                <i class='bx bx-plus' ></i>
+                                <input type="text" class="wrapper__content_sidebar-navLinks-link-inputList-input" placeholder="Create a list">
+                                <i class='bx bx-list-plus createListBtn'></i>
+                            </div>
+                        </li>
+                        <li class="wrapper__content_sidebar-navLinks-link profile">
+                            <div class="wrapper__content_sidebar-navLinks-link_profile">
+                                <div class="wrapper__content_sidebar-navLinks-link_profile-photo"></div>
+                                <div class="wrapper__content_sidebar-navLinks-link_profile-content">
+                                    <div class="profile-name">Sveta</div>
                                 </div>
-                            </li>
-                        </ul>
+                                <a href="signIn-Up.html">
+                                    <i class='bx bx-log-out' id="logOut"></i>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
                 <div class="content__todo">
                     <h1 class="content__todo_title">My To-Do List</h1>
-                    <h4 class="todayDate"></h4>
+                    <h4 class="content__todo_todayDate"></h4>
                     <form id="content__todo_form" class="content__todo_form">
                         <button type="submit" class="content__todo_form-todoAddPlus">&#10133;</button>
                         <input type="text" id="content__todo_form-input" class="content__todo_form-input" placeholder="Add task">
@@ -80,7 +101,7 @@
                     <ul class="content__todo_todosMain"></ul>
                 </div>
             </div>
-            <div class="footer"></div>
+            <div class="wrapper__footer"></div>
         </div>
 
         <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>

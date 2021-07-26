@@ -119,7 +119,7 @@ export const getCompletedTasks = () => {
 }
 
 export const completedTasks_render = () => {
-    const completedTodos = document.querySelector('.nav-links_completedTodos');
+    const completedTodos = document.querySelector('#nav-links_completedTodos');
 
     completedTodos.addEventListener('click', event => {
         event.preventDefault();

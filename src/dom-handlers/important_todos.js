@@ -119,7 +119,7 @@ export const getImportantTasks = () => {
 }
 
 export const importantTasks_render = () => {
-    const importantTodos = document.querySelector('.nav-links_importantTodos');
+    const importantTodos = document.querySelector('#nav-links_importantTodos');
 
     importantTodos.addEventListener('click', event => {
         event.preventDefault();

@@ -76,7 +76,7 @@ export const getDeletedTasks = () => {
 }
 
 export const deletedTasks_render = () => {
-    const deletedTodos = document.querySelector('.nav-links_deletedTodos');
+    const deletedTodos = document.querySelector('#nav-links_deletedTodos');
 
     deletedTodos.addEventListener('click', event => {
         event.preventDefault();
