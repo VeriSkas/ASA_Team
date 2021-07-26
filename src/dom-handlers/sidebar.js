@@ -1,6 +1,7 @@
 import { routes } from '../shared/constants/routes';
 import { removeToken } from '../shared/ls-service';
 import { createList } from './createList';
+import { getTitleLists } from '../api/api-handlers';
 
 export const showSidebar = () => {
     const sidebar = document.querySelector('.wrapper__content_sidebar');
@@ -23,4 +24,24 @@ export const showSidebar = () => {
     })
 
     createList();
+
+    getTitleLists()
+        .then( titleGroup => {
+            const subMenuLists = document.querySelector('.lists');
+            subMenuLists.innerHTML = null;
+            if (titleGroup) {
+                titleGroup.forEach( item => {
+                    const titleLi = document.createElement('li');
+                    const titleA = document.createElement('a');
+
+                    titleA.innerHTML = item.titleGroup;
+
+                    subMenuLists.append(titleLi);
+                    titleLi.append(titleA);
+                    console.log(item.titleGroup);
+                })
+            }
+        })
 };
+
+

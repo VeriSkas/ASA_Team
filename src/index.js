@@ -22,13 +22,13 @@ window.onload = () => {
                 window.location.href = routes.signIn_Up;
             }
 
-            renderTodos();
-            tasks_render();
-            importantTasks_render();
-            completedTasks_render();
-            deletedTasks_render();
-            todoHandler();
-            todosElementHandler();
+            // renderTodos();
+            // tasks_render();
+            // importantTasks_render();
+            // completedTasks_render();
+            // deletedTasks_render();
+            // todoHandler();
+            // todosElementHandler();
             showSidebar();
             break;
         case paths.signIn_Up:
