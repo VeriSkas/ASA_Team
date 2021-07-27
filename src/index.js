@@ -2,7 +2,7 @@ import './styles/style.scss';
 import { switchBetweenSignInAndSignUp } from './components/signIn_signUp/signIn-Up';
 import { showSidebar } from './dom-handlers/sidebar';
 import { routes, paths } from './shared/constants/routes';
-import { getToken } from './shared/ls-service';
+import { getToken, setTitleLS } from './shared/ls-service';
 import { renderTodos, todoHandler } from './dom-handlers/todosRender';
 import { importantTasks_render } from './dom-handlers/important_todos';
 import { completedTasks_render } from './dom-handlers/completed_todos';
@@ -18,24 +18,27 @@ window.onload = () => {
     switch (pathName) {
         case paths.home:
             const token = getToken();
+
             if(!token) {
                 window.location.href = routes.signIn_Up;
             }
 
-            // renderTodos();
-            // tasks_render();
-            // importantTasks_render();
-            // completedTasks_render();
-            // deletedTasks_render();
-            // todoHandler();
-            // todosElementHandler();
+            tasks_render();
+            importantTasks_render();
+            completedTasks_render();
+            deletedTasks_render();
             showSidebar();
+            todosElementHandler();
+            setTitleLS('tasks');
+            renderTodos();
             break;
+
         case paths.signIn_Up:
             switchBetweenSignInAndSignUp();
             signInHandler();
             signUpHandler();
             break;
+
         default:
             break;
     }

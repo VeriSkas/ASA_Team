@@ -3,7 +3,7 @@ import moment from 'moment';
 import { createTodo, getDeleteTodolist, finalDeleteTodo } from '../api/api-handlers';
 
 export const getDeletedTasks = () => {
-    getDeleteTodolist()
+    getDeleteTodolist('tasks')
         .then( todos => {
             const todosContainer = document.querySelector('.content__todo_todosMain');
             todosContainer.innerHTML = null;

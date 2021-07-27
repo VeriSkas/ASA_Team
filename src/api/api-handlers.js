@@ -48,11 +48,11 @@ export const getTodos = title => {
         .then( response => response.json())
         .then( result => {
             if(result) {
-                const tranformedPostsArr = Object.keys(result).map( key => ({
+                const transformedArr = Object.keys(result).map( key => ({
                     ...result[key],
                     id: key
                 }))
-                return tranformedPostsArr;
+                return transformedArr;
             };
         })
 };
@@ -70,7 +70,7 @@ export const deleteTodo = ({ title, id }) => {
 
 export const updateTodo = ( title, id, complited, important, todoValue, date, dateDMY, dateTime ) => {
     return fetch(
-        `${databaseURL}/todos/${id}.json`,
+        `${databaseURL}/todos/${title}/${id}.json`,
         {
             method: 'PUT',
             headers,
@@ -89,14 +89,15 @@ export const updateTodo = ( title, id, complited, important, todoValue, date, da
         .then(response => response.json())
 };
 
-export const createDeleteTodoList = post => {
-    const { date, todoValue, dateTime, dateDMY, complited, important } = post;
+export const createDeleteTodoList = todo => {
+    const { title, date, todoValue, dateTime, dateDMY, complited, important } = todo;
     return fetch(
         `${databaseURL}/deleteTodos.json`,
         {
             method: 'POST',
             headers,
             body: JSON.stringify({
+                title,
                 date,
                 todoValue,
                 dateDMY,
@@ -119,12 +120,12 @@ export const getDeleteTodolist = () => {
     )
         .then( response => response.json())
         .then( result => {
-            if(result) {
-                const tranformedPostsArr = Object.keys(result).map( key => ({
+            if (result) {
+                const tranformedArr = Object.keys(result).map( key => ({
                     ...result[key],
                     id: key
                 }))
-                return tranformedPostsArr;
+                return tranformedArr;
             };
         })
 };
@@ -151,12 +152,8 @@ export const getTitleLists = () => {
         .then( response => response.json())
         .then( result => {
             if (result) {
-                const tranformedPostsArr = Object.keys(result).map( key => ({
-                        ...result[key],
-                        titleGroup: key
-                    }))
-
-                return tranformedPostsArr;
+                const tranformedTitleArr = Object.keys(result);
+                return tranformedTitleArr;
             };
         })
 };
