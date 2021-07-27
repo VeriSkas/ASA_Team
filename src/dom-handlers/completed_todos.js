@@ -1,9 +1,6 @@
-import moment from 'moment';
-import { getTodos, createTodo, deleteTodo, updateTodo, createDeleteTodoList } from '../api/api-handlers';
-import { checkLengthTodo } from '../shared/validators';
-import { errorText } from '../shared/constants/errorText';
+import { getTodos, deleteTodo, updateTodo, createDeleteTodoList } from '../api/api-handlers';
 
-export const renderTodos = () => {
+export const getCompletedTasks = () => {
     getTodos()
         .then( todos => {
             const todosContainer = document.querySelector('.content__todo_todosMain');
@@ -13,7 +10,7 @@ export const renderTodos = () => {
                 todos.forEach( item => {
                     const { id, complited, important, date, dateDMY, dateTime, todoValue } = item;
 
-                    if (!complited) {
+                    if (item.complited) {
                         const todoLi = document.createElement('li');
                         const todoLiError = document.createElement('p');
                         const todoValueLi = document.createElement('textarea');
@@ -34,6 +31,10 @@ export const renderTodos = () => {
                         todoValueLi.innerHTML = item.todoValue;
                         todoTime.innerHTML = item.dateTime;
 
+                        if (item.todoValue.length > 50) {
+                            todoValueLi.style.fontSize = '12px';
+                        }
+
                         todoValueLi.oninput = () => {
                             checkLengthTodo(todoValueLi.value) ?
                             todoLiError.innerHTML = '' :
@@ -47,7 +48,7 @@ export const renderTodos = () => {
                                 const dateDMY = moment().format('LL');
 
                                 updateTodo( id, complited, important, todoValueLi.value, date, dateDMY, dateTime )
-                                    .then(() => renderTodos());
+                                    .then(() => getCompletedTasks());
                             } else {
                                 todoLiError.innerHTML = '';
                                 todoValueLi.value = item.todoValue;
@@ -55,9 +56,9 @@ export const renderTodos = () => {
                         }
 
                         todoDelete.onclick = async () => {
-                            await createDeleteTodoList(item);
+                            await createDeleteTodoList(item)
                             await deleteTodo(item)
-                                .then(() => renderTodos())
+                                .then(() => getCompletedTasks(null))
                         }
 
                         if (important) {
@@ -96,8 +97,7 @@ export const renderTodos = () => {
                             if (!isClicked) {
                                 complitedTodo.setAttribute('clicked', true);
                                 complitedTodo.innerHTML = '&#9746;';
-                                updateTodo( id, true, important, todoValue, date, dateDMY, dateTime )
-                                    .then(() => renderTodos());
+                                updateTodo( id, true, important, todoValue, date, dateDMY, dateTime );
                             } else {
                                 complitedTodo.removeAttribute('clicked');
                                 complitedTodo.innerHTML = '&#x2610;';
@@ -106,51 +106,29 @@ export const renderTodos = () => {
                         }
 
                         todosContainer.append(todoLi);
-                        todoLi.append(todoLiError);
+                        todosContainer.append(todoLiError);
                         todoLi.prepend(complitedTodo);
                         todoLi.append(todoValueLi);
                         todoLi.append(todoTime);
                         todoLi.append(todoDelete);
                         todoLi.append(todoImportant);
                     }
-                });
-            };
-        });
-};
+                })
+            }
+        })
+}
 
-export const todoHandler = () => {
-    const todo_form = document.getElementById('content__todo_form');
-    const formInput = document.getElementById('content__todo_form-input');
-    const inputTodosError = document.querySelector('#inputTodosError');
-    const todo = {
-        title: 'tasks',
-        todoValue: null,
-        date: null,
-        dateTime: null,
-        dateDMY: null,
-        complited: false,
-        important: false,
-    };
+export const completedTasks_render = () => {
+    const completedTodos = document.querySelector('#nav-links_completedTodos');
 
-    formInput.oninput = () => {
-        checkLengthTodo(formInput.value) ?
-            inputTodosError.innerHTML = '' :
-            inputTodosError.innerHTML = errorText.inputTodoErrorText;
-    }
-
-    todo_form.addEventListener('submit', event => {
+    completedTodos.addEventListener('click', event => {
         event.preventDefault();
+        const title = document.querySelector('.content__todo_title');
+        const inputTodos = document.querySelector('.content__todo_form');
 
-        if (checkLengthTodo(formInput.value)) {
-            todo.todoValue = formInput.value;
-            todo.date = moment().format();
-            todo.dateTime = moment().format('LTS');
-            todo.dateDMY = moment().format('LL');
+        title.innerText = 'Completed tasks';
+        inputTodos.style.display = 'none';
 
-            createTodo(todo)
-                .then( () => renderTodos());
-        }
-
-        formInput.value = null;
-    });
-};
+        getCompletedTasks();
+    })
+}

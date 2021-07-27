@@ -16,14 +16,15 @@ export const initApi = async () => {
 
 initApi();
 
-export const createTodo = post => {
-    const { date, todoValue, dateTime, dateDMY, complited, important } = post;
+export const createTodo = todo => {
+    const { title, date, todoValue, dateTime, dateDMY, complited, important } = todo;
     return fetch(
         `${databaseURL}/todos.json`,
         {
             method: 'POST',
             headers,
             body: JSON.stringify({
+                title,
                 date,
                 todoValue,
                 dateDMY,
@@ -87,6 +88,57 @@ export const updateTodo = ( id, complited, important, todoValue, date, dateDMY, 
         .then(response => response.json())
 };
 
+export const createDeleteTodoList = post => {
+    const { date, todoValue, dateTime, dateDMY, complited, important } = post;
+    return fetch(
+        `${databaseURL}/deleteTodos.json`,
+        {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({
+                date,
+                todoValue,
+                dateDMY,
+                dateTime,
+                complited,
+                important,
+            })
+        }
+    )
+        .then( response => response.json())
+};
+
+export const getDeleteTodolist = () => {
+    return fetch(
+        `${databaseURL}/deleteTodos.json`,
+        {
+            method: 'GET',
+            headers,
+        }
+    )
+        .then( response => response.json())
+        .then( result => {
+            if(result) {
+                const tranformedPostsArr = Object.keys(result).map( key => ({
+                    ...result[key],
+                    id: key
+                }))
+                return tranformedPostsArr;
+            };
+        })
+};
+
+export const finalDeleteTodo = ({ id }) => {
+    return fetch(
+        `${databaseURL}/deleteTodos/${id}.json`,
+        {
+            method: 'DELETE',
+            headers,
+        }
+    )
+        .then(response => response.json())
+};
+
 export const signIn = (email, password) => {
     return axios.post(authURL, {
         email,
@@ -105,7 +157,7 @@ export const signIn = (email, password) => {
     .catch(err => showErrorNotification(err))
 }
 
-export const signUp = (name, email, password) => {
+export const signUp = (name, email, password, todoList) => {
     firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
@@ -117,6 +169,7 @@ export const signUp = (name, email, password) => {
                     body: JSON.stringify({
                         name,
                         email,
+                        todoList
                     })
                 })
                 .then(response => response)

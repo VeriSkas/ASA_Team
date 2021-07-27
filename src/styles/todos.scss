@@ -56,6 +56,7 @@
         padding-inline-start: 0;
 
         .todoLi {
+            position: relative;
             width: 100%;
             height: 100px;
             display: grid;
@@ -73,6 +74,16 @@
 
                 &::-webkit-scrollbar {
                     display: none;
+                }
+            }
+
+            .todos-time {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                i {
+                    font-size: 22px;
+                    cursor: pointer;
                 }
             }
 

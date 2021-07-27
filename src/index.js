@@ -4,6 +4,10 @@ import { showSidebar } from './dom-handlers/sidebar';
 import { routes, paths } from './shared/constants/routes';
 import { getToken } from './shared/ls-service';
 import { renderTodos, todoHandler } from './dom-handlers/todosRender';
+import { importantTasks_render } from './dom-handlers/important_todos';
+import { completedTasks_render } from './dom-handlers/completed_todos';
+import { deletedTasks_render } from './dom-handlers/deleted_todos';
+import { tasks_render } from './dom-handlers/tasks';
 import { signInHandler } from './components/sign_in/sign-in';
 import { signUpHandler } from './components/sign_up/sign-up';
 import { todosElementHandler } from './dom-handlers/todoElement';
@@ -19,6 +23,10 @@ window.onload = () => {
             }
 
             renderTodos();
+            tasks_render();
+            importantTasks_render();
+            completedTasks_render();
+            deletedTasks_render();
             todoHandler();
             todosElementHandler();
             showSidebar();

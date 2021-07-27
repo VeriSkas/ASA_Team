@@ -31,11 +31,12 @@ export const signUpHandler = () => {
     signUpBtn.setAttribute('disabled', true);
 
     signUpForm.addEventListener('submit', event => {
+        event.preventDefault();
         const name = nameInput.value;
         const email = emailInput.value;
         const password1 = password1Input.value;
-        event.preventDefault();
-        signUp(name, email, password1);
+        const todoList = null;
+        signUp(name, email, password1, todoList);
     });
 
     const checkFormValid = () => {

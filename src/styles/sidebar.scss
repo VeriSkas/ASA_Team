@@ -1,6 +1,6 @@
 @import './temps/colors.scss';
 
-.sidebar {
+.wrapper__content_sidebar {
     position: fixed;
     top: 0;
     left: 0;
@@ -18,19 +18,19 @@
             width: 100%;
         }
 
-        .logo-details {
-            .logo_name {
+        .wrapper__content_sidebar-logoDetails {
+            &-logoName {
                 transition-delay: 0s;
                 opacity: 0;
                 pointer-events: none;
             }
         }
 
-        .nav-links {
+        .wrapper__content_sidebar-navLinks {
             overflow: visible;
 
-            li {
-                &:hover .sub-menu {
+            &-link {
+                &:hover .wrapper__content_sidebar-navLinks-link-subMenu {
                     top: 0;
                     opacity: 1;
                     background: $colorSidebar;
@@ -49,7 +49,16 @@
                         pointer-events: none;
                     }
                 }
-                .sub-menu {
+
+                .arrow {
+                    display: none;
+                }
+
+                &-inputList {
+                    display: none;
+                }
+
+                &-subMenu {
                     position: absolute;
                     left: 100%;
                     top: -10px;
@@ -61,35 +70,46 @@
                     display: block;
                     pointer-events: none;
 
+                    li {
+                        a {
+                            color: $colorInput;
+                        }
+                    }
+
                     .link_name {
                         display: block;
                         font-size: 18px;
                         opacity: 1;
                         background: $colorSidebar;
+                        color: $colorInput;
 
                         &:hover {
                             color: $colorBtn;
                         }
+
+                        &.open:hover {
+                            color: $colorInput;
+                        }
+                    }
+
+                    li:hover {
+                        background: none;
                     }
                 }
 
-                .profile-details {
+                &_profile {
                     background: none;
                     width: 78px;
 
-                    .profile-content {
+                    &-photo {
                         width: 60px;
                         height: 60px;
                         -webkit-box-shadow: 0px 0px 10px 2px $color1;
                         box-shadow: 0px 0px 10px 2px $color1;
                     }
 
-                    .name-job {
+                    &-content {
                         display: none;
-
-                        .job {
-                            font-size: 12px;
-                        }
                     }
 
                     a {
@@ -102,7 +122,7 @@
         }
     }
 
-    .logo-details {
+    &-logoDetails {
         height: 60px;
         width: 100%;
         display: flex;
@@ -118,7 +138,7 @@
             cursor: pointer;
         }
 
-        .logo_name {
+        &-logoName {
             font-size: 22px;
             font-weight: bold;
             transition: 0.3s ease;
@@ -126,7 +146,7 @@
         }
     }
 
-    .nav-links  {
+    &-navLinks {
         background: $color5;
         background: linear-gradient(240deg, $color5 0%, $color6 50%);
         height: 100%;
@@ -137,25 +157,88 @@
             display: none;
         }
 
-        li {
+        li:hover {
+            background: $color3;
+
+            i, a {
+                color: $colorText;
+            }
+        }
+
+        &-link {
             position: relative;
-            list-style: none;
 
-            &:hover {
-                background: $color3;
+            li {
+                list-style: none;
+            }
 
-                i, a {
-                    color: $colorText;
+            &.showMenu {
+                &:hover {
+                    background: none;
+                }
+                .wrapper__content_sidebar-navLinks-link {
+                    background: $color3;
+
+                    &-lists {
+                        a, i {
+                            color: $color3;
+                        }
+                    }
+
+                    &-subMenu {
+                        display: block;
+
+                        li {
+                            &:hover {
+                                background: none;
+                            }
+
+                            a {
+                                color: $colorInput;
+                            }
+                        }
+                    }
                 }
 
-                .sub-menu.blank {
-                    top: 50%;
-                    transform: translateY(-50%);
+                .arrow {
+                    transform: rotate(-180deg);
                 }
             }
 
+            &-lists, &-inputList {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            &-inputList {
+                &:hover {
+                    input {
+                        color: $colorText;
+
+                        &::placeholder {
+                            color: $colorText;
+                        }
+                    }
+                }
+
+                input {
+                    background: none;
+                    border: none;
+                    outline: none;
+                    width: 104px;
+                    color: $colorInput;
+                    font-size: 15px;
+
+                    &::placeholder {
+                        font-size: 15px;
+                        color: $colorInput;
+                    }
+                }
+            }
 
             i {
+                display: block;
                 height: 50px;
                 min-width: 78px;
                 text-align: center;
@@ -172,7 +255,7 @@
                 color: $colorInput;
             }
 
-            .sub-menu {
+            &-subMenu {
                 padding: 6px 6px 14px 80px;
                 margin-top: -10px;
                 display: none;
@@ -188,7 +271,6 @@
                     color: $colorInput;
                     font-size: 15px;
                     padding: 5px 0;
-                    white-space: nowrap;
                     opacity: 0.6;
                     transition: all 0.3s ease;
 
@@ -202,7 +284,11 @@
                 }
             }
 
-            .profile-details {
+            &.profile:hover {
+                background: none;
+            }
+
+            &_profile {
                 position: fixed;
                 bottom: 0;
                 width: 260px;
@@ -213,7 +299,7 @@
                 padding: 6px 0;
                 transition: all 0.5s ease;
 
-                .profile-content {
+                &-photo {
                     display: flex;
                     align-items: center;
                     background: url('../img/R4EvyvGakKU.jpg') no-repeat center;
@@ -223,10 +309,9 @@
                     border-radius: 16px;
                     margin: 10px;
                     transition: all 0.5s ease;
-
                 }
 
-                .name-job {
+                &-content {
                     color: $colorInput;
                     font-size: 18px;
                     font-weight: 500;
