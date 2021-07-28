@@ -169,8 +169,18 @@
         &-link {
             position: relative;
 
+            &-lists {
+                a {
+                    cursor: default;
+                }
+            }
+
             li {
                 list-style: none;
+            }
+
+            .arrow {
+                cursor: pointer;
             }
 
             &.showMenu {
@@ -221,6 +231,10 @@
                         &::placeholder {
                             color: $colorText;
                         }
+                    }
+
+                    .createListBtn {
+                        cursor: pointer;
                     }
                 }
 

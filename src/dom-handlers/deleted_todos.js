@@ -28,6 +28,11 @@ export const getDeletedTasks = () => {
                     todoDelete.className = 'todos-deleteImg';
                     complitedTodo.className = 'todo-complited';
 
+                    todoDelete.setAttribute('title', 'Delete task');
+                    todoRecoverFromDeleted.setAttribute('title', 'Restore task');
+                    complitedTodo.style.cursor = 'default';
+                    todoImportant.style.cursor = 'default';
+
                     todoValueLi.innerHTML = item.todoValue;
                     todoRecoverFromDeleted.innerHTML = '<i class="bx bx-reset"></i>';
 

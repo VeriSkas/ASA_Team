@@ -32,6 +32,10 @@ export const renderTodos = () => {
                         todoDelete.className = 'todos-deleteImg';
                         complitedTodo.className = 'todo-complited';
 
+                        todoDelete.setAttribute('title', 'Delete task');
+                        todoImportant.setAttribute('title', 'Important task');
+                        complitedTodo.setAttribute('title', 'Complited task');
+
                         todoValueLi.innerHTML = item.todoValue;
                         todoTime.innerHTML = item.dateTime;
 

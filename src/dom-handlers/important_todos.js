@@ -10,7 +10,7 @@ export const getImportantTasks = () => {
                 todos.forEach( item => {
                     const { title, id, complited, important, date, dateDMY, dateTime, todoValue } = item;
 
-                    if (item.important) {
+                    if (item.important && !item.complited) {
                         const todoLi = document.createElement('li');
                         const todoLiError = document.createElement('p');
                         const todoValueLi = document.createElement('textarea');
@@ -27,6 +27,10 @@ export const getImportantTasks = () => {
                         todoImportant.className = 'todo-important';
                         todoDelete.className = 'todos-deleteImg';
                         complitedTodo.className = 'todo-complited';
+
+                        todoDelete.setAttribute('title', 'Delete task');
+                        todoImportant.setAttribute('title', 'Important task');
+                        complitedTodo.setAttribute('title', 'Complited task');
 
                         todoValueLi.innerHTML = item.todoValue;
                         todoTime.innerHTML = item.dateTime;
