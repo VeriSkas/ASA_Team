@@ -11,6 +11,7 @@ import { tasks_render } from './dom-handlers/tasks';
 import { signInHandler } from './components/sign_in/sign-in';
 import { signUpHandler } from './components/sign_up/sign-up';
 import { todosElementHandler } from './dom-handlers/todoElement';
+import { getAllTodos, getTodos } from './api/api-handlers';
 
 window.onload = () => {
     const pathName = Object.values(paths).find( path => (path === window.location.pathname));
@@ -22,7 +23,8 @@ window.onload = () => {
             if(!token) {
                 window.location.href = routes.signIn_Up;
             }
-
+            getAllTodos();
+            // getTodos('tasks');
             tasks_render();
             importantTasks_render();
             completedTasks_render();

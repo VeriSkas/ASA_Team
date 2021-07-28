@@ -52,10 +52,31 @@ export const getTodos = title => {
                     ...result[key],
                     id: key
                 }))
+                console.log(transformedArr);
                 return transformedArr;
             };
         })
 };
+
+export const getAllTodos = () => {
+    return fetch(
+        `${databaseURL}/todos.json`,
+        {
+            method: 'GET',
+            headers,
+        }
+    )
+        .then( response => response.json())
+        .then( result => {
+            if(result) {
+                const transformedArr = Object.values(result).map(key => Object.values(key)).map(i => {
+                    return i;
+                });
+                
+                return transformedArr;
+            };
+        })
+}
 
 export const deleteTodo = ({ title, id }) => {
     return fetch(
