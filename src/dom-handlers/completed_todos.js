@@ -1,14 +1,14 @@
 import { getTodos, deleteTodo, updateTodo, createDeleteTodoList } from '../api/api-handlers';
 
 export const getCompletedTasks = () => {
-    getTodos()
+    getTodos('tasks')
         .then( todos => {
             const todosContainer = document.querySelector('.content__todo_todosMain');
             todosContainer.innerHTML = null;
 
             if(todos) {
                 todos.forEach( item => {
-                    const { id, complited, important, date, dateDMY, dateTime, todoValue } = item;
+                    const { title, id, complited, important, date, dateDMY, dateTime, todoValue } = item;
 
                     if (item.complited) {
                         const todoLi = document.createElement('li');
@@ -47,7 +47,7 @@ export const getCompletedTasks = () => {
                                 const dateTime = moment().format('LTS');
                                 const dateDMY = moment().format('LL');
 
-                                updateTodo( id, complited, important, todoValueLi.value, date, dateDMY, dateTime )
+                                updateTodo( title, id, complited, important, todoValueLi.value, date, dateDMY, dateTime )
                                     .then(() => getCompletedTasks());
                             } else {
                                 todoLiError.innerHTML = '';
@@ -58,7 +58,7 @@ export const getCompletedTasks = () => {
                         todoDelete.onclick = async () => {
                             await createDeleteTodoList(item)
                             await deleteTodo(item)
-                                .then(() => getCompletedTasks(null))
+                                .then(() => getCompletedTasks())
                         }
 
                         if (important) {
@@ -75,11 +75,11 @@ export const getCompletedTasks = () => {
                             if (!isClicked) {
                                 todoImportant.setAttribute('clicked', true);
                                 todoImportant.innerHTML = '&#10029;';
-                                updateTodo( id, complited, true, todoValue, date, dateDMY, dateTime );
+                                updateTodo( title, id, complited, true, todoValue, date, dateDMY, dateTime );
                             } else {
                                 todoImportant.removeAttribute('clicked');
                                 todoImportant.innerHTML = '&#9734;';
-                                updateTodo( id, complited, false, todoValue, date, dateDMY, dateTime );
+                                updateTodo( title, id, complited, false, todoValue, date, dateDMY, dateTime );
                             }
                         }
 
@@ -97,11 +97,11 @@ export const getCompletedTasks = () => {
                             if (!isClicked) {
                                 complitedTodo.setAttribute('clicked', true);
                                 complitedTodo.innerHTML = '&#9746;';
-                                updateTodo( id, true, important, todoValue, date, dateDMY, dateTime );
+                                updateTodo( title, id, true, important, todoValue, date, dateDMY, dateTime );
                             } else {
                                 complitedTodo.removeAttribute('clicked');
                                 complitedTodo.innerHTML = '&#x2610;';
-                                updateTodo( id, false, important, todoValue, date, dateDMY, dateTime );
+                                updateTodo( title, id, false, important, todoValue, date, dateDMY, dateTime );
                             }
                         }
 

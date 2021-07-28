@@ -19,7 +19,7 @@ initApi();
 export const createTodo = todo => {
     const { title, date, todoValue, dateTime, dateDMY, complited, important } = todo;
     return fetch(
-        `${databaseURL}/todos.json`,
+        `${databaseURL}/todos/${title}.json`,
         {
             method: 'POST',
             headers,
@@ -37,9 +37,9 @@ export const createTodo = todo => {
         .then( response => response.json())
 };
 
-export const getTodos = () => {
+export const getTodos = title => {
     return fetch(
-        `${databaseURL}/todos.json`,
+        `${databaseURL}/todos/${title}.json`,
         {
             method: 'GET',
             headers,
@@ -48,18 +48,18 @@ export const getTodos = () => {
         .then( response => response.json())
         .then( result => {
             if(result) {
-                const tranformedPostsArr = Object.keys(result).map( key => ({
+                const transformedArr = Object.keys(result).map( key => ({
                     ...result[key],
                     id: key
                 }))
-                return tranformedPostsArr;
+                return transformedArr;
             };
         })
 };
 
-export const deleteTodo = ({ id }) => {
+export const deleteTodo = ({ title, id }) => {
     return fetch(
-        `${databaseURL}/todos/${id}.json`,
+        `${databaseURL}/todos/${title}/${id}.json`,
         {
             method: 'DELETE',
             headers,
@@ -68,13 +68,14 @@ export const deleteTodo = ({ id }) => {
         .then(response => response.json())
 };
 
-export const updateTodo = ( id, complited, important, todoValue, date, dateDMY, dateTime ) => {
+export const updateTodo = ( title, id, complited, important, todoValue, date, dateDMY, dateTime ) => {
     return fetch(
-        `${databaseURL}/todos/${id}.json`,
+        `${databaseURL}/todos/${title}/${id}.json`,
         {
             method: 'PUT',
             headers,
             body: JSON.stringify ({
+                title,
                 id,
                 date,
                 todoValue,
@@ -88,14 +89,15 @@ export const updateTodo = ( id, complited, important, todoValue, date, dateDMY, 
         .then(response => response.json())
 };
 
-export const createDeleteTodoList = post => {
-    const { date, todoValue, dateTime, dateDMY, complited, important } = post;
+export const createDeleteTodoList = todo => {
+    const { title, date, todoValue, dateTime, dateDMY, complited, important } = todo;
     return fetch(
         `${databaseURL}/deleteTodos.json`,
         {
             method: 'POST',
             headers,
             body: JSON.stringify({
+                title,
                 date,
                 todoValue,
                 dateDMY,
@@ -118,12 +120,12 @@ export const getDeleteTodolist = () => {
     )
         .then( response => response.json())
         .then( result => {
-            if(result) {
-                const tranformedPostsArr = Object.keys(result).map( key => ({
+            if (result) {
+                const tranformedArr = Object.keys(result).map( key => ({
                     ...result[key],
                     id: key
                 }))
-                return tranformedPostsArr;
+                return tranformedArr;
             };
         })
 };
@@ -137,6 +139,23 @@ export const finalDeleteTodo = ({ id }) => {
         }
     )
         .then(response => response.json())
+};
+
+export const getTitleLists = () => {
+    return fetch(
+        `${databaseURL}/todos.json`,
+        {
+            method: 'GET',
+            headers,
+        }
+    )
+        .then( response => response.json())
+        .then( result => {
+            if (result) {
+                const tranformedTitleArr = Object.keys(result);
+                return tranformedTitleArr;
+            };
+        })
 };
 
 export const signIn = (email, password) => {

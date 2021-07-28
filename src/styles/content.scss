@@ -8,12 +8,12 @@
     flex-direction: column;
     overflow-y: scroll;
 
-    .header {
+    &__header {
         height: 60px;
         background: $colorSidebar;
     }
 
-    .content {
+    &__content {
         height: 80%;
     }
 };
