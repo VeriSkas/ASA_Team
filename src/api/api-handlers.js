@@ -201,9 +201,23 @@ export const finalDeleteTodo = ({ id }) => {
         .then(response => response.json())
 };
 
+export const createTitleLists = titleList => {
+    const { title, uuid } = titleList;
+    return fetch( `${databaseURL}/titleLists.json`,
+        {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({
+                title,
+                uuid
+            })
+        }
+    )
+        .then( response => response.json())
+};
+
 export const getTitleLists = () => {
-    return fetch(
-        `${databaseURL}/todos.json`,
+    return fetch( `${databaseURL}/titleLists.json`,
         {
             method: 'GET',
             headers,
@@ -212,8 +226,12 @@ export const getTitleLists = () => {
         .then( response => response.json())
         .then( result => {
             if (result) {
-                const tranformedTitleArr = Object.keys(result);
-                return tranformedTitleArr;
+                const transformedArr = Object.keys(result).map( key => ({
+                    ...result[key],
+                    id: key
+                }))
+
+                return transformedArr;
             };
         })
 };
@@ -224,9 +242,9 @@ export const signIn = (email, password) => {
         password,
         returnSequreToken: true
     })
-        .then(response => response)
+        .then( response => response )
         .then( result => {
-            if(result) {
+            if (result) {
                 const token = result.data.idToken;
                 setToken(token);
                 const uid = result.data.localId;

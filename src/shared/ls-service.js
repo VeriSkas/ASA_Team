@@ -15,11 +15,3 @@ export const getUID = () => localStorage.getItem('uuid');
 export const setUID = uid => localStorage.setItem('uuid', uid);
 
 export const clearLS = () => localStorage.clear();
-
-// export const getUserLogin = () => localStorage.getItem('login');
-
-// export const setUserLogin = login => localStorage.setItem('login', login);
-
-// export const getUserEmail = () => localStorage.getItem('email');
-
-// export const setUserEmail = email => localStorage.setItem('email', email);
