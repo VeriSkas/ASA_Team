@@ -1,5 +1,5 @@
 import { routes } from '../shared/constants/routes';
-import { removeToken, setTitleLS } from '../shared/ls-service';
+import { clearLS, setTitleLS } from '../shared/ls-service';
 import { getTitleLists } from '../api/api-handlers';
 import { todoHandler, renderTodos } from './todosRender';
 
@@ -26,7 +26,7 @@ export const showSidebar = () => {
 
     logOutBtn.addEventListener('click', () => {
         window.location.href = routes.signIn_Up;
-        removeToken();
+        clearLS();
     })
 
     createListBtn.onclick = () => {
@@ -56,7 +56,6 @@ export const showSidebar = () => {
                     const titleA = document.createElement('a');
 
                     titleA.innerHTML = item;
-
                     titleA.onclick = () => {
                         titlePage.innerHTML = item;
                         setTitleLS(item);
@@ -68,5 +67,7 @@ export const showSidebar = () => {
                     titleLi.append(titleA);
                 })
             }
-        })
+        });
+
+
 };

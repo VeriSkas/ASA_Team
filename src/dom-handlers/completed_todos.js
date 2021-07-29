@@ -1,4 +1,5 @@
 import { getAllTodos, deleteTodo, updateTodo, createDeleteTodoList } from '../api/api-handlers';
+import { getUID } from '../shared/ls-service';
 
 export const getCompletedTasks = () => {
     getAllTodos()
@@ -9,9 +10,20 @@ export const getCompletedTasks = () => {
             if(todos) {
                 todos.forEach( list => {
                     list.forEach( item => {
-                        const { title, id, complited, important, date, dateDMY, dateTime, todoValue } = item;
+                        const {
+                            id,
+                            uuid,
+                            title,
+                            todoValue,
+                            comment,
+                            complited,
+                            important,
+                            date,
+                            dateDMY,
+                            dateTime
+                        } = item;
 
-                        if (item.complited) {
+                        if ((getUID() === uuid) && item.complited) {
                             const todoLi = document.createElement('li');
                             const todoLiError = document.createElement('p');
                             const todoValueLi = document.createElement('textarea');
@@ -47,11 +59,12 @@ export const getCompletedTasks = () => {
 
                             todoValueLi.onblur = () => {
                                 if ((todoValueLi.value !== item.todoValue) && checkLengthTodo(todoValueLi.value)) {
-                                    const date = moment().format();
-                                    const dateTime = moment().format('LTS');
-                                    const dateDMY = moment().format('LL');
+                                    item.date = moment().format();
+                                    item.dateTime = moment().format('LTS');
+                                    item.dateDMY = moment().format('LL');
+                                    item.todoValue = todoValueLi.value;
 
-                                    updateTodo( title, id, complited, important, todoValueLi.value, date, dateDMY, dateTime )
+                                    updateTodo( item )
                                         .then(() => getCompletedTasks());
                                 } else {
                                     todoLiError.innerHTML = '';
@@ -79,11 +92,13 @@ export const getCompletedTasks = () => {
                                 if (!isClicked) {
                                     todoImportant.setAttribute('clicked', true);
                                     todoImportant.innerHTML = '&#10029;';
-                                    updateTodo( title, id, complited, true, todoValue, date, dateDMY, dateTime );
+                                    item.important = true;
+                                    updateTodo( item );
                                 } else {
                                     todoImportant.removeAttribute('clicked');
                                     todoImportant.innerHTML = '&#9734;';
-                                    updateTodo( title, id, complited, false, todoValue, date, dateDMY, dateTime );
+                                    item.important = false;
+                                    updateTodo( item );
                                 }
                             }
 
@@ -101,11 +116,13 @@ export const getCompletedTasks = () => {
                                 if (!isClicked) {
                                     complitedTodo.setAttribute('clicked', true);
                                     complitedTodo.innerHTML = '&#9746;';
-                                    updateTodo( title, id, true, important, todoValue, date, dateDMY, dateTime );
+                                    item.complited = true;
+                                    updateTodo( item );
                                 } else {
                                     complitedTodo.removeAttribute('clicked');
                                     complitedTodo.innerHTML = '&#x2610;';
-                                    updateTodo( title, id, false, important, todoValue, date, dateDMY, dateTime )
+                                    item.complited = false;
+                                    updateTodo( item )
                                         .then(() => getCompletedTasks())
                                 }
                             }

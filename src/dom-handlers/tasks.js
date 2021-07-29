@@ -13,7 +13,7 @@ export const tasks_render = () => {
         title.innerText = 'My To-Do List';
         inputTodos.style.display = 'flex';
         event.preventDefault();
-        setTitleLS('tasks')
+        setTitleLS('tasks');
         renderTodos();
     })
 }

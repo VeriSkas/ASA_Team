@@ -26,7 +26,7 @@ export const signInHandler = () => {
         const email = authEmail.value;
         const password = authPassword.value;
         event.preventDefault();
-        signIn(email, password)
+        signIn(email, password);
 
     });
 

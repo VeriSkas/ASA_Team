@@ -2,7 +2,7 @@ import moment from 'moment';
 import { getTodos, createTodo, deleteTodo, updateTodo, createDeleteTodoList } from '../api/api-handlers';
 import { checkLengthTodo } from '../shared/validators';
 import { errorText } from '../shared/constants/errorText';
-import { getTitleLS } from '../shared/ls-service';
+import { getTitleLS, getUID } from '../shared/ls-service';
 
 export const renderTodos = () => {
     getTodos(getTitleLS())
@@ -12,9 +12,20 @@ export const renderTodos = () => {
 
             if(todos) {
                 todos.forEach( item => {
-                    const { title, id, complited, important, date, dateDMY, dateTime, todoValue } = item;
+                    const {
+                        id,
+                        uuid,
+                        title,
+                        todoValue,
+                        comment,
+                        complited,
+                        important,
+                        date,
+                        dateDMY,
+                        dateTime
+                    } = item;
 
-                    if (!complited) {
+                    if ((getUID() === uuid) && !complited) {
                         const todoLi = document.createElement('li');
                         const todoLiError = document.createElement('p');
                         const todoValueLi = document.createElement('textarea');
@@ -47,11 +58,13 @@ export const renderTodos = () => {
 
                         todoValueLi.onblur = () => {
                             if ((todoValueLi.value !== item.todoValue) && checkLengthTodo(todoValueLi.value)) {
-                                const date = moment().format();
-                                const dateTime = moment().format('LTS');
-                                const dateDMY = moment().format('LL');
+                                item.date = moment().format();
+                                item.dateTime = moment().format('LTS');
+                                item.dateDMY = moment().format('LL');
+                                item.todoValue = todoValueLi.value;
 
-                                updateTodo( title, id, complited, important, todoValueLi.value, date, dateDMY, dateTime )
+
+                                updateTodo( item )
                                     .then(() => renderTodos());
                             } else {
                                 todoLiError.innerHTML = '';
@@ -79,11 +92,13 @@ export const renderTodos = () => {
                             if (!isClicked) {
                                 todoImportant.setAttribute('clicked', true);
                                 todoImportant.innerHTML = '&#10029;';
-                                updateTodo( title, id, complited, true, todoValue, date, dateDMY, dateTime );
+                                item.important = true;
+                                updateTodo( item );
                             } else {
                                 todoImportant.removeAttribute('clicked');
                                 todoImportant.innerHTML = '&#9734;';
-                                updateTodo( title, id, complited, false, todoValue, date, dateDMY, dateTime );
+                                item.important = false;
+                                updateTodo( item );
                             }
                         }
 
@@ -101,12 +116,14 @@ export const renderTodos = () => {
                             if (!isClicked) {
                                 complitedTodo.setAttribute('clicked', true);
                                 complitedTodo.innerHTML = '&#9746;';
-                                updateTodo( title, id, true, important, todoValue, date, dateDMY, dateTime )
+                                item.complited = true;
+                                updateTodo( item )
                                     .then(() => renderTodos());
                             } else {
                                 complitedTodo.removeAttribute('clicked');
                                 complitedTodo.innerHTML = '&#x2610;';
-                                updateTodo( title, id, false, important, todoValue, date, dateDMY, dateTime );
+                                item.complited = false;
+                                updateTodo( item );
                             }
                         }
 
@@ -130,11 +147,13 @@ export const todoHandler = () => {
     const todo = {
         title: null,
         todoValue: null,
+        comment: null,
         date: null,
         dateTime: null,
         dateDMY: null,
         complited: false,
         important: false,
+        uuid: null,
     };
 
     formInput.oninput = () => {
@@ -152,6 +171,7 @@ export const todoHandler = () => {
             todo.date = moment().format();
             todo.dateTime = moment().format('LTS');
             todo.dateDMY = moment().format('LL');
+            todo.uuid = getUID();
 
             createTodo(todo)
                 .then( () => renderTodos());
