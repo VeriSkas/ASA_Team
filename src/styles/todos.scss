@@ -65,12 +65,22 @@
             border-bottom: 1px solid $colorText;
             font-size: 15px;
 
+            .titleListTodo {
+                position: absolute;
+                top: 0;
+                left: 80px;
+                font-size: 11px;
+                color: $colorText;
+            }
+
             .todosValue {
                 width: 95%;
                 height: 55px;
                 background: $color3;
                 border: none;
                 resize: none;
+                font-weight: 500;
+                font-size: 15px;
 
                 &::-webkit-scrollbar {
                     display: none;

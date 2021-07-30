@@ -14,7 +14,7 @@ export const signUpHandler = () => {
     const inputErrorPassword1Text = document.getElementById('inputErrorPassword1');
     const inputErrorPassword2Text = document.getElementById('inputErrorPassword2');
     const signUpFormFields = {
-        name: {
+        loginName: {
             isValid: false
         },
         email: {
@@ -32,11 +32,14 @@ export const signUpHandler = () => {
 
     signUpForm.addEventListener('submit', event => {
         event.preventDefault();
-        const name = nameInput.value;
-        const email = emailInput.value;
-        const password1 = password1Input.value;
-        const todoList = null;
-        signUp(name, email, password1, todoList);
+
+        const user = {
+            loginName: nameInput.value,
+            email: emailInput.value,
+            password: password1Input.value
+        }
+
+        signUp( user );
     });
 
     const checkFormValid = () => {
@@ -46,10 +49,10 @@ export const signUpHandler = () => {
 
     nameInput.oninput = () => {
         if (checkValidName(nameInput.value)) {
-            signUpFormFields.name.isValid = true;
+            signUpFormFields.loginName.isValid = true;
             inputErrorNameText.innerText = '';
         } else {
-            signUpFormFields.name.isValid = false;
+            signUpFormFields.loginName.isValid = false;
             inputErrorNameText.innerText = errorText.validLoginText;
         }
 
