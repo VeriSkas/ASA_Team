@@ -50,6 +50,13 @@
                     margin-bottom: 10px;
                 }
 
+                .forgotPassword {
+                    font-weight: 600;
+                    color: $colorBtn;
+                    cursor: pointer;
+                    margin-top: 20px;
+                }
+
                 &-inputField {
                     max-width: 380px;
                     width: 100%;

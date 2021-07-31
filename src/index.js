@@ -13,6 +13,7 @@ import { signUpHandler } from './components/sign_up/sign-up';
 import { todosElementHandler } from './dom-handlers/todoElement';
 import { getAllTodos } from './api/api-handlers';
 import { userProfile } from './dom-handlers/userInfo';
+import { modal } from './components/sign_in/recoverModal';
 
 window.onload = () => {
     const pathName = Object.values(paths).find( path => (path === window.location.pathname));
@@ -40,6 +41,7 @@ window.onload = () => {
             switchBetweenSignInAndSignUp();
             signInHandler();
             signUpHandler();
+            modal();
             break;
 
         default:

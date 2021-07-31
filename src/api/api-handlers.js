@@ -308,3 +308,9 @@ export const getUser = () => {
             };
         })
 };
+
+export const passwordRecovery = email => {
+    firebase.auth().sendPasswordResetEmail(email)
+        .then(() => window.location.href = routes.signIn_Up)
+        .catch(error => showErrorNotification(error))
+};
