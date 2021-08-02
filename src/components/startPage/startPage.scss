@@ -1,0 +1,85 @@
+@import '../../styles/temps/colors.scss';
+
+body {
+    min-height: 1500px;
+    background: $colorStartPage;
+}
+.main_startPage {
+    &_header{
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to top, $colorStartPage, transparent);
+            z-index: 10;
+        }
+
+        &:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, $colorStartPage, transparent);
+            z-index: 10;
+            mix-blend-mode: color;
+        }
+
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+
+            &#road {
+                z-index: 2;
+            }
+        }
+
+        &-text {
+            position: relative;
+            color: $colorInput;
+            font-size: 10em;
+            z-index: 1;
+        }
+    }
+
+    &_content {
+        .btn.transparent {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 200;
+            margin: 10px;
+            background: none;
+            border: 3px solid $color3;
+            width: 130px;
+            height: 41px;
+            font-weight: 600;
+            font-size: 15px;
+
+            &:hover {
+                box-shadow: 0px 0px 10px 3px $btnHoverBoxshadow;
+                -webkit-box-shadow: 0px 0px 10px 3px $btnHoverBoxshadow;
+                -moz-box-shadow: 0px 0px 10px 3px $btnHoverBoxshadow;
+                text-shadow: #FFF 0px 0px 5px, #FFF 0px 0px 10px, #FFF 0px 0px 15px, $btnHoverBoxshadow 0px 0px 20px;
+                border: none;
+            }
+        }
+    }
+}
+

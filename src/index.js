@@ -14,6 +14,7 @@ import { todosElementHandler } from './dom-handlers/todoElement';
 import { getAllTodos } from './api/api-handlers';
 import { userProfile } from './dom-handlers/userInfo';
 import { modal } from './components/sign_in/recoverModal';
+import { startPageStyle } from './components/startPage/startPage';
 
 window.onload = () => {
     const pathName = Object.values(paths).find( path => (path === window.location.pathname));
@@ -23,7 +24,7 @@ window.onload = () => {
             const token = getToken();
 
             if(!token) {
-                window.location.href = routes.signIn_Up;
+                window.location.href = routes.startPage;
             }
             getAllTodos();
             userProfile();
@@ -42,6 +43,10 @@ window.onload = () => {
             signInHandler();
             signUpHandler();
             modal();
+            break;
+
+        case paths.startPage:
+            startPageStyle()
             break;
 
         default:
