@@ -202,13 +202,14 @@ export const finalDeleteTodo = ({ id }) => {
 };
 
 export const createTitleLists = titleList => {
-    const { title, uuid } = titleList;
+    const { title, firstTitle, uuid } = titleList;
     return fetch( `${databaseURL}/titleLists.json`,
         {
             method: 'POST',
             headers,
             body: JSON.stringify({
                 title,
+                firstTitle,
                 uuid
             })
         }
@@ -234,6 +235,57 @@ export const getTitleLists = () => {
                 return transformedArr;
             };
         })
+};
+
+export const updateTitleList = titleList => {
+    const { title, uuid, id } = titleList;
+    return fetch( `${databaseURL}/titleLists/${id}.json`,
+        {
+            method: 'PUT',
+            headers,
+            body: JSON.stringify({
+                title,
+                uuid
+            })
+        }
+    )
+        .then( response => response.json())
+};
+
+export const updateTitleListInList = titleList => {
+    const { title, uuid, id } = titleList;
+    return fetch( `${databaseURL}/titleLists/${id}.json`,
+        {
+            method: 'PUT',
+            headers,
+            body: JSON.stringify({
+                title,
+                uuid
+            })
+        }
+    )
+        .then( response => response.json())
+};
+
+export const deleteTitleLists = ({ id }) => {
+    return fetch( `${databaseURL}/titleLists/${id}.json`,
+        {
+            method: 'DELETE',
+            headers,
+        }
+    )
+        .then(response => response.json())
+};
+
+export const deleteList = title => {
+    return fetch(
+        `${databaseURL}/todos/${title}.json`,
+        {
+            method: 'DELETE',
+            headers,
+        }
+    )
+        .then(response => response.json())
 };
 
 export const signIn = (email, password) => {
