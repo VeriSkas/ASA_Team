@@ -12,8 +12,8 @@ export const startPageStyle = () => {
         let value = window.scrollY;
 
         bgImg.style.top = `${value*0.5}px`;
-        moonImg.style.top = `${-value*0.5}px`;
-        montainImg.style.top = `${-value*0.15}px`;
+        moonImg.style.left = `-${value*0.5}px`;
+        montainImg.style.top = `-${value*0.15}px`;
         roadImg.style.top = `${value*0.15}px`;
         textTitle.style.top = `${value}px`;
     });

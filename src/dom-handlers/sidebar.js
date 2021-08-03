@@ -19,7 +19,7 @@ export const showSidebar = () => {
     })
 
     logOutBtn.addEventListener('click', () => {
-        window.location.href = routes.signIn_Up;
+        window.location.href = routes.startPage;
         clearLS();
     })
 
