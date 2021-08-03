@@ -6,6 +6,7 @@ import { checkValidListName } from '../shared/validators';
 export const createList = () => {
     const createListBtn = document.querySelector('.createListBtn');
     const createListInput = document.querySelector('.wrapper__content_sidebar-navLinks-link-inputList-input');
+    const createListForm = document.querySelector('.wrapper__content_sidebar-navLinks-link-inputList');
     const titlePage = document.querySelector('.content__todo_title');
     const todoInput = document.querySelector('.content__todo_form');
 
@@ -15,7 +16,8 @@ export const createList = () => {
         uuid: getUID()
     }
 
-    createListBtn.onclick = () => {
+    createListForm.addEventListener('submit', event => {
+        event.preventDefault();
         if(checkValidListName(createListInput.value)) {
             titleList.title = createListInput.value;
             titleList.firstTitle = createListInput.value;
@@ -26,7 +28,7 @@ export const createList = () => {
             createListInput.value = null;
             todoInput.style.display = 'flex';
         }
-    }
+    });
 }
 
 export const renderTitleLists = () => {

@@ -83,3 +83,8 @@ body {
     }
 }
 
+@media (max-width: 1270px) {
+    #moon {
+        visibility: hidden;
+    }
+}

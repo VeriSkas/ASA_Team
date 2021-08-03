@@ -56,6 +56,23 @@ export const renderTodos = () => {
                             todoLiError.innerHTML = errorText.inputTodoErrorText;
                         }
 
+                        todoValueLi.onkeyup = event => {
+                            if (event.key === 'Enter') {
+                                if ((todoValueLi.value !== item.todoValue) && checkLengthTodo(todoValueLi.value)) {
+                                    item.date = moment().format();
+                                    item.dateTime = moment().format('LTS');
+                                    item.dateDMY = moment().format('LL');
+                                    item.todoValue = todoValueLi.value;
+
+                                    updateTodo( item )
+                                        .then(() => renderTodos());
+                                } else {
+                                    todoLiError.innerHTML = '';
+                                    todoValueLi.value = item.todoValue;
+                                }
+                            }
+                        }
+
                         todoValueLi.onblur = () => {
                             if ((todoValueLi.value !== item.todoValue) && checkLengthTodo(todoValueLi.value)) {
                                 item.date = moment().format();
