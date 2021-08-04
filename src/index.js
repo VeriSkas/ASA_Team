@@ -15,6 +15,7 @@ import { getAllTodos } from './api/api-handlers';
 import { userProfile } from './dom-handlers/userInfo';
 import { modal } from './components/sign_in/recoverModal';
 import { startPageStyle } from './components/startPage/startPage';
+import './dom-handlers/todoMenu';
 
 window.onload = () => {
     const pathName = Object.values(paths).find( path => (path === window.location.pathname));

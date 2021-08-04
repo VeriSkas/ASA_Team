@@ -150,7 +150,7 @@ export const createDeleteTodoList = todo => {
         uuid
     } = todo;
     return fetch(
-        `${databaseURL}/deleteTodos.json`,
+        `${databaseURL}/todos/deleteTodos.json`,
         {
             method: 'POST',
             headers,
@@ -172,7 +172,7 @@ export const createDeleteTodoList = todo => {
 
 export const getDeleteTodolist = () => {
     return fetch(
-        `${databaseURL}/deleteTodos.json`,
+        `${databaseURL}/todos/deleteTodos.json`,
         {
             method: 'GET',
             headers,
@@ -192,7 +192,7 @@ export const getDeleteTodolist = () => {
 
 export const finalDeleteTodo = ({ id }) => {
     return fetch(
-        `${databaseURL}/deleteTodos/${id}.json`,
+        `${databaseURL}/todos/deleteTodos/${id}.json`,
         {
             method: 'DELETE',
             headers,
@@ -203,7 +203,7 @@ export const finalDeleteTodo = ({ id }) => {
 
 export const createTitleLists = titleList => {
     const { title, firstTitle, uuid } = titleList;
-    return fetch( `${databaseURL}/titleLists.json`,
+    return fetch( `${databaseURL}/todos/titleLists.json`,
         {
             method: 'POST',
             headers,
@@ -218,7 +218,7 @@ export const createTitleLists = titleList => {
 };
 
 export const getTitleLists = () => {
-    return fetch( `${databaseURL}/titleLists.json`,
+    return fetch( `${databaseURL}/todos/titleLists.json`,
         {
             method: 'GET',
             headers,
@@ -239,7 +239,7 @@ export const getTitleLists = () => {
 
 export const updateTitleList = titleList => {
     const { title, uuid, id } = titleList;
-    return fetch( `${databaseURL}/titleLists/${id}.json`,
+    return fetch( `${databaseURL}/todos/titleLists/${id}.json`,
         {
             method: 'PUT',
             headers,
@@ -254,7 +254,7 @@ export const updateTitleList = titleList => {
 
 export const updateTitleListInList = titleList => {
     const { title, uuid, id } = titleList;
-    return fetch( `${databaseURL}/titleLists/${id}.json`,
+    return fetch( `${databaseURL}/todos/titleLists/${id}.json`,
         {
             method: 'PUT',
             headers,
@@ -268,7 +268,7 @@ export const updateTitleListInList = titleList => {
 };
 
 export const deleteTitleLists = ({ id }) => {
-    return fetch( `${databaseURL}/titleLists/${id}.json`,
+    return fetch( `${databaseURL}/todos/titleLists/${id}.json`,
         {
             method: 'DELETE',
             headers,
@@ -287,6 +287,53 @@ export const deleteList = title => {
     )
         .then(response => response.json())
 };
+
+export const createSubtask = subtask => {
+    const {
+        title,
+        task,
+        subTask,
+        date,
+        idTodo,
+        uuid
+    } = subtask;
+    return fetch(
+        `${databaseURL}/todos/subtask.json`,
+        {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({
+                title,
+                task,
+                subTask,
+                date,
+                idTodo,
+                uuid
+            })
+        }
+    )
+        .then( response => response.json())
+}
+
+export const getSubtask = () => {
+    return fetch(
+        `${databaseURL}/todos/subtask.json`,
+        {
+            method: 'GET',
+            headers,
+        }
+    )
+        .then( response => response.json())
+        .then( result => {
+            if(result) {
+                const transformedArr = Object.keys(result).map( key => ({
+                    ...result[key],
+                    id: key
+                }))
+                return transformedArr;
+            };
+        })
+}
 
 export const signIn = (email, password) => {
     return axios.post(authURL, {

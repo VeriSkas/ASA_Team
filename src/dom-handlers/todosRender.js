@@ -2,12 +2,15 @@ import moment from 'moment';
 import { getTodos, createTodo, deleteTodo, updateTodo, createDeleteTodoList } from '../api/api-handlers';
 import { checkLengthTodo } from '../shared/validators';
 import { errorText } from '../shared/constants/errorText';
-import { getTitleLS, getUID } from '../shared/ls-service';
+import { getTitleLS, getUID, setTodo, setTask } from '../shared/ls-service';
+import { subtaskHandler, todoMenuSidebar } from './todoMenu.js';
 
 export const renderTodos = () => {
     getTodos(getTitleLS())
         .then( todos => {
             const todosContainer = document.querySelector('.content__todo_todosMain');
+            const taskMenu = document.querySelector('.content__todoMenu');
+            const taskMenuTitle = document.querySelector('.content__todoMenu_subtask_title');
             todosContainer.innerHTML = null;
 
             if(todos) {
@@ -31,8 +34,9 @@ export const renderTodos = () => {
                         const todoValueLi = document.createElement('textarea');
                         const complitedTodo = document.createElement('span');
                         const todoTime = document.createElement('span');
-                        const todoDelete = document.createElement('div');
+                        const todoDelete = document.createElement('i');
                         const todoImportant = document.createElement('span');
+                        const todoMenu = document.createElement('i');
 
                         todoLi.className = 'todoLi';
                         todoLiError.className = 'inputError';
@@ -40,15 +44,25 @@ export const renderTodos = () => {
                         todoValueLi.className = 'todosValue';
                         todoTime.className = 'todos-time';
                         todoImportant.className = 'todo-important';
-                        todoDelete.className = 'todos-deleteImg';
+                        todoDelete.className = 'bx bxs-trash todos-deleteImg';
                         complitedTodo.className = 'todo-complited';
+                        todoMenu.className = 'bx bx-notepad todoMenu';
 
                         todoDelete.setAttribute('title', 'Delete task');
                         todoImportant.setAttribute('title', 'Important task');
                         complitedTodo.setAttribute('title', 'Complited task');
+                        todoMenu.setAttribute('title', 'Open task-menu');
 
-                        todoValueLi.innerHTML = item.todoValue;
-                        todoTime.innerHTML = item.dateTime;
+                        todoValueLi.innerHTML = todoValue;
+                        todoTime.innerHTML = dateTime;
+
+                        todoMenu.onclick = () => {
+                            taskMenu.classList.remove('close');
+                            taskMenuTitle.innerHTML = todoValue;
+                            setTodo(JSON.stringify(item));
+                            setTask(item.id);
+                            todoMenuSidebar();
+                        };
 
                         todoValueLi.oninput = () => {
                             checkLengthTodo(todoValueLi.value) ?
@@ -145,12 +159,15 @@ export const renderTodos = () => {
                         }
 
                         todosContainer.prepend(todoLi);
-                        todoLi.append(todoLiError);
-                        todoLi.prepend(complitedTodo);
-                        todoLi.append(todoValueLi);
-                        todoLi.append(todoTime);
-                        todoLi.append(todoDelete);
-                        todoLi.append(todoImportant);
+                        todoLi.append(
+                            complitedTodo,
+                            todoValueLi,
+                            todoTime,
+                            todoDelete,
+                            todoImportant,
+                            todoMenu,
+                            todoLiError
+                        );
                     }
                 });
             };

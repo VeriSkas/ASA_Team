@@ -57,11 +57,12 @@
 
         .todoLi {
             position: relative;
+            display: grid;
+            grid-template: 1fr/10% 60% 15% 5% 5% 5%;
+            align-items: center;
+            justify-items: center;
             width: 100%;
             height: 100px;
-            display: grid;
-            grid-template: 1fr/10% 60% 20% 5% 5%;
-            align-items: center;
             border-bottom: 1px solid $colorText;
             font-size: 15px;
 
@@ -89,30 +90,15 @@
             }
 
             .todos-time {
-                display: flex;
-                justify-content: center;
-                align-items: center;
                 i {
                     font-size: 22px;
                     cursor: pointer;
                 }
             }
 
-            .todo-complited, .todos-deleteImg, .todo-important {
-                text-align: center;
+            .todo-important, .todoMenu, .todos-deleteImg, .todo-complited {
                 cursor: pointer;
-            }
-
-            .todo-important {
-                font-size: 25px;
-            }
-
-            .todos-deleteImg {
-                height: 20px;
-                width: 20px;
-                background: url(../img/deleteTodo.png) no-repeat;
-                background-size: contain;
-                cursor: pointer;
+                font-size: 22px;
             }
         }
     }

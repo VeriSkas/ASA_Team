@@ -29,6 +29,19 @@ export const createList = () => {
             todoInput.style.display = 'flex';
         }
     });
+
+    createListBtn.onclick = () => {
+        if(checkValidListName(createListInput.value)) {
+            titleList.title = createListInput.value;
+            titleList.firstTitle = createListInput.value;
+            titlePage.innerHTML = createListInput.value;
+            createTitleLists(titleList)
+                .then(renderTitleLists);
+            setTitleLS(createListInput.value);
+            createListInput.value = null;
+            todoInput.style.display = 'flex';
+        }
+    }
 }
 
 export const renderTitleLists = () => {

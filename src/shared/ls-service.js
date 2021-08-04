@@ -14,4 +14,12 @@ export const getUID = () => localStorage.getItem('uuid');
 
 export const setUID = uid => localStorage.setItem('uuid', uid);
 
+export const setTodo = todo => localStorage.setItem('todo', todo);
+
+export const getTodo = () => localStorage.getItem('todo');
+
+export const setTask = task => localStorage.setItem('task', task);
+
+export const getTask = () => localStorage.getItem('task');
+
 export const clearLS = () => localStorage.clear();
