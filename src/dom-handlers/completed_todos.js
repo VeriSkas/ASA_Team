@@ -5,6 +5,8 @@ export const getCompletedTasks = () => {
     getAllTodos()
         .then( todos => {
             const todosContainer = document.querySelector('.content__todo_todosMain');
+            const taskMenu = document.querySelector('.content__todoMenu');
+            taskMenu.classList.add('close');
             todosContainer.innerHTML = null;
 
             if(todos) {

@@ -89,14 +89,11 @@
                 }
             }
 
-            .todos-time {
-                i {
-                    font-size: 22px;
-                    cursor: pointer;
-                }
-            }
-
-            .todo-important, .todoMenu, .todos-deleteImg, .todo-complited {
+            .todo-important,
+            .todoMenu,
+            .todos-deleteImg,
+            .todo-complited,
+            .todoRecover {
                 cursor: pointer;
                 font-size: 22px;
             }

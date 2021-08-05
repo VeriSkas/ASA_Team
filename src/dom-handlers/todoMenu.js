@@ -28,7 +28,7 @@ export const renderSubtask = () => {
                         const subtaskValue = document.createElement('li');
                         subtaskValue.innerText = subTask;
                         subtaskValue.className = 'content__todoMenu_subtask-list-li';
-                        listSubtask.append(subtaskValue);
+                        listSubtask.prepend(subtaskValue);
                     }
                 })
             }

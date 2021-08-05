@@ -150,7 +150,7 @@ export const createDeleteTodoList = todo => {
         uuid
     } = todo;
     return fetch(
-        `${databaseURL}/todos/deleteTodos.json`,
+        `${databaseURL}/deleteTodos.json`,
         {
             method: 'POST',
             headers,
@@ -172,7 +172,7 @@ export const createDeleteTodoList = todo => {
 
 export const getDeleteTodolist = () => {
     return fetch(
-        `${databaseURL}/todos/deleteTodos.json`,
+        `${databaseURL}/deleteTodos.json`,
         {
             method: 'GET',
             headers,
@@ -192,7 +192,7 @@ export const getDeleteTodolist = () => {
 
 export const finalDeleteTodo = ({ id }) => {
     return fetch(
-        `${databaseURL}/todos/deleteTodos/${id}.json`,
+        `${databaseURL}/deleteTodos/${id}.json`,
         {
             method: 'DELETE',
             headers,

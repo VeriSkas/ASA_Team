@@ -6,6 +6,8 @@ export const getDeletedTasks = () => {
     getDeleteTodolist('tasks')
         .then( todos => {
             const todosContainer = document.querySelector('.content__todo_todosMain');
+            const taskMenu = document.querySelector('.content__todoMenu');
+            taskMenu.classList.add('close');
             todosContainer.innerHTML = null;
 
             if(todos) {
@@ -28,18 +30,20 @@ export const getDeletedTasks = () => {
                         const todoLiError = document.createElement('p');
                         const todoValueLi = document.createElement('textarea');
                         const complitedTodo = document.createElement('span');
-                        const todoRecoverFromDeleted = document.createElement('span');
-                        const todoDelete = document.createElement('div');
+                        const todoTime = document.createElement('span');
+                        const todoRecoverFromDeleted = document.createElement('i');
+                        const todoDelete = document.createElement('i');
                         const todoImportant = document.createElement('span');
 
                         todoLi.className = 'todoLi';
                         todoLiError.className = 'inputError';
                         todoLiError.id = 'todoLiError';
                         todoValueLi.className = 'todosValue';
-                        todoRecoverFromDeleted.className = 'todos-time';
+                        todoTime.className = 'todos-time';
                         todoImportant.className = 'todo-important';
-                        todoDelete.className = 'todos-deleteImg';
+                        todoDelete.className = 'bx bxs-trash todos-deleteImg';
                         complitedTodo.className = 'todo-complited';
+                        todoRecoverFromDeleted.className = 'bx bx-reset todoRecover';
 
                         todoDelete.setAttribute('title', 'Delete task');
                         todoRecoverFromDeleted.setAttribute('title', 'Restore task');
@@ -47,7 +51,6 @@ export const getDeletedTasks = () => {
                         todoImportant.style.cursor = 'default';
 
                         todoValueLi.innerHTML = item.todoValue;
-                        todoRecoverFromDeleted.innerHTML = '<i class="bx bx-reset"></i>';
 
                         todoValueLi.setAttribute('readonly', true);
 
@@ -81,13 +84,16 @@ export const getDeletedTasks = () => {
                             complitedTodo.removeAttribute('clicked');
                         }
 
-                        todosContainer.append(todoLi);
-                        todosContainer.append(todoLiError);
-                        todoLi.prepend(complitedTodo);
-                        todoLi.append(todoValueLi);
-                        todoLi.append(todoRecoverFromDeleted);
-                        todoLi.append(todoDelete);
-                        todoLi.append(todoImportant);
+                        todosContainer.prepend(todoLi);
+                        todoLi.append(
+                            complitedTodo,
+                            todoValueLi,
+                            todoTime,
+                            todoImportant,
+                            todoRecoverFromDeleted,
+                            todoDelete,
+                            todoLiError
+                        )
                     }
                 })
             }

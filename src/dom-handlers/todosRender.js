@@ -3,7 +3,7 @@ import { getTodos, createTodo, deleteTodo, updateTodo, createDeleteTodoList } fr
 import { checkLengthTodo } from '../shared/validators';
 import { errorText } from '../shared/constants/errorText';
 import { getTitleLS, getUID, setTodo, setTask } from '../shared/ls-service';
-import { subtaskHandler, todoMenuSidebar } from './todoMenu.js';
+import { todoMenuSidebar } from './todoMenu.js';
 
 export const renderTodos = () => {
     getTodos(getTitleLS())
@@ -11,6 +11,7 @@ export const renderTodos = () => {
             const todosContainer = document.querySelector('.content__todo_todosMain');
             const taskMenu = document.querySelector('.content__todoMenu');
             const taskMenuTitle = document.querySelector('.content__todoMenu_subtask_title');
+            taskMenu.classList.add('close');
             todosContainer.innerHTML = null;
 
             if(todos) {
