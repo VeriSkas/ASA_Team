@@ -5,6 +5,8 @@ export const getCompletedTasks = () => {
     getAllTodos()
         .then( todos => {
             const todosContainer = document.querySelector('.content__todo_todosMain');
+            const taskMenu = document.querySelector('.content__todoMenu');
+            taskMenu.classList.add('close');
             todosContainer.innerHTML = null;
 
             if(todos) {
@@ -29,7 +31,7 @@ export const getCompletedTasks = () => {
                             const todoValueLi = document.createElement('textarea');
                             const complitedTodo = document.createElement('span');
                             const todoTime = document.createElement('span');
-                            const todoDelete = document.createElement('div');
+                            const todoDelete = document.createElement('i');
                             const todoImportant = document.createElement('span');
                             const titleListTodo = document.createElement('p');
 
@@ -40,7 +42,7 @@ export const getCompletedTasks = () => {
                             todoValueLi.className = 'todosValue';
                             todoTime.className = 'todos-time';
                             todoImportant.className = 'todo-important';
-                            todoDelete.className = 'todos-deleteImg';
+                            todoDelete.className = 'bx bxs-trash todos-deleteImg';
                             complitedTodo.className = 'todo-complited';
 
                             todoDelete.setAttribute('title', 'Delete task');
@@ -86,21 +88,22 @@ export const getCompletedTasks = () => {
                                 todoImportant.removeAttribute('clicked');
                             }
 
-                            todoImportant.onclick = () => {
-                                let isClicked = todoImportant.getAttribute('clicked');
+                            // ПУСТЬ ПОКА ПОВИСИТ
+                            // todoImportant.onclick = () => {
+                            //     let isClicked = todoImportant.getAttribute('clicked');
 
-                                if (!isClicked) {
-                                    todoImportant.setAttribute('clicked', true);
-                                    todoImportant.innerHTML = '&#10029;';
-                                    item.important = true;
-                                    updateTodo( item );
-                                } else {
-                                    todoImportant.removeAttribute('clicked');
-                                    todoImportant.innerHTML = '&#9734;';
-                                    item.important = false;
-                                    updateTodo( item );
-                                }
-                            }
+                            //     if (!isClicked) {
+                            //         todoImportant.setAttribute('clicked', true);
+                            //         todoImportant.innerHTML = '&#10029;';
+                            //         item.important = true;
+                            //         updateTodo( item );
+                            //     } else {
+                            //         todoImportant.removeAttribute('clicked');
+                            //         todoImportant.innerHTML = '&#9734;';
+                            //         item.important = false;
+                            //         updateTodo( item );
+                            //     }
+                            // }
 
                             if (complited) {
                                 complitedTodo.innerHTML = '&#9746;';

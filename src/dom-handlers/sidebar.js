@@ -18,10 +18,10 @@ export const showSidebar = () => {
         listsLi.classList.toggle('showMenu');
     })
 
-    logOutBtn.addEventListener('click', () => {
-        window.location.href = routes.signIn_Up;
+    logOutBtn.onclick = () => {
+        window.location.href = routes.startPage;
         clearLS();
-    })
+    };
 
     createList();
     renderTitleLists();

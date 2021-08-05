@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-        <title>Document</title>
+        <title>Create Write Do I.T.</title>
     </head>
     <body>
         <div class="container">
@@ -24,6 +24,7 @@
                             <i class='bx bx-show-alt bx-burst' ></i>
                             <p id="inputErrorPassword" class="inputError"></p>
                         </div>
+                        <p class="forgotPassword">Forgot your password?</p>
                         <button type="submit" id="signIn" class="btn">Login</button>
                     </form>
                     <form class="container__forms_signin-signup-form sign-up-form">
@@ -71,6 +72,26 @@
                         <button class="btn transparent" id="sign-in-btn">Sign in</button>
                     </div>
                     <img src="/src/img/signUp.svg" class="container__panels-panel-image" />
+                </div>
+            </div>
+        </div>
+
+        <div class="modalRecoverPassword" id="passwordRecoverModal">
+            <div class="modalRecoverPassword_wrapper">
+                <i class='bx bx-x closeModal'></i>
+                <div class="modalRecoverPassword_wrapper_main">
+                    <div class="modalRecoverPassword_wrapper_main_header">
+                        <h2>Recover the password</h2>
+                    </div>
+                    <p class="modal-info">Enter your email address below and we will send you letter to your email</p>
+                    <div class="modalRecoverPassword_wrapper_main_content">
+                        <i class='bx bxs-user form' ></i>
+                        <input type="email" class="modalRecoverPassword_wrapper_main_content-input">
+                        <p id="inputErrorRecoverEmail" class="inputError"></p>
+                    </div>
+                    <div class="modalRecoverPassword_wrapper_main_footer">
+                        <button class="modalRecoverPassword_wrapper_main_footer-btn">Send</button>
+                    </div>
                 </div>
             </div>
         </div>

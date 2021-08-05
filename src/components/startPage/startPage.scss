@@ -1,0 +1,120 @@
+@import '../../styles/temps/colors.scss';
+
+body {
+    min-height: 1500px;
+    background: $colorStartPage;
+    background: linear-gradient(0deg, rgba(120,0,238,1) 0%, rgba(54,87,255,1) 100%);
+}
+
+.main_startPage {
+    &_header{
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to top, $colorStartPage, transparent);
+            z-index: 10;
+        }
+
+        &:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, $colorStartPage, transparent);
+            z-index: 10;
+            mix-blend-mode: color;
+        }
+
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            pointer-events: none;
+
+            &:not(#bg) {
+                filter: drop-shadow(10px -20px 10px black);
+            }
+
+            &#bottomImg {
+                z-index: 2;
+            }
+
+            &#coffie, &#glasses, &#eraser {
+                z-index: 3;
+            }
+        }
+
+        &-text {
+            position: relative;
+            color: $colorInput;
+            font-size: 10em;
+            text-shadow: 15px -8px 10px black;
+            z-index: 1;
+        }
+    }
+
+    &_content {
+        margin: 50px 0;
+        display: flex;
+        justify-content: center;
+
+        &_todoText {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+            color: $colorInput;
+            word-spacing: 3px;
+            letter-spacing: 1px;
+
+            &-title {
+                font-size: 40px;
+                text-shadow: 5px -3px 5px black;
+                margin-bottom: 50px;
+            }
+
+            &-text {
+                text-shadow: 3px -3px 5px black;
+                margin: 0 auto;
+                text-align: center;
+                line-height: 30px;
+            }
+
+            .btn.transparent {
+                margin-top: 50px;
+                background: none;
+                border: 3px solid $color3;
+                width: 130px;
+                height: 41px;
+                font-weight: 600;
+                font-size: 15px;
+
+                &:hover {
+                    box-shadow: 0px 0px 10px 3px $btnHoverBoxshadow;
+                    -webkit-box-shadow: 0px 0px 10px 3px $btnHoverBoxshadow;
+                    -moz-box-shadow: 0px 0px 10px 3px $btnHoverBoxshadow;
+                    text-shadow: #FFF 0px 0px 5px, #FFF 0px 0px 10px, #FFF 0px 0px 15px,
+                        $btnHoverBoxshadow 0px 0px 20px;
+                    border: none;
+                }
+            }
+        }
+    }
+}

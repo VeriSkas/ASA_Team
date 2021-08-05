@@ -30,17 +30,31 @@
             overflow: visible;
 
             &-link {
-                &:hover .wrapper__content_sidebar-navLinks-link-subMenu {
-                    top: 0;
-                    opacity: 1;
-                    background: $colorSidebar;
-                    color: $colorInput;
-                    pointer-events: auto;
-                    transition: all 0.4s ease;
+                &:hover {
+                    i {
+                        color: $colorSidebar;
+                    }
+
+                    .wrapper__content_sidebar-navLinks-link-subMenu {
+                        top: 0;
+                        opacity: 1;
+                        background: $colorSidebar;
+                        color: $colorInput;
+                        pointer-events: auto;
+                        transition: all 0.4s ease;
+
+                        &-listName i {
+                            color: $colorInput;
+
+                            &:hover {
+                                color: $colorBtn;
+                            }
+                        }
+                    }
                 }
 
-                &:hover i {
-                    color: $colorSidebar;
+                &.showMenu:hover {
+                    background: $color3;
                 }
 
                 a {
@@ -63,19 +77,12 @@
                     left: 100%;
                     top: -10px;
                     margin-top: 0;
-                    padding: 10px 20px;
+                    padding: 10px;
                     border-radius: 0 6px 6px 0;
                     transition: 0s;
                     opacity: 0;
                     display: block;
                     pointer-events: none;
-
-                    li {
-                        a {
-                            color: $colorInput;
-                            cursor: pointer;
-                        }
-                    }
 
                     .link_name {
                         display: block;
@@ -87,14 +94,35 @@
                         &:hover {
                             color: $colorBtn;
                         }
-
-                        &.open:hover {
-                            color: $colorInput;
-                        }
                     }
 
-                    li:hover {
-                        background: none;
+                    &-listName {
+                        textarea {
+                            font-size: 13px;
+                            width: 150px;
+                            color: $colorInput;
+                            cursor: pointer;
+
+                            &:hover {
+                                color: $colorBtn;
+                            }
+                        }
+
+                        a {
+                            i {
+                                min-width: 30px;
+
+                                &:hover {
+                                    color: $colorBtn;
+                                }
+                            }
+
+                        }
+
+                        &:hover {
+                            background: none;
+                        }
+
                     }
                 }
 
@@ -199,14 +227,24 @@
                     &-subMenu {
                         display: block;
 
-                        li {
+                        &-listName {
                             &:hover {
-                                background: none;
+                                textarea {
+                                    color: $colorText;
+                                }
+
+                                a {
+                                    i {
+                                        color: $colorText;
+                                        cursor: pointer;
+                                    }
+                                }
                             }
 
                             a {
-                                color: $colorInput;
-                                cursor: pointer;
+                                i {
+                                    color: $colorTextInput;
+                                }
                             }
                         }
                     }
@@ -272,7 +310,6 @@
             }
 
             &-subMenu {
-                padding: 6px 6px 14px 80px;
                 margin-top: -10px;
                 display: none;
 
@@ -283,17 +320,37 @@
                     pointer-events: none;
                 }
 
-                a {
-                    color: $colorInput;
-                    font-size: 15px;
-                    padding: 5px 0;
-                    opacity: 0.6;
+                &-listName {
+                    display: flex;
+                    justify-content: space-between;
+                    width: 100%;
+                    height: 33px;
+                    list-style: none;
+                    font-size: 12px;
                     transition: all 0.3s ease;
+                    margin-top: 5px;
 
-                    &:hover {
-                        opacity: 1;
+                    a {
+                        i {
+                            font-size: 12px;
+                            height: 100%;
+                            display: flex;
+                            justify-content: center;
+                            align-items: flex-end;
+                        }
+                    }
+
+                    textarea {
+                        background: none;
+                        outline: none;
+                        border: none;
+                        resize: none;
+                        color: $colorTextInput;
+                        cursor: pointer;
+                        height: 100%;
                     }
                 }
+
 
                 .link_name {
                     display: none;
@@ -334,9 +391,14 @@
                     white-space: nowrap;
 
                     .profile-email {
-                        font-size: 12px;
+                        font-size: 10px;
                         color: $brightText;
+                        width: 100px;
                     }
+                }
+
+                #logOut {
+                    cursor: pointer;
                 }
             }
         }

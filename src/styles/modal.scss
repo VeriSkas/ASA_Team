@@ -1,0 +1,124 @@
+@import './temps/colors.scss';
+
+.modalRecoverPassword {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1060;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    background: #ebe0ffc7;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1.3s ease-in-out;
+
+    &.open {
+        opacity: 1;
+        visibility: visible;
+
+        .modalRecoverPassword_wrapper{
+            transition: transform 1.3s ease-in-out;
+            transform: translate(-25%, -25%)
+        }
+    }
+
+    &_wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        width: 500px;
+        height: 500px;
+        background: $color5;
+        background: radial-gradient(circle, $color5 0%, $color6 88%);
+        border-radius: 50%;
+        padding: 40px;
+        transition: transform 1.3s ease-in-out;
+        transform: translate(0, 0);
+
+        &:hover {
+            box-shadow: 0px 0px 10px 3px $btnHoverBoxshadow;
+            -webkit-box-shadow: 0px 0px 10px 3px $btnHoverBoxshadow;
+            -moz-box-shadow: 0px 0px 10px 3px $btnHoverBoxshadow;
+        }
+
+        i.bx-x {
+            position: absolute;
+            top: 0;
+            right: 0;
+            font-size: 40px;
+            cursor: pointer;
+        }
+
+        &_main {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            width: 300px;
+            height: 300px;
+            color: $color3;
+
+            &_header {
+                color: $color3;
+            }
+
+            &_content {
+                max-width: 380px;
+                width: 100%;
+                background-color: $colorInput;
+                margin: 17px 0;
+                height: 55px;
+                border-radius: 55px;
+                display: grid;
+                grid-template-columns: 15% 85%;
+                padding: 0 5px;
+                position: relative;
+
+                i {
+                    text-align: center;
+                    line-height: 55px;
+                    color: $colorTextInput;
+                    transition: 0.5s;
+                    font-size: 20px;
+                }
+
+                &-input {
+                    background: none;
+                    border: none;
+                    outline: none;
+                    font-weight: 600;
+                    font-size: 20px;
+                    color: $colorText;
+
+                }
+            }
+
+            &_footer {
+                button{
+                    width: 130px;
+                    height: 41px;
+                    margin: 0;
+                    outline: none;
+                    background: none;
+                    border-radius: 49px;
+                    border: 3px solid #ebe0ff;
+                    font-weight: 600;
+                    font-size: 15px;
+                    color: #ebe0ff;
+                    text-transform: uppercase;
+                    cursor: pointer;
+
+                    &:disabled {
+                        border: 3px solid $colorBtn;
+                        color: $colorBtn;
+                    }
+                }
+            }
+        }
+    }
+}

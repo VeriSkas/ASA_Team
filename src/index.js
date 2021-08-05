@@ -3,7 +3,7 @@ import { switchBetweenSignInAndSignUp } from './components/signIn_signUp/signIn-
 import { showSidebar } from './dom-handlers/sidebar';
 import { routes, paths } from './shared/constants/routes';
 import { getToken, setTitleLS } from './shared/ls-service';
-import { renderTodos, todoHandler } from './dom-handlers/todosRender';
+import { renderTodos } from './dom-handlers/todosRender';
 import { importantTasks_render } from './dom-handlers/important_todos';
 import { completedTasks_render } from './dom-handlers/completed_todos';
 import { deletedTasks_render } from './dom-handlers/deleted_todos';
@@ -13,6 +13,8 @@ import { signUpHandler } from './components/sign_up/sign-up';
 import { todosElementHandler } from './dom-handlers/todoElement';
 import { getAllTodos } from './api/api-handlers';
 import { userProfile } from './dom-handlers/userInfo';
+import { startPageStyle } from './components/startPage/startPage';
+import './dom-handlers/todoMenu';
 
 window.onload = () => {
     const pathName = Object.values(paths).find( path => (path === window.location.pathname));
@@ -22,8 +24,9 @@ window.onload = () => {
             const token = getToken();
 
             if(!token) {
-                window.location.href = routes.signIn_Up;
+                window.location.href = routes.startPage;
             }
+
             getAllTodos();
             userProfile();
             tasks_render();
@@ -40,6 +43,10 @@ window.onload = () => {
             switchBetweenSignInAndSignUp();
             signInHandler();
             signUpHandler();
+            break;
+
+        case paths.startPage:
+            startPageStyle()
             break;
 
         default:
