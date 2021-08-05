@@ -15,6 +15,7 @@ export const modal = () => {
     }
 
     closeModalBtn.onclick = () => {
+        inputRecoverEmail.value = null;
         modalRecoverPassword.classList.remove('open');
     }
 
@@ -25,7 +26,6 @@ export const modal = () => {
             inputErrorEmailText.innerText = '';
             recoverEmailBtn.removeAttribute('disabled');
         } else {
-            console.log('-');
             inputErrorEmailText.innerText = errorText.validEmailText;
             recoverEmailBtn.setAttribute('disabled', true);
         };

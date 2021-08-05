@@ -68,6 +68,7 @@ export const renderTitleLists = () => {
                         deleteTitleBtn.setAttribute('title', 'Delete List');
                         changeListNameBtn.innerHTML = '<i class="bx bx-cog" ></i>';
                         changeListNameBtn.setAttribute('title', 'Change ListName');
+                        titleA.setAttribute('title', 'ListName can contain letters and numbers up to 20 characters');
                         titleA.value = item.title;
 
                         titleA.onclick = () => {
@@ -112,5 +113,4 @@ export const renderTitleLists = () => {
                 })
             }
         });
-
 }

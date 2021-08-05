@@ -1,8 +1,7 @@
 import { signIn } from '../../api/api-handlers';
 import { errorText } from '../../shared/constants/errorText';
 import { checkValidPassword, checkValidEmail } from '../../shared/validators';
-import { setToken } from '../../shared/ls-service';
-import { routes } from '../../shared/constants/routes';
+import { modal } from './recoverModal';
 
 export const signInHandler = () => {
     const signIn_form = document.querySelector('.container__forms_signin-signup-form.sign-in-form');
@@ -20,6 +19,7 @@ export const signInHandler = () => {
             isValid: false
         }
     }
+
     authBtn.setAttribute('disabled', true);
 
     signIn_form.addEventListener('submit', event => {
@@ -65,4 +65,5 @@ export const signInHandler = () => {
         inputErrorEmailText.innerText = '';
     };
 
+    modal();
 };

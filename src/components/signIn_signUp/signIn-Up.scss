@@ -83,6 +83,7 @@
                         right: 20px;
                         font-size: 23px;
                         color: $colorTextInput;
+                        cursor: pointer;
                     }
 
                     &-input {
@@ -172,7 +173,8 @@
                         box-shadow: 0px 0px 10px 3px $btnHoverBoxshadow;
                         -webkit-box-shadow: 0px 0px 10px 3px $btnHoverBoxshadow;
                         -moz-box-shadow: 0px 0px 10px 3px $btnHoverBoxshadow;
-                        text-shadow: #FFF 0px 0px 5px, #FFF 0px 0px 10px, #FFF 0px 0px 15px, $btnHoverBoxshadow 0px 0px 20px;
+                        text-shadow: #FFF 0px 0px 5px, #FFF 0px 0px 10px, #FFF 0px 0px 15px,
+                            $btnHoverBoxshadow 0px 0px 20px;
                         border: none;
                     }
                 }
