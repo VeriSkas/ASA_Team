@@ -11,12 +11,11 @@ import { tasks_render } from './dom-handlers/tasks';
 import { signInHandler } from './components/sign_in/sign-in';
 import { signUpHandler } from './components/sign_up/sign-up';
 import { todosElementHandler } from './dom-handlers/todoElement';
-import { getAllTodos } from './api/api-handlers';
 import { userProfile } from './dom-handlers/userInfo';
 import { startPageStyle } from './components/startPage/startPage';
 import './dom-handlers/todoMenu';
 
-window.onload = () => {
+window.onload = async () => {
     const pathName = Object.values(paths).find( path => (path === window.location.pathname));
 
     switch (pathName) {
@@ -27,16 +26,15 @@ window.onload = () => {
                 window.location.href = routes.startPage;
             }
 
-            getAllTodos();
-            userProfile();
+            setTitleLS('tasks');
+            await userProfile();
             tasks_render();
             importantTasks_render();
             completedTasks_render();
             deletedTasks_render();
             showSidebar();
             todosElementHandler();
-            setTitleLS('tasks');
-            renderTodos();
+            await renderTodos();
             break;
 
         case paths.signIn_Up:

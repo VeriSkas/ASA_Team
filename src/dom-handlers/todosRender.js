@@ -6,9 +6,10 @@ import { getTitleLS, getUID, setTodo, setTask } from '../shared/ls-service';
 import { todoMenuSidebar } from './todoMenu.js';
 
 export const renderTodos = () => {
-    getTodos(getTitleLS())
-        .then( todos => {
-            const todosContainer = document.querySelector('.content__todo_todosMain');
+    const titleLS = getTitleLS();
+    getTodos()
+    .then( todos => {
+        const todosContainer = document.querySelector('.content__todo_todosMain');
             const taskMenu = document.querySelector('.content__todoMenu');
             const taskMenuTitle = document.querySelector('.content__todoMenu_subtask_title');
             taskMenu.classList.add('close');
@@ -29,7 +30,7 @@ export const renderTodos = () => {
                         dateTime
                     } = item;
 
-                    if ((getUID() === uuid) && !complited) {
+                    if ((getUID() === uuid) && (title === titleLS) && !complited ) {
                         const todoLi = document.createElement('li');
                         const todoLiError = document.createElement('p');
                         const todoValueLi = document.createElement('textarea');

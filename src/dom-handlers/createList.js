@@ -1,4 +1,4 @@
-import { getUID, setTitleLS } from '../shared/ls-service';
+import { getUID, setTitleLS, getTitleLS } from '../shared/ls-service';
 import { createTitleLists, getTitleLists, deleteTitleLists, deleteList, updateTitleList, getTodos, updateTodo } from '../api/api-handlers';
 import { todoHandler, renderTodos } from './todosRender';
 import { checkValidListName } from '../shared/validators';
@@ -88,12 +88,14 @@ export const renderTitleLists = () => {
                         changeListNameBtn.onclick = () => {
                             if ((item.title !== titleA.value) && checkValidListName(titleA.value)) {
                                 titlePage.innerHTML = titleA.value;
-                                getTodos(item.title)
+                                getTodos()
                                     .then(todos => {
                                         if (todos) {
                                             todos.forEach(todo => {
-                                                todo.title = titleA.value;
-                                                updateTodo(todo);
+                                                if(todo.title === getTitleLS()) {
+                                                    todo.title = titleA.value;
+                                                    updateTodo(todo);
+                                                }
                                             })
                                         }
                                     })

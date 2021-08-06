@@ -29,7 +29,7 @@ export const createTodo = todo => {
         uuid
     } = todo;
     return fetch(
-        `${databaseURL}/todos/${title}.json`,
+        `${databaseURL}/todos.json`,
         {
             method: 'POST',
             headers,
@@ -49,9 +49,9 @@ export const createTodo = todo => {
         .then( response => response.json())
 };
 
-export const getTodos = title => {
+export const getTodos = () => {
     return fetch(
-        `${databaseURL}/todos/${title}.json`,
+        `${databaseURL}/todos.json`,
         {
             method: 'GET',
             headers,
@@ -81,19 +81,19 @@ export const getAllTodos = () => {
         .then( response => response.json())
         .then( result => {
             if(result) {
+                console.log(result);
                 const transformedArr = Object.values(result).map(key => Object.values(key)).map(i => {
                     return i;
                 });
                 
-                console.log(transformedArr);
                 return transformedArr;
             };
         })
 }
 
-export const deleteTodo = ({ title, id }) => {
+export const deleteTodo = ({ id }) => {
     return fetch(
-        `${databaseURL}/todos/${title}/${id}.json`,
+        `${databaseURL}/todos/${id}.json`,
         {
             method: 'DELETE',
             headers,
@@ -116,7 +116,7 @@ export const updateTodo = todo => {
         uuid
     } = todo;
     return fetch(
-        `${databaseURL}/todos/${title}/${id}.json`,
+        `${databaseURL}/todos/${id}.json`,
         {
             method: 'PUT',
             headers,
