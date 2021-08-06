@@ -84,7 +84,8 @@ export const getAllTodos = () => {
                 const transformedArr = Object.values(result).map(key => Object.values(key)).map(i => {
                     return i;
                 });
-
+                
+                console.log(transformedArr);
                 return transformedArr;
             };
         })
@@ -155,6 +156,7 @@ export const createDeleteTodoList = todo => {
             method: 'POST',
             headers,
             body: JSON.stringify({
+                id,
                 title,
                 todoValue,
                 comment,
@@ -183,16 +185,16 @@ export const getDeleteTodolist = () => {
             if (result) {
                 const tranformedArr = Object.keys(result).map( key => ({
                     ...result[key],
-                    id: key
+                    idDel: key
                 }))
                 return tranformedArr;
             };
         })
 };
 
-export const finalDeleteTodo = ({ id }) => {
+export const finalDeleteTodo = ({ idDel }) => {
     return fetch(
-        `${databaseURL}/deleteTodos/${id}.json`,
+        `${databaseURL}/deleteTodos/${idDel}.json`,
         {
             method: 'DELETE',
             headers,
