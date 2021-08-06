@@ -312,6 +312,8 @@
             &-subMenu {
                 margin-top: -10px;
                 display: none;
+                max-height: 300px;
+                overflow-y: auto;
 
                 &.blank {
                     opacity: 1;
