@@ -61,8 +61,13 @@ export const signUpHandler = () => {
 
     password1Input.oninput = () => {
         if (checkValidPassword(password1Input.value)) {
-            signUpFormFields.password1.isValid = true;
-            inputErrorPassword1Text.innerText = '';
+            if ( password2Input.value && (password1Input.value !== password2Input.value)) {
+                signUpFormFields.password2.isValid = false;
+                inputErrorPassword2Text.innerText = errorText.repeatPasswordText;
+            } else {
+                signUpFormFields.password1.isValid = true;
+                inputErrorPassword1Text.innerText = '';
+            }
         } else {
             signUpFormFields.password1.isValid = false;
             inputErrorPassword1Text.innerText = errorText.validPasswordText;

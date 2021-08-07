@@ -1,7 +1,6 @@
 @import '../../styles/temps/colors.scss';
 
 body {
-    min-height: 1500px;
     background: $colorStartPage;
     background: linear-gradient(0deg, rgba(120,0,238,1) 0%, rgba(54,87,255,1) 100%);
 }
@@ -66,6 +65,11 @@ body {
             font-size: 10em;
             text-shadow: 15px -8px 10px black;
             z-index: 1;
+        }
+
+        &-text, img:not(#bg) {
+            transition: top 1s ease;
+            transition: left 1s ease;
         }
     }
 

@@ -1,5 +1,15 @@
-import { getUID, setTitleLS } from '../shared/ls-service';
-import { createTitleLists, getTitleLists, deleteTitleLists, deleteList, updateTitleList, getTodos, updateTodo } from '../api/api-handlers';
+import { getUID, setTitleLS, getTitleLS } from '../shared/ls-service';
+import {
+    createTitleLists,
+    getTitleLists,
+    deleteTitleLists,
+    updateTitleList,
+    getTodos,
+    updateTodo,
+    deleteTodo,
+    getSubtask,
+    deleteSubTask
+} from '../api/api-handlers';
 import { todoHandler, renderTodos } from './todosRender';
 import { checkValidListName } from '../shared/validators';
 
@@ -16,6 +26,18 @@ export const createList = () => {
         uuid: getUID()
     }
 
+    createListBtn.setAttribute('disabled', true);
+
+    createListInput.oninput = () => {
+        if (checkValidListName(createListInput.value)) {
+            createListBtn.removeAttribute('disabled');
+            createListBtn.style.opacity = '1';
+        } else {
+            createListBtn.setAttribute('disabled', true);
+            createListBtn.style.opacity = '0';
+        }
+    }
+
     createListForm.addEventListener('submit', event => {
         event.preventDefault();
         if(checkValidListName(createListInput.value)) {
@@ -29,19 +51,6 @@ export const createList = () => {
             todoInput.style.display = 'flex';
         }
     });
-
-    createListBtn.onclick = () => {
-        if(checkValidListName(createListInput.value)) {
-            titleList.title = createListInput.value;
-            titleList.firstTitle = createListInput.value;
-            titlePage.innerHTML = createListInput.value;
-            createTitleLists(titleList)
-                .then(renderTitleLists);
-            setTitleLS(createListInput.value);
-            createListInput.value = null;
-            todoInput.style.display = 'flex';
-        }
-    }
 }
 
 export const renderTitleLists = () => {
@@ -79,36 +88,62 @@ export const renderTitleLists = () => {
                             renderTodos();
                         }
 
-                        deleteTitleBtn.onclick = () => {
-                            deleteTitleLists(item)
-                                .then(() => deleteList(item.title))
+                        deleteTitleBtn.onclick = async () => {
+                            await getTodos()
+                                .then(todos => {
+                                    if(todos) {
+                                        todos.forEach(todo => {
+                                            if((getUID() === todo.uuid) && (item.title === todo.title)) {
+                                                deleteTodo(todo);
+                                            }
+                                        })
+                                    }
+                                })
+
+                            await getSubtask()
+                                .then(subtasks => {
+                                    if(subtasks) {
+                                        subtasks.forEach(subtask => {
+                                            if((getUID() === subtask.uuid) && (item.firstTitle === subtask.title)) {
+                                                deleteSubTask(subtask);
+                                            }
+                                        })
+                                    }
+                                })
+
+                            await deleteTitleLists(item)
                                 .then(() => renderTitleLists())
                         }
 
                         changeListNameBtn.onclick = () => {
                             if ((item.title !== titleA.value) && checkValidListName(titleA.value)) {
                                 titlePage.innerHTML = titleA.value;
-                                getTodos(item.title)
+                                getTodos()
                                     .then(todos => {
                                         if (todos) {
                                             todos.forEach(todo => {
-                                                todo.title = titleA.value;
-                                                updateTodo(todo);
+                                                if(todo.title === getTitleLS()) {
+                                                    todo.title = titleA.value;
+                                                    updateTodo(todo);
+                                                }
                                             })
                                         }
                                     })
-                                    .then(() => deleteList(item.title))
                                     .then(() => {
                                         item.title = titleA.value;
                                         updateTitleList(item);
                                     })
+                            } else {
+                                titleA.value = item.title;
                             }
                         }
 
-                        subMenuLists.append(titleLi);
-                        titleLi.append(changeListNameBtn);
-                        titleLi.append(titleA);
-                        titleLi.append(deleteTitleBtn);
+                        subMenuLists.prepend(titleLi);
+                        titleLi.append(
+                            changeListNameBtn,
+                            titleA,
+                            deleteTitleBtn,
+                        );
                     }
                 })
             }

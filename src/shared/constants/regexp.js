@@ -4,4 +4,5 @@ export const REGEXP = {
     validName: /^[a-z0-9а-я.\-_+#`~]{4,64}$/i,
     inputTodoLength: /^.{3,200}$/si,
     validListName: /^[a-zа-я0-9]{1,20}$/i,
+    twoIdenticalSymbols: /([.!\-_+#%$‘&*/=?^`{|}~])\1{1,}/
 }
