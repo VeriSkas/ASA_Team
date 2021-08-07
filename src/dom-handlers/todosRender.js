@@ -62,7 +62,7 @@ export const renderTodos = () => {
                             taskMenu.classList.remove('close');
                             taskMenuTitle.innerHTML = todoValue;
                             setTodo(JSON.stringify(item));
-                            setTask(item.id);
+                            item.oldID ? setTask(item.oldID) : setTask(item.id);
                             todoMenuSidebar();
                         };
 
@@ -109,6 +109,8 @@ export const renderTodos = () => {
                             await createDeleteTodoList(item);
                             await deleteTodo(item)
                                 .then(() => renderTodos())
+
+                            taskMenu.classList.add('close');
                         }
 
                         if (important) {

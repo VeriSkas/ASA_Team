@@ -61,7 +61,7 @@ export const getImportantTasks = () => {
                             taskMenu.classList.remove('close');
                             taskMenuTitle.innerHTML = todoValue;
                             setTodo(JSON.stringify(item));
-                            setTask(item.id);
+                            item.oldID ? setTask(item.oldID) : setTask(item.id);
                             todoMenuSidebar();
                         };
 
@@ -90,6 +90,8 @@ export const getImportantTasks = () => {
                             await createDeleteTodoList(item)
                             await deleteTodo(item)
                                 .then(() => getImportantTasks())
+
+                            taskMenu.classList.add('close');
                         }
 
                         if (important) {

@@ -66,6 +66,11 @@ body {
             text-shadow: 15px -8px 10px black;
             z-index: 1;
         }
+
+        &-text, img:not(#bg) {
+            transition: top 1s ease;
+            transition: left 1s ease;
+        }
     }
 
     &_content {

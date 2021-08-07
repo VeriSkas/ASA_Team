@@ -47,10 +47,24 @@
         }
 
         &-list {
-            list-style: circle;
+            list-style: none;
             padding: 10px 20px;
             max-height: 300px;
+            max-width: 200px;
             overflow-y: auto;
+
+            &-li {
+                position: relative;
+                word-wrap: break-word;
+
+                .bx-x {
+                    position: absolute;
+                    top: 4px;
+                    left: -20px;
+                    font-weight: bold;
+                    cursor: pointer;
+                }
+            }
         }
     }
 

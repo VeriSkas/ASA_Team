@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { createTodo, getDeleteTodolist, finalDeleteTodo } from '../api/api-handlers';
+import { getDeleteTodolist, finalDeleteTodo, createRecoverTodo } from '../api/api-handlers';
 import { getUID } from '../shared/ls-service';
 
 export const getDeletedTasks = () => {
@@ -58,7 +58,7 @@ export const getDeletedTasks = () => {
                             item.date = moment().format();
                             item.dateTime = moment().format('LTS');
                             item.dateDMY = moment().format('LL');
-                            await createTodo(item);
+                            await createRecoverTodo(item);
                             await finalDeleteTodo(item)
                                 .then(() => getDeletedTasks())
                         }
