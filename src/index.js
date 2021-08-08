@@ -14,6 +14,7 @@ import { todosElementHandler } from './dom-handlers/todoElement';
 import { userProfile } from './dom-handlers/userInfo';
 import { startPageStyle } from './components/startPage/startPage';
 import './dom-handlers/todoMenu';
+import { profile_modal } from './components/profile/profile_modal';
 
 window.onload = async () => {
     const pathName = Object.values(paths).find( path => (path === window.location.pathname));
@@ -35,6 +36,7 @@ window.onload = async () => {
             showSidebar();
             todosElementHandler();
             await renderTodos();
+            profile_modal();
             break;
 
         case paths.signIn_Up:

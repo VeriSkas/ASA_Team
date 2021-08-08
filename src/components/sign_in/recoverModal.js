@@ -3,7 +3,7 @@ import { errorText } from '../../shared/constants/errorText';
 import { checkValidEmail } from '../../shared/validators';
 
 export const modal = () => {
-    const modalRecoverPassword = document.querySelector('.modalRecoverPassword');
+    const modalRecoverPassword = document.querySelector('.modal');
     const closeModalBtn = document.querySelector('.closeModal');
     const forgotPasswordBtn = document.querySelector('.forgotPassword');
     const inputRecoverEmail = document.querySelector('.modalRecoverPassword_wrapper_main_content-input');

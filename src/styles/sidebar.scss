@@ -368,6 +368,14 @@
 
             &.profile:hover {
                 background: none;
+
+                .wrapper__content_sidebar-navLinks-link_profile {
+                    a {
+                        i {
+                            color: #f0f0f0;
+                        }
+                    }
+                }
             }
 
             &_profile {
@@ -408,6 +416,10 @@
 
                 #logOut {
                     cursor: pointer;
+
+                    &:hover {
+                        color: $colorText;
+                    }
                 }
             }
         }
