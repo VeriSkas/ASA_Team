@@ -17,7 +17,7 @@ import './dom-handlers/todoMenu';
 import { profile_modal } from './components/profile/profile_modal';
 
 window.onload = async () => {
-    const pathName = Object.values(paths).find( path => (path === window.location.pathname));
+    const pathName = Object.values(paths).find( path => path === window.location.pathname);
 
     switch (pathName) {
         case paths.home:

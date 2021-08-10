@@ -1,10 +1,14 @@
 require('firebase/auth');
 import firebase from 'firebase/app';
+import 'firebase/storage';
 import axios from 'axios';
+
 import { databaseURL, firebaseConfig, authURL } from './api-config';
 import { showErrorNotification } from '../shared/error-handlers';
-import { setToken, getUID, setUID } from '../shared/ls-service';
+import { setToken, getUID, setUID, getPersonalData, setPersonalData } from '../shared/ls-service';
 import { routes } from '../shared/constants/routes';
+import { userProfile } from '../dom-handlers/userInfo';
+import { refreshPhoto } from '../components/profile/profile_modal';
 
 const headers = {
     'Content-Type': 'application/json'
@@ -418,8 +422,36 @@ export const getUser = () => {
         })
 };
 
+export const updateUser = async user => {
+    return axios.put(`${databaseURL}/users/${user.id}.json`, user)
+        .then( () => {
+            setPersonalData(user);
+            userProfile();
+        })
+}
+
 export const passwordRecovery = email => {
     firebase.auth().sendPasswordResetEmail(email)
         .then(() => window.location.href = routes.signIn_Up)
         .catch(error => showErrorNotification(error))
 };
+
+export const uploadPhoto = async (event, imgName) => {
+    const user = getPersonalData();
+
+    await firebase
+        .storage()
+        .ref(`photos/${imgName}`)
+        .put(event.target.files[0])
+        .catch(error => showErrorNotification(error));
+    await firebase
+        .storage()
+        .ref(`photos/${imgName}`)
+        .getDownloadURL()
+        .then( url => user.photo = url )
+        .catch(error => showErrorNotification(error));
+    await updateUser(user)
+        .then( () => setPersonalData(user))
+        .then( () => refreshPhoto())
+        .catch(error => showErrorNotification(error));
+}

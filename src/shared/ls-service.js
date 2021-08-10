@@ -23,3 +23,7 @@ export const setTask = task => localStorage.setItem('task', task);
 export const getTask = () => localStorage.getItem('task');
 
 export const clearLS = () => localStorage.clear();
+
+export const setPersonalData = user => localStorage.setItem('PersonalData',JSON.stringify(user));
+
+export const getPersonalData = () => JSON.parse(localStorage.getItem('PersonalData'));
