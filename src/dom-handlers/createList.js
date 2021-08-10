@@ -44,12 +44,25 @@ export const createList = () => {
         event.preventDefault();
         getTitleLists()
             .then(titleLists => {
-                const arrTitles = titleLists
-                    .map(titleList => titleList.firstTitle)
-                    .find(title => title === createListInput.value);
+                if (titleLists) {
+                    const arrTitles = titleLists
+                        .map(titleList => titleList.firstTitle)
+                        .find(title => title === createListInput.value);
 
-                if (arrTitles) {
-                    showErrorNotification(errorText.sameListError);
+                    if (arrTitles) {
+                        showErrorNotification(errorText.sameListError);
+                    } else {
+                        if (checkValidListName(createListInput.value)) {
+                            titleList.title = createListInput.value;
+                            titleList.firstTitle = createListInput.value;
+                            titlePage.innerHTML = createListInput.value;
+                            createTitleLists(titleList)
+                                .then(renderTitleLists);
+                            setTitleLS(createListInput.value);
+                            createListInput.value = null;
+                            todoInput.style.display = 'flex';
+                        }
+                    }
                 } else {
                     if (checkValidListName(createListInput.value)) {
                         titleList.title = createListInput.value;
