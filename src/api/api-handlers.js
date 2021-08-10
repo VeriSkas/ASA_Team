@@ -20,7 +20,7 @@ export const initApi = async () => {
 
 initApi();
 
-export const createTodo = todo => {
+export const createTodo = async todo => {
     const {
         title,
         todoValue,
@@ -53,7 +53,7 @@ export const createTodo = todo => {
         .then( response => response.json())
 };
 
-export const getTodos = () => {
+export const getTodos = async () => {
     return fetch(
         `${databaseURL}/todos.json`,
         {
@@ -74,7 +74,7 @@ export const getTodos = () => {
         })
 };
 
-export const deleteTodo = ({ id }) => {
+export const deleteTodo = async ({ id }) => {
     return fetch(
         `${databaseURL}/todos/${id}.json`,
         {
@@ -85,7 +85,7 @@ export const deleteTodo = ({ id }) => {
         .then(response => response.json())
 };
 
-export const updateTodo = todo => {
+export const updateTodo = async todo => {
     const {
         id,
         title,
@@ -120,7 +120,7 @@ export const updateTodo = todo => {
         .then(response => response.json())
 };
 
-export const createDeleteTodoList = todo => {
+export const createDeleteTodoList = async todo => {
     const {
         id,
         title,
@@ -155,7 +155,7 @@ export const createDeleteTodoList = todo => {
         .then( response => response.json())
 };
 
-export const getDeleteTodolist = () => {
+export const getDeleteTodolist = async () => {
     return fetch(
         `${databaseURL}/deleteTodos.json`,
         {
@@ -175,7 +175,7 @@ export const getDeleteTodolist = () => {
         })
 };
 
-export const finalDeleteTodo = ({ idDel }) => {
+export const finalDeleteTodo = async ({ idDel }) => {
     return fetch(
         `${databaseURL}/deleteTodos/${idDel}.json`,
         {
@@ -186,7 +186,7 @@ export const finalDeleteTodo = ({ idDel }) => {
         .then(response => response.json())
 };
 
-export const createRecoverTodo = recoverTodo => {
+export const createRecoverTodo = async recoverTodo => {
     const {
         id,
         title,
@@ -221,7 +221,7 @@ export const createRecoverTodo = recoverTodo => {
         .then( response => response.json())
 }
 
-export const createTitleLists = titleList => {
+export const createTitleLists = async titleList => {
     const { title, firstTitle, uuid } = titleList;
     return fetch( `${databaseURL}/todos/titleLists.json`,
         {
@@ -237,7 +237,7 @@ export const createTitleLists = titleList => {
         .then( response => response.json())
 };
 
-export const getTitleLists = () => {
+export const getTitleLists = async () => {
     return fetch( `${databaseURL}/todos/titleLists.json`,
         {
             method: 'GET',
@@ -257,7 +257,7 @@ export const getTitleLists = () => {
         })
 };
 
-export const updateTitleList = titleList => {
+export const updateTitleList = async titleList => {
     const { title, uuid, id } = titleList;
     return fetch( `${databaseURL}/todos/titleLists/${id}.json`,
         {
@@ -272,7 +272,7 @@ export const updateTitleList = titleList => {
         .then( response => response.json())
 };
 
-export const deleteTitleLists = ({ id }) => {
+export const deleteTitleLists = async ({ id }) => {
     return fetch( `${databaseURL}/todos/titleLists/${id}.json`,
         {
             method: 'DELETE',
@@ -282,7 +282,7 @@ export const deleteTitleLists = ({ id }) => {
         .then(response => response.json())
 };
 
-export const deleteList = title => {
+export const deleteList = async title => {
     return fetch(
         `${databaseURL}/todos/${title}.json`,
         {
@@ -293,12 +293,13 @@ export const deleteList = title => {
         .then(response => response.json())
 };
 
-export const createSubtask = subtask => {
+export const createSubtask = async subtask => {
     const {
         title,
         task,
         subTask,
         date,
+        complited,
         idTodo,
         uuid
     } = subtask;
@@ -312,6 +313,7 @@ export const createSubtask = subtask => {
                 task,
                 subTask,
                 date,
+                complited,
                 idTodo,
                 uuid
             })
@@ -320,7 +322,7 @@ export const createSubtask = subtask => {
         .then( response => response.json())
 }
 
-export const getSubtask = () => {
+export const getSubtask = async () => {
     return fetch(
         `${databaseURL}/todos/subtask.json`,
         {
@@ -340,7 +342,36 @@ export const getSubtask = () => {
         })
 }
 
-export const deleteSubTask = ({ id }) => {
+export const updateSubtask = async subtask => {
+    const {
+        title,
+        task,
+        subTask,
+        date,
+        idTodo,
+        uuid,
+        complited,
+        id,
+    } = subtask;
+    return fetch( `${databaseURL}/todos/subtask/${id}.json`,
+        {
+            method: 'PUT',
+            headers,
+            body: JSON.stringify({
+                title,
+                task,
+                subTask,
+                date,
+                idTodo,
+                uuid,
+                complited,
+            })
+        }
+    )
+        .then( response => response.json())
+}
+
+export const deleteSubTask =  async ({ id }) => {
     return fetch( `${databaseURL}/todos/subtask/${id}.json`,
         {
             method: 'DELETE',
@@ -350,7 +381,7 @@ export const deleteSubTask = ({ id }) => {
         .then(response => response.json())
 };
 
-export const signIn = (email, password) => {
+export const signIn = async (email, password) => {
     return axios.post(authURL, {
         email,
         password,
@@ -370,7 +401,7 @@ export const signIn = (email, password) => {
         .catch(err => showErrorNotification(err));
 }
 
-export const createAuthData = ( email, password ) => {
+export const createAuthData = async ( email, password ) => {
     return firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
@@ -401,7 +432,7 @@ export const signUp = async user => {
     }
 };
 
-export const getUser = () => {
+export const getUser = async () => {
     return fetch(
         `${databaseURL}/users.json`,
         {
