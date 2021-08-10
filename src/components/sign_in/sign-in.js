@@ -44,11 +44,18 @@ export const signInHandler = () => {
             inputErrorPasswordText.innerText = errorText.validPasswordText;
         }
         checkFormValid();
+
+        if (authPassword.value.length > 25) {
+            authPassword.style.fontSize = '15px';
+        } else {
+            authPassword.style.fontSize = '20px';
+        }
     };
 
-    authPassword.onblur = () => {
-        inputErrorPasswordText.innerText = '';
-    };
+    // пусть пока повисит, возмжно вернемся к этому
+    // authPassword.onblur = () => {
+    //     inputErrorPasswordText.innerText = '';
+    // };
 
     authEmail.oninput = () => {
         if (checkValidEmail(authEmail.value)) {
@@ -61,9 +68,10 @@ export const signInHandler = () => {
         checkFormValid();
     };
 
-    authEmail.onblur = () => {
-        inputErrorEmailText.innerText = '';
-    };
+    // пусть пока повисит, возмжно вернемся к этому
+    // authEmail.onblur = () => {
+    //     inputErrorEmailText.innerText = '';
+    // };
 
     modal();
 };

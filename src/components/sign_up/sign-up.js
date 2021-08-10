@@ -39,7 +39,8 @@ export const signUpHandler = () => {
             password: password1Input.value
         }
 
-        signUp( user );
+        signUp( user )
+        signUpForm.reset();
     });
 
     const checkFormValid = () => {
@@ -74,6 +75,12 @@ export const signUpHandler = () => {
         }
 
         checkFormValid();
+
+        if (password1Input.value.length > 25) {
+            password1Input.style.fontSize = '15px';
+        } else {
+            password1Input.style.fontSize = '20px';
+        }
     };
 
     password2Input.oninput = () => {
@@ -86,6 +93,12 @@ export const signUpHandler = () => {
         }
 
         checkFormValid();
+
+        if (password2Input.value.length > 25) {
+            password2Input.style.fontSize = '15px';
+        } else {
+            password2Input.style.fontSize = '20px';
+        }
     };
 
     emailInput.oninput = () => {

@@ -8,9 +8,12 @@ export const showErrorNotification = error => {
         notification.innerText =`${errorText.notificationText}:
             ${error.response.data.error.message}`;
         notification.className = 'error_notification';
-    } else {
+    } else if (error.message) {
         notification.innerText =`${error.message}`;
         notification.className = 'error_notification signUp';
+    } else {
+        notification.innerText =`${error}`;
+        notification.className = 'error_notification';
     }
 
     body.append(notification);
