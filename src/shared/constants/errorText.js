@@ -5,4 +5,5 @@ export const errorText = {
     validEmailText: 'Invalid email entered',
     notificationText: 'Non-existent data entered',
     inputTodoErrorText: 'The task must contain from 3 to 200 characters',
+    sameListError: 'A list with the same name already exists',
 };

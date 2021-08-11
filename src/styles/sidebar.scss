@@ -368,6 +368,14 @@
 
             &.profile:hover {
                 background: none;
+
+                .wrapper__content_sidebar-navLinks-link_profile {
+                    a {
+                        i {
+                            color: #f0f0f0;
+                        }
+                    }
+                }
             }
 
             &_profile {
@@ -384,13 +392,15 @@
                 &-photo {
                     display: flex;
                     align-items: center;
-                    background: url('../img/R4EvyvGakKU.jpg') no-repeat center;
+                    background-position: center;
+                    background-repeat: no-repeat;
                     background-size: cover;
                     height: 50px;
                     width: 50px;
                     border-radius: 16px;
                     margin: 10px;
                     transition: all 0.5s ease;
+                    cursor: pointer;
                 }
 
                 &-content {
@@ -408,6 +418,10 @@
 
                 #logOut {
                     cursor: pointer;
+
+                    &:hover {
+                        color: $colorText;
+                    }
                 }
             }
         }

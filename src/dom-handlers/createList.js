@@ -12,6 +12,8 @@ import {
 } from '../api/api-handlers';
 import { todoHandler, renderTodos } from './todosRender';
 import { checkValidListName } from '../shared/validators';
+import { errorText } from '../shared/constants/errorText';
+import { showErrorNotification } from '../shared/error-handlers';
 
 export const createList = () => {
     const createListBtn = document.querySelector('.createListBtn');
@@ -40,17 +42,41 @@ export const createList = () => {
 
     createListForm.addEventListener('submit', event => {
         event.preventDefault();
-        if(checkValidListName(createListInput.value)) {
-            titleList.title = createListInput.value;
-            titleList.firstTitle = createListInput.value;
-            titlePage.innerHTML = createListInput.value;
-            createTitleLists(titleList)
-                .then(renderTitleLists);
-            setTitleLS(createListInput.value);
-            createListInput.value = null;
-            todoInput.style.display = 'flex';
-        }
-    });
+        getTitleLists()
+            .then(titleLists => {
+                if (titleLists) {
+                    const arrTitles = titleLists
+                        .map(titleList => titleList.firstTitle)
+                        .find(title => title === createListInput.value);
+
+                    if (arrTitles) {
+                        showErrorNotification(errorText.sameListError);
+                    } else {
+                        if (checkValidListName(createListInput.value)) {
+                            titleList.title = createListInput.value;
+                            titleList.firstTitle = createListInput.value;
+                            titlePage.innerHTML = createListInput.value;
+                            createTitleLists(titleList)
+                                .then(renderTitleLists);
+                            setTitleLS(createListInput.value);
+                            createListInput.value = null;
+                            todoInput.style.display = 'flex';
+                        }
+                    }
+                } else {
+                    if (checkValidListName(createListInput.value)) {
+                        titleList.title = createListInput.value;
+                        titleList.firstTitle = createListInput.value;
+                        titlePage.innerHTML = createListInput.value;
+                        createTitleLists(titleList)
+                            .then(renderTitleLists);
+                        setTitleLS(createListInput.value);
+                        createListInput.value = null;
+                        todoInput.style.display = 'flex';
+                    }
+                }
+            })
+    })
 }
 
 export const renderTitleLists = () => {

@@ -1,0 +1,60 @@
+@import '../../styles/temps/colors.scss';
+
+.modalRecoverPassword_wrapper_main {
+    &_header {
+        color: $color3;
+    }
+
+    &_content {
+        max-width: 380px;
+        width: 100%;
+        background-color: $colorInput;
+        margin: 17px 0;
+        height: 55px;
+        border-radius: 55px;
+        display: grid;
+        grid-template-columns: 15% 85%;
+        padding: 0 5px;
+        position: relative;
+
+        i {
+            text-align: center;
+            line-height: 55px;
+            color: $colorTextInput;
+            transition: 0.5s;
+            font-size: 20px;
+        }
+
+        &-input {
+            background: none;
+            border: none;
+            outline: none;
+            font-weight: 600;
+            font-size: 20px;
+            color: $colorText;
+
+        }
+    }
+
+    &_footer {
+        button{
+            width: 130px;
+            height: 41px;
+            margin: 0;
+            outline: none;
+            background: none;
+            border-radius: 49px;
+            border: 3px solid #ebe0ff;
+            font-weight: 600;
+            font-size: 15px;
+            color: #ebe0ff;
+            text-transform: uppercase;
+            cursor: pointer;
+
+            &:disabled {
+                border: 3px solid $colorBtn;
+                color: $colorBtn;
+            }
+        }
+    }
+}
