@@ -1,5 +1,6 @@
 import { getTodos, deleteTodo, updateTodo, createDeleteTodoList } from '../api/api-handlers';
 import { getUID, setTodo, setTask } from '../shared/ls-service';
+import { counterTasksRender } from './sidebar';
 import { todoMenuSidebar } from './todoMenu.js';
 
 export const getImportantTasks = () => {
@@ -10,6 +11,8 @@ export const getImportantTasks = () => {
             const taskMenuTitle = document.querySelector('.content__todoMenu_subtask_title');
             taskMenu.classList.add('close');
             todosContainer.innerHTML = null;
+
+            counterTasksRender();
 
             if(todos) {
                 todos.forEach(item => {
@@ -60,7 +63,7 @@ export const getImportantTasks = () => {
                         todoMenu.onclick = () => {
                             taskMenu.classList.remove('close');
                             taskMenuTitle.innerHTML = todoValue;
-                            setTodo(JSON.stringify(item));
+                            setTodo(item);
                             item.oldID ? setTask(item.oldID) : setTask(item.id);
                             todoMenuSidebar();
                         };
@@ -89,7 +92,7 @@ export const getImportantTasks = () => {
                         todoDelete.onclick = async () => {
                             await createDeleteTodoList(item)
                             await deleteTodo(item)
-                                .then(() => getImportantTasks())
+                                .then(() => getImportantTasks());
 
                             taskMenu.classList.add('close');
                         }

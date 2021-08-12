@@ -1,5 +1,6 @@
 import { getTodos, deleteTodo, updateTodo, createDeleteTodoList } from '../api/api-handlers';
 import { getUID } from '../shared/ls-service';
+import { counterTasksRender } from './sidebar';
 
 export const getCompletedTasks = () => {
     getTodos()
@@ -8,6 +9,8 @@ export const getCompletedTasks = () => {
             const taskMenu = document.querySelector('.content__todoMenu');
             taskMenu.classList.add('close');
             todosContainer.innerHTML = null;
+
+            counterTasksRender();
 
             if(todos) {
                 todos.forEach( item => {
@@ -76,7 +79,7 @@ export const getCompletedTasks = () => {
                         todoDelete.onclick = async () => {
                             await createDeleteTodoList(item)
                             await deleteTodo(item)
-                                .then(() => getCompletedTasks())
+                                .then(() => getCompletedTasks());
                         }
 
                         if (important) {
@@ -125,7 +128,7 @@ export const getCompletedTasks = () => {
                                 complitedTodo.innerHTML = '&#x2610;';
                                 item.complited = false;
                                 updateTodo( item )
-                                    .then(() => getCompletedTasks())
+                                    .then(() => getCompletedTasks());
                             }
                         }
 
