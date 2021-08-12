@@ -3,7 +3,7 @@ import { getTodos, updateTodo } from "../api/api-handlers";
 import { getTask, getTodo, getUID, setTodo } from "../shared/ls-service";
 import { checkLengthTodo } from '../shared/validators';
 
-export const  handlerComment = async () => {
+export const  handlerComment = () => {
     const textareaComment = document.querySelector('.content__todoMenu_comment-textarea');
     const todo = getTodo();
 
@@ -36,7 +36,7 @@ export const renderComment = () => {
     const textareaComment = document.querySelector('.content__todoMenu_comment-textarea');
     const commentDateSpan = document.querySelector('.content__todoMenu_comment-date');
 
-    return getTodos()
+    getTodos()
         .then( todos => {
 
             if(todos) {
@@ -45,14 +45,15 @@ export const renderComment = () => {
                         id,
                         uuid,
                         comment,
-                        commentDate,
+                        dateOfComment,
                     } = item;
 
                     if ((getUID() === uuid) && (id === getTask()) && comment) {
                         textareaComment.value = comment;
-                        commentDateSpan.innerText = `updated on ${moment(commentDate).calendar()}`;
-                    } else {
+                        commentDateSpan.innerText = `updated on ${moment(dateOfComment).calendar()}`;
+                    } else if ((getUID() === uuid) && (id === getTask()) && !comment) {
                         textareaComment.value = '';
+                        commentDateSpan.innerText = '';
                     }
                 })
             }

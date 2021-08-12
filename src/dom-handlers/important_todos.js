@@ -147,6 +147,12 @@ export const getImportantTasks = () => {
                             }
                         }
 
+                        if (comment) {
+                            const todoInformationComment = document.createElement('i');
+                            todoInformationComment.className = 'bx bx-message-rounded-check todoInformationComment';
+                            todoLi.append(todoInformationComment);
+                        }
+
                         todosContainer.prepend(todoLi);
                         todoLi.append(
                             complitedTodo,

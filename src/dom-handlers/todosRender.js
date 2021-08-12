@@ -98,7 +98,6 @@ export const renderTodos = async () => {
                                 item.dateDMY = moment().format('LL');
                                 item.todoValue = todoValueLi.value;
 
-
                                 updateTodo( item )
                                     .then(() => renderTodos());
                             } else {
@@ -131,13 +130,13 @@ export const renderTodos = async () => {
                                 todoImportant.innerHTML = '&#10029;';
                                 item.important = true;
                                 updateTodo( item )
-                                    .then(() => counterTasksRender());
+                                .then(() => counterTasksRender());
                             } else {
                                 todoImportant.removeAttribute('clicked');
                                 todoImportant.innerHTML = '&#9734;';
                                 item.important = false;
                                 updateTodo( item )
-                                    .then(() => counterTasksRender());
+                                .then(() => counterTasksRender());
                             }
                         }
 
@@ -165,6 +164,12 @@ export const renderTodos = async () => {
                                 updateTodo( item )
                                     .then(() => counterTasksRender());
                             }
+                        }
+
+                        if (comment) {
+                            const todoInformationComment = document.createElement('i');
+                            todoInformationComment.className = 'bx bx-message-rounded-check todoInformationComment';
+                            todoLi.append(todoInformationComment);
                         }
 
                         todosContainer.prepend(todoLi);
