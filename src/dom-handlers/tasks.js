@@ -1,5 +1,5 @@
 import { renderTodos, todoHandler } from "./todosRender";
-import { setTitleLS } from '../shared/ls-service';
+import { setClickedPage, setTitleLS } from '../shared/ls-service';
 
 export const tasks_render = () => {
     const allTodos = document.querySelector('#nav-links_allTasks');
@@ -14,6 +14,7 @@ export const tasks_render = () => {
         inputTodos.style.display = 'flex';
         event.preventDefault();
         setTitleLS('tasks');
+        setClickedPage('tasks');
         renderTodos();
     })
 }

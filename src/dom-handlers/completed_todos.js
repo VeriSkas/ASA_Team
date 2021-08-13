@@ -1,5 +1,5 @@
 import { getTodos, deleteTodo, updateTodo, createDeleteTodoList } from '../api/api-handlers';
-import { getUID } from '../shared/ls-service';
+import { getUID, setClickedPage } from '../shared/ls-service';
 import { counterTasksRender } from './sidebar';
 
 export const getCompletedTasks = () => {
@@ -160,5 +160,6 @@ export const completedTasks_render = () => {
         inputTodos.style.display = 'none';
 
         getCompletedTasks();
+        setClickedPage('complitedTasks');
     })
 }

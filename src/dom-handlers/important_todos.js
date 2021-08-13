@@ -1,5 +1,5 @@
 import { getTodos, deleteTodo, updateTodo, createDeleteTodoList } from '../api/api-handlers';
-import { getUID, setTodo, setTask } from '../shared/ls-service';
+import { getUID, setTodo, setTask, setClickedPage } from '../shared/ls-service';
 import { counterTasksRender } from './sidebar';
 import { todoMenuSidebar } from './todoMenu.js';
 
@@ -182,5 +182,6 @@ export const importantTasks_render = () => {
         inputTodos.style.display = 'none';
 
         getImportantTasks();
+        setClickedPage('importantTasks');
     })
 }

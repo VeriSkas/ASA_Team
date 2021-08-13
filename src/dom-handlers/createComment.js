@@ -2,6 +2,7 @@ import moment from 'moment';
 import { getTodos, updateTodo } from "../api/api-handlers";
 import { getTask, getTodo, getUID, setTodo } from "../shared/ls-service";
 import { checkLengthTodo } from '../shared/validators';
+import { onloadPage } from './onloadPage';
 
 export const  handlerComment = () => {
     const textareaComment = document.querySelector('.content__todoMenu_comment-textarea');
@@ -26,7 +27,8 @@ export const  handlerComment = () => {
             todo.dateOfComment = moment().format();
 
             updateTodo(todo)
-                .then( () => renderComment());
+                .then( () => renderComment())
+                .then( () => onloadPage())
             setTodo(todo);
         }
     }

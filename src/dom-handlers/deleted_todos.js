@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { getDeleteTodolist, finalDeleteTodo, createRecoverTodo } from '../api/api-handlers';
-import { getUID } from '../shared/ls-service';
+import { getUID, setClickedPage } from '../shared/ls-service';
 import { counterTasksRender } from './sidebar';
 
 export const getDeletedTasks = () => {
@@ -115,5 +115,6 @@ export const deletedTasks_render = () => {
         inputTodos.style.display = 'none';
 
         getDeletedTasks();
+        setClickedPage('deletedTasks');
     })
 }

@@ -1,4 +1,4 @@
-import { getUID, setTitleLS, getTitleLS } from '../shared/ls-service';
+import { getUID, setTitleLS, getTitleLS, setClickedPage } from '../shared/ls-service';
 import {
     createTitleLists,
     getTitleLists,
@@ -110,6 +110,7 @@ export const renderTitleLists = () => {
                             titlePage.innerHTML = item.title;
                             todoInput.style.display = 'flex';
                             setTitleLS(item.title);
+                            setClickedPage(item.title);
                             todoHandler();
                             renderTodos();
                         }

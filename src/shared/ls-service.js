@@ -27,3 +27,7 @@ export const clearLS = () => localStorage.clear();
 export const setPersonalData = user => localStorage.setItem('PersonalData',JSON.stringify(user));
 
 export const getPersonalData = () => JSON.parse(localStorage.getItem('PersonalData'));
+
+export const setClickedPage = page => localStorage.setItem('clickedPage', page);
+
+export const getClickedPage = () => localStorage.getItem('clickedPage');
