@@ -16,7 +16,7 @@ export const signInHandler = () => {
             isValid: false
         },
         password: {
-            isValid: false
+            isValid: true
         }
     }
 
@@ -36,14 +36,15 @@ export const signInHandler = () => {
     };
 
     authPassword.oninput = () => {
-        if (checkValidPassword(authPassword.value)) {
-            authFormFields.password.isValid = true;
-            inputErrorPasswordText.innerText = '';
-        } else {
-            authFormFields.password.isValid = false;
-            inputErrorPasswordText.innerText = errorText.validPasswordText;
-        }
-        checkFormValid();
+        // возможно еще пригодится
+        // if (checkValidPassword(authPassword.value)) {
+        //     authFormFields.password.isValid = true;
+        //     inputErrorPasswordText.innerText = '';
+        // } else {
+        //     authFormFields.password.isValid = false;
+        //     inputErrorPasswordText.innerText = errorText.validPasswordText;
+        // }
+        // checkFormValid();
 
         if (authPassword.value.length > 25) {
             authPassword.style.fontSize = '15px';

@@ -58,7 +58,7 @@
                 }
 
                 a {
-                    .link_name {
+                    .link_name, .counterTasks {
                         opacity: 0;
                         pointer-events: none;
                     }
@@ -314,6 +314,19 @@
                 align-items: center;
                 text-decoration: none;
                 color: $colorInput;
+
+                &.wrapper__content_sidebar-navLinks-link-a {
+                    justify-content: space-between;
+                }
+            }
+
+            .link_name {
+                width: 104px;
+            }
+
+            .counterTasks {
+                width: 78px;
+                text-align: center;
             }
 
             &-subMenu {

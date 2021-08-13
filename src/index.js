@@ -15,6 +15,7 @@ import { userProfile } from './dom-handlers/userInfo';
 import { startPageStyle } from './components/startPage/startPage';
 import './dom-handlers/todoMenu';
 import { profile_modal } from './components/profile/profile_modal';
+import { checkMediaQuery } from './shared/media';
 
 window.onload = async () => {
     const pathName = Object.values(paths).find( path => path === window.location.pathname);
@@ -53,3 +54,5 @@ window.onload = async () => {
             break;
     }
 };
+
+window.addEventListener('resize', checkMediaQuery);

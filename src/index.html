@@ -20,25 +20,28 @@
                         <li id="nav-links_allTasks" class="wrapper__content_sidebar-navLinks-link">
                             <a href="">
                                 <i class='bx bxs-calendar-check' ></i>
-                                <span class="link_name">Tasks </span>
+                                <span class="link_name">Tasks</span>
+                                <div class="counterTasks" id="tasks_counter"></div>
                             </a>
                             <ul class="wrapper__content_sidebar-navLinks-link-subMenu blank">
                                 <li><a class="link_name" href="">Tasks</a></li>
                             </ul>
                         </li>
                         <li class="wrapper__content_sidebar-navLinks-link" id="nav-links_importantTodos">
-                            <a href="">
+                            <a href="" class="wrapper__content_sidebar-navLinks-link-a">
                                 <i class='bx bxs-star-half'></i>
                                 <span class="link_name"> Important </span>
+                                <div class="counterTasks" id="importantTasks_counter"></div>
                             </a>
                             <ul class="wrapper__content_sidebar-navLinks-link-subMenu blank">
                                 <li><a class="link_name" href="">Important </a></li>
                             </ul>
                         </li>
                         <li class="wrapper__content_sidebar-navLinks-link" id="nav-links_completedTodos">
-                            <a href="">
+                            <a href="" class="wrapper__content_sidebar-navLinks-link-a">
                                 <i class='bx bx-task-x' ></i>
                                 <span class="link_name">Completed</span>
+                                <div class="counterTasks" id="complitedTasks_counter"></div>
                             </a>
                             <ul class="wrapper__content_sidebar-navLinks-link-subMenu blank">
                                 <li><a class="link_name" href="">Completed</a></li>
@@ -46,20 +49,21 @@
                         </li>
                         <li class="wrapper__content_sidebar-navLinks-link" id="nav-links_lists">
                             <div class="wrapper__content_sidebar-navLinks-link-lists">
-                                <a>
+                                <a class="wrapper__content_sidebar-navLinks-link-a">
                                     <i class='bx bx-list-ul'></i>
                                     <span class="link_name">Lists:</span>
+                                    <i class='bx bx-down-arrow arrow'></i>
                                 </a>
-                                <i class='bx bx-down-arrow arrow'></i>
                             </div>
                             <ul class="wrapper__content_sidebar-navLinks-link-subMenu lists">
                                 <li><a class="link_name open" href="">Lists:</a></li>
                             </ul>
                         </li>
                         <li class="wrapper__content_sidebar-navLinks-link" id="nav-links_deletedTodos">
-                            <a href="">
+                            <a href="" class="wrapper__content_sidebar-navLinks-link-a">
                                 <i class='bx bxs-trash' ></i>
                                 <span class="link_name">Deleted</span>
+                                <div class="counterTasks" id="deletedTasks_counter"></div>
                             </a>
                             <ul class="wrapper__content_sidebar-navLinks-link-subMenu blank">
                                 <li><a class="link_name" href="">Deleted</a></li>
@@ -123,6 +127,14 @@
                         </form>
                         <ul class="content__todoMenu_subtask-list"></ul>
                     </div>
+                    <div class="content__todoMenu_comment">
+                        <textarea
+                            class="content__todoMenu_comment-textarea"
+                            placeholder="Add comment..."
+                            title="The task must contain from 3 to 200 characters">
+                        </textarea>
+                        <span class="content__todoMenu_comment-date"></span>
+                    </div>
                 </div>
             </div>
             <div class="wrapper__footer"></div>
@@ -148,7 +160,7 @@
                         <input
                             type="text"
                             class="modalProfile_wrapper_main_content-input"
-                            placeholder="Change login"
+                            placeholder="Change username"
                         >
                         <p id="inputLoginUpdateErrorText" class="inputError"></p>
                     </div>

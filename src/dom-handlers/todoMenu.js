@@ -3,6 +3,7 @@ import { getTodo, getUID, getTask } from '../shared/ls-service';
 import { createSubtask, getSubtask, deleteSubTask, updateSubtask } from '../api/api-handlers';
 import { checkValidSubtask } from '../shared/validators';
 import { errorText } from '../shared/constants/errorText';
+import { handlerComment, renderComment } from './createComment';
 
 export const todoMenuSidebar = () => {
     const taskMenuCloseBtn = document.querySelector('.content__todoMenu_closeBtn');
@@ -14,6 +15,8 @@ export const todoMenuSidebar = () => {
 
     subtaskHandler();
     renderSubtask();
+    renderComment();
+    handlerComment();
 }
 
 export const renderSubtask = () => {
@@ -129,7 +132,7 @@ export const subtaskHandler = () => {
     subtaskForm.addEventListener('submit', event => {
         event.preventDefault();
         if (checkValidSubtask(subtaskInput.value)) {
-            const todo = JSON.parse(getTodo());
+            const todo = getTodo();
 
             subtask.title = todo.title;
             subtask.task = todo.todoValue;

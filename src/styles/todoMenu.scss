@@ -1,7 +1,9 @@
 @import './temps/colors.scss';
 
 .content__todoMenu {
-    position: relative;
+    display: grid;
+    grid-template: 40px 3fr 1fr / 1fr;
+    position: fixed;
     right: 0;
     height: 100vh;
     width: 260px;
@@ -16,8 +18,8 @@
     }
 
     &_closeBtn {
-        margin-bottom: 10px;
         cursor: pointer;
+        overflow-x: auto;
     }
 
     &_subtask {
@@ -26,6 +28,11 @@
         border-radius: 10px;
         padding: 10px;
         max-height: 370px;
+        width: 240px;
+
+        &_title {
+            overflow-x: auto;
+        }
 
         &-form {
             border-bottom: 1px solid;
@@ -52,7 +59,7 @@
             list-style: none;
             padding: 10px 0;
             max-height: 300px;
-            max-width: 240px;
+            max-width: 100%;
             overflow-y: auto;
 
             &-li {
@@ -77,6 +84,34 @@
                     }
                 }
             }
+        }
+    }
+
+    &_comment {
+        width: 100%;
+        position: relative;
+
+        &-textarea {
+            width: 240px;
+            height: 100px;
+            resize: none;
+            outline: none;
+            border: none;
+            border-radius: 10px;
+            font-weight: 500;
+            background: $color3;
+            background: linear-gradient(to bottom, $color3, transparent);
+            padding: 5px 10px;
+
+        }
+
+        &-date {
+            position: absolute;
+            top: 110px;
+            right: 15px;
+            color: #93918f;
+            font-size: 12px;
+            font-weight: 600;
         }
     }
 }

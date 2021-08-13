@@ -66,9 +66,15 @@
             border-bottom: 1px solid $colorText;
             font-size: 15px;
 
+            .todoInformationComment {
+                position: absolute;
+                top: 5px;
+                left: 250px;
+            }
+
             .titleListTodo {
                 position: absolute;
-                top: 0;
+                top: 5px;
                 left: 80px;
                 font-size: 11px;
                 color: $colorText;
