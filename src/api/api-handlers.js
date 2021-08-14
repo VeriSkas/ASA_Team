@@ -389,6 +389,50 @@ export const deleteSubTask =  async ({ id }) => {
         .then(response => response.json())
 };
 
+export const createEvents = async eventValue => {
+    const {
+        title,
+        start,
+        end,
+        uuid,
+    } = eventValue;
+    return fetch(
+        `${databaseURL}/events.json`,
+        {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({
+                title,
+                start,
+                end,
+                uuid,
+            })
+        }
+    )
+        .then( response => response.json())
+};
+
+export const getEvents = async () => {
+    return fetch(
+        `${databaseURL}/events.json`,
+        {
+            method: 'GET',
+            headers,
+        }
+    )
+        .then( response => response.json())
+        .then( result => {
+            if(result) {
+                const transformedArr = Object.keys(result).map( key => ({
+                    ...result[key],
+                    id: key
+                }))
+
+                return transformedArr;
+            };
+        })
+};
+
 export const signIn = async (email, password) => {
     return axios.post(authURL, {
         email,

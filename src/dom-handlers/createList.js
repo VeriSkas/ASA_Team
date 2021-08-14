@@ -86,6 +86,7 @@ export const renderTitleLists = () => {
             const titlePage = document.querySelector('.content__todo_title');
             const todosContainer = document.querySelector('.content__todo_todosMain');
             const todoInput = document.querySelector('.content__todo_form');
+            const calendar = document.querySelector('.calendar__wrapper');
 
             subMenuLists.innerHTML = null;
             todosContainer.innerHTML = null;
@@ -109,6 +110,7 @@ export const renderTitleLists = () => {
                         titleA.onclick = () => {
                             titlePage.innerHTML = item.title;
                             todoInput.style.display = 'flex';
+                            calendar.style.display = 'none';
                             setTitleLS(item.title);
                             setClickedPage(item.title);
                             todoHandler();
