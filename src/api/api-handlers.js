@@ -433,6 +433,40 @@ export const getEvents = async () => {
         })
 };
 
+export const updateEvent = async eventValue => {
+    const {
+        id,
+        title,
+        start,
+        end,
+        uuid,
+    } = eventValue;
+    return fetch( `${databaseURL}/events/${id}.json`,
+        {
+            method: 'PUT',
+            headers,
+            body: JSON.stringify({
+                id,
+                title,
+                start,
+                end,
+                uuid,
+            })
+        }
+    )
+        .then( response => response.json())
+}
+
+export const deleteEvent =  async id => {
+    return fetch( `${databaseURL}/events/${id}.json`,
+        {
+            method: 'DELETE',
+            headers,
+        }
+    )
+        .then(response => response.json())
+};
+
 export const signIn = async (email, password) => {
     return axios.post(authURL, {
         email,

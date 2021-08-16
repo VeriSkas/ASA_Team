@@ -4,8 +4,8 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
 import moment from 'moment';
-import { setClickedPage } from "../shared/ls-service";
-import { createEvents, getEvents } from '../api/api-handlers';
+import { getUID, setClickedPage } from "../shared/ls-service";
+import { createEvents, deleteEvent, getEvents, updateEvent } from '../api/api-handlers';
 
 export const calendarLink = () => {
     const calendarLink = document.querySelector('#nav-links_calendar');
@@ -34,36 +34,89 @@ export const calendarLink = () => {
 
 export const renderCalendar = () => {
     const calendarEl = document.getElementById('calendar');
+    const dateStart = document.querySelector('#dateStart');
+    const dateEnd = document.querySelector('#dateEnd');
+
+    dateStart.setAttribute('clicked', true);
+
+    dateStart.onclick = () => {
+        dateStart.setAttribute('clicked', true);
+        dateEnd.removeAttribute('clicked');
+    }
+
+    dateEnd.onclick = () => {
+        dateStart.removeAttribute('clicked');
+        dateEnd.setAttribute('clicked', true);
+    }
+
     let calendar = new Calendar(calendarEl, {
         plugins: [ dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin ],
         initialView: 'dayGridMonth',
         headerToolbar: {
             left: 'prev,next today',
             center: 'title',
-            right: 'dayGridMonth,timeGridWeek,listWeek'
+            right: 'dayGridMonth,timeGridWeek,dayGridDay'
         },
-        initialDate: '2021-08-14',
         navLinks: true,
         editable: true,
         dayMaxEvents: true,
-        dateClick: function(info) {
-            // console.log(info);
-            console.log(info);
-            console.log('Clicked on: ' + info.dateStr);
-            console.log('innerText: ' + info.dayEl.innerText);
-            console.log('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
-            console.log('Current view: ' + info.view.type);
-            // change the day's background color just for fun
-            // info.dayEl.style.backgroundColor = 'red';
-          },
         events: [
-        ]
+        ],
+
+        dateClick: function(info) {
+            if (dateEnd.getAttribute('clicked')) {
+                dateEnd.value = info.dateStr;
+            } else {
+                dateStart.value = info.dateStr;
+            }
+        },
+
+        eventClick: event => {
+            const id = event.event.id;
+            const deleteQestion = confirm(`Delete event: '${event.event._def.title}' ?`);
+            if (deleteQestion) {
+                deleteEvent(id)
+                    .then(() => renderCalendar());
+            }
+        },
+
+        eventDrop: event => {
+            const eventValue = {
+                title: event.event.title,
+                start: event.event.startStr,
+                end: event.event.endStr,
+                id: event.event.id,
+                uuid: null,
+            };
+            const updateQestion = confirm(`Update event: '${eventValue.title}' ?`);
+            if (updateQestion) {
+                updateEvent(eventValue);
+            }
+        },
+
+        eventResize: event => {
+            const eventValue = {
+                title: event.event.title,
+                start: event.event.startStr,
+                end: event.event.endStr,
+                id: event.event.id,
+                uuid: null,
+            };
+            const updateQestion = confirm(`Update event: '${eventValue.title}' ?`);
+            if (updateQestion) {
+                updateEvent(eventValue);
+            }
+        },
     });
+
     getEvents()
         .then(events => {
             if(events) {
                 events.forEach(event => {
-                    calendar.addEvent(event);
+                    if(event.uuid === getUID()) {
+                        console.log(event);
+                        calendar.addEvent(event);
+                    }
                 });
             }
         })
@@ -83,14 +136,14 @@ export const eventHandler = () => {
         uuid: null,
     }
 
-    console.log(eventValue);
     formEvent.addEventListener('submit', event => {
         event.preventDefault();
         eventValue.title = inputEvent.value;
         eventValue.start = dateStart.value;
         eventValue.end = dateEnd.value;
-        console.log(eventValue);
+        eventValue.uuid = getUID();
         createEvents(eventValue)
-            .then(() => renderCalendar())
+            .then(() => renderCalendar());
+        inputEvent.value = '';
     })
 }

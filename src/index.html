@@ -122,18 +122,21 @@
                         </div>
                         <div class="calendar__wrapper-inputEvent">
                             <form class="calendar__wrapper-inputEvent-form" id="inputEvent-form">
-                                <div class="calendar__wrapper-inputEvent-form_startDay">
+                                <div class="calendar__wrapper-inputEvent-form-input">
                                     <label for="dateStart">Event start date:</label>
                                     <input id="dateStart" type="date">
                                 </div>
-                                <div class="calendar__wrapper-inputEvent-form_endDay">
+                                <div class="calendar__wrapper-inputEvent-form-input">
                                     <label for="dateEnd">Event end date:</label>
                                     <input id="dateEnd" type="date">
                                 </div>
-                                <div class="calendar__wrapper-inputEvent-form_event">
+                                <div class="calendar__wrapper-inputEvent-form-input">
                                     <input type="text" placeholder="Add event" class="calendar__wrapper-inputEvent-form_event-input">
+                                    <p id="inputEventErrorText" class="inputError"></p>
                                 </div>
-                                <button type="submit">Save</button>
+                                <div class="calendar__wrapper-inputEvent-form_btn">
+                                    <button type="submit">Save</button>
+                                </div>
                             </form>
                         </div>
                     </div>

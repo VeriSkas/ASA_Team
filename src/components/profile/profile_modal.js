@@ -14,7 +14,7 @@ export const profile_modal = () => {
     const errorLoginText = document.querySelector('#inputLoginUpdateErrorText');
     const userInfo = getPersonalData();
 
-    loginUpdateInput.value = null;
+    loginUpdateInput.value = userInfo.loginName;
     photoInputInner.innerText = 'Сhange main photo';
     photoInput.value = null;
 
