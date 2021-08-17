@@ -6,4 +6,5 @@ export const errorText = {
     notificationText: 'Non-existent data entered',
     inputTodoErrorText: 'The task must contain from 3 to 200 characters',
     sameListError: 'A list with the same name already exists',
+    validSizePhoto: 'Photo size should be from 2Kb to 5Mb'
 };

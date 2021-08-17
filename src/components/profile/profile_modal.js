@@ -12,6 +12,7 @@ export const profile_modal = () => {
     const saveUpdateBtn = document.querySelector('.modalProfile_wrapper_main_footer-btn')
     const loginUpdateInput = document.querySelector('.modalProfile_wrapper_main_content-input');
     const errorLoginText = document.querySelector('#inputLoginUpdateErrorText');
+    const errorImgInput = document.querySelector('#inputImgUpdateErrorText');
     const userInfo = getPersonalData();
 
     loginUpdateInput.value = userInfo.loginName;
@@ -49,10 +50,17 @@ export const profile_modal = () => {
     }
 
     photoInput.oninput = event => {
-        const imgName = photoInput.value;
+        const minSize = 20000;
+        const maxSize = 5000000;
+        const sizePhoto = event.target.files[0].size;
+        let imgName = null;
         photoInputInner.innerText = photoInput.value;
 
-        if (imgName) {
+        if (sizePhoto > maxSize || sizePhoto < minSize) {
+            errorImgInput.innerText = errorText.validSizePhoto;
+        } else {
+            imgName = photoInput.value;
+            errorImgInput.innerText = '';
             saveUpdateBtn.removeAttribute('disabled');
         }
 
