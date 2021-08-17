@@ -150,6 +150,7 @@ export const getImportantTasks = () => {
                         if (comment) {
                             const todoInformationComment = document.createElement('i');
                             todoInformationComment.className = 'bx bx-message-rounded-check todoInformationComment';
+                            todoInformationComment.setAttribute('title', 'Task has a comment');
                             todoLi.append(todoInformationComment);
                         }
 

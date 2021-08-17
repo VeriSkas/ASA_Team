@@ -60,6 +60,14 @@ export const renderTodos = async () => {
                         todoValueLi.innerHTML = todoValue;
                         todoTime.innerHTML = dateTime;
 
+                        if (todoValue.length > 50) {
+                            todoValueLi.style.marginTop = '0px';
+                            todoValueLi.style.height = '60px';
+                            if (todoValue.length > 100) {
+                                todoValueLi.style.fontSize = '12px';
+                            }
+                        }
+
                         todoMenu.onclick = () => {
                             taskMenu.classList.remove('close');
                             taskMenuTitle.innerHTML = todoValue;
@@ -169,6 +177,7 @@ export const renderTodos = async () => {
                         if (comment) {
                             const todoInformationComment = document.createElement('i');
                             todoInformationComment.className = 'bx bx-message-rounded-check todoInformationComment';
+                            todoInformationComment.setAttribute('title', 'Task has a comment');
                             todoLi.append(todoInformationComment);
                         }
 

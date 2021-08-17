@@ -62,6 +62,10 @@
             width: 300px;
             height: 300px;
             color: $color3;
+
+            p.inputError {
+                font-size: 14px;
+            }
         }
     }
 }
