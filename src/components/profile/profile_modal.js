@@ -1,7 +1,7 @@
 import { updateUser, uploadPhoto } from "../../api/api-handlers";
 import { errorText } from "../../shared/constants/errorText";
 import { getPersonalData, setPersonalData } from "../../shared/ls-service";
-import { checkValidName } from "../../shared/validators";
+import { checkValidName, checkValidPhotoFormat } from "../../shared/validators";
 
 export const profile_modal = () => {
     const openModalBtn = document.querySelector('.wrapper__content_sidebar-navLinks-link_profile-photo');
@@ -53,11 +53,15 @@ export const profile_modal = () => {
         const minSize = 20000;
         const maxSize = 5000000;
         const sizePhoto = event.target.files[0].size;
+        const namePhoto = event.target.files[0].name;
         let imgName = null;
         photoInputInner.innerText = photoInput.value;
 
+        console.log(event);
         if (sizePhoto > maxSize || sizePhoto < minSize) {
             errorImgInput.innerText = errorText.validSizePhoto;
+        } else if ( !checkValidPhotoFormat(namePhoto)) {
+            errorImgInput.innerText = errorText.validFormatsPhoto;
         } else {
             imgName = photoInput.value;
             errorImgInput.innerText = '';
