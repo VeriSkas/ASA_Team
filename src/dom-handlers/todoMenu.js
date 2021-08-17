@@ -8,10 +8,16 @@ import { handlerComment, renderComment } from './createComment';
 export const todoMenuSidebar = () => {
     const taskMenuCloseBtn = document.querySelector('.content__todoMenu_closeBtn');
     const taskMenu = document.querySelector('.content__todoMenu');
+    const chooseTagBtn = document.querySelector('.content__todoMenu_tags-title');
+    const tagMenu = document.querySelector('.content__todoMenu_tags-tagsName');
 
     taskMenuCloseBtn.onclick = () => {
         taskMenu.classList.add('close');
     };
+
+    chooseTagBtn.onclick = () => {
+        tagMenu.classList.toggle('close');
+    }
 
     subtaskHandler();
     renderSubtask();

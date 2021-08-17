@@ -2,7 +2,7 @@
 
 .content__todoMenu {
     display: grid;
-    grid-template: 40px 3fr 1fr / 1fr;
+    grid-template: 40px 3fr 1fr 1fr 1fr / 1fr;
     position: fixed;
     right: 0;
     height: 100vh;
@@ -81,6 +81,92 @@
 
                     &::-webkit-scrollbar {
                         display: none;
+                    }
+                }
+            }
+        }
+    }
+
+    &_tags {
+        background: $color3;
+        background: linear-gradient(to bottom, $color3, transparent);
+        border-radius: 10px;
+        padding: 10px;
+        width: 240px;
+        margin-bottom: 20px;
+
+        &-activeTags {
+            display: flex;
+            justify-content: space-evenly;
+            margin-bottom: 10px;
+
+            div {
+                width: 95px;
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                border: 1px solid;
+                text-align: center;
+                cursor: default;
+
+                i.bx-x {
+                    cursor: pointer;
+                }
+
+                i.bxs-circle {
+                    font-size: 12px;
+                }
+
+                &#activeTags_urgent {
+                    color: brown;
+                }
+                
+                &#activeTags_main {
+                    color: blue;
+                }
+            }
+        }
+
+        &-title {
+            border-bottom: 1px solid black;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        &-tagsName {
+            position: relative;
+            visibility: hidden;
+            opacity: 0;
+            transform: translate(15%, 20px);
+            transition: .3s;
+
+            &.close {
+                visibility: visible;
+                opacity: 1;
+                transform: translate(15%, 0);
+            }
+
+            &-main {
+                position: absolute;
+                z-index: 1;
+                
+                p {
+                    width: 110px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    cursor: pointer;
+
+                    &#tagName_urgent {
+                        color: brown;
+                    }
+                    
+                    &#tagName_main {
+                        color: blue;
+                    }
+
+                    &:hover {
+                        text-shadow: 2px 1px 3px black;
                     }
                 }
             }
