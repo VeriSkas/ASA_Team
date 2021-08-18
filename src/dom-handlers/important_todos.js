@@ -22,6 +22,8 @@ export const getImportantTasks = () => {
                         title,
                         todoValue,
                         comment,
+                        tagUrgent,
+                        tagMain,
                         complited,
                         important,
                         date,
@@ -69,7 +71,7 @@ export const getImportantTasks = () => {
                         };
 
                         todoValueLi.oninput = () => {
-                            checkLengthTodo(todoValueLi.value) ?
+                            checkLengthTodo(todoValueLi.value.trim()) ?
                             todoLiError.innerHTML = '' :
                             todoLiError.innerHTML = errorText.inputTodoErrorText;
                         }
@@ -152,6 +154,20 @@ export const getImportantTasks = () => {
                             todoInformationComment.className = 'bx bx-message-rounded-check todoInformationComment';
                             todoInformationComment.setAttribute('title', 'Task has a comment');
                             todoLi.append(todoInformationComment);
+                        }
+
+                        if (tagUrgent) {
+                            const tagNameUrgent = document.createElement('i');
+                            tagNameUrgent.className = 'bx bxs-circle urgent';
+                            tagNameUrgent.setAttribute('title', 'Task is urgent');
+                            todoLi.append(tagNameUrgent);
+                        }
+
+                        if (tagMain) {
+                            const tagNameMain = document.createElement('i');
+                            tagNameMain.className = 'bx bxs-circle main';
+                            tagNameMain.setAttribute('title', 'Task is main');
+                            todoLi.append(tagNameMain);
                         }
 
                         todosContainer.prepend(todoLi);

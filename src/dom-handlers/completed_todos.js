@@ -56,7 +56,7 @@ export const getCompletedTasks = () => {
                         titleListTodo.innerText = `list: ${item.title}`;
 
                         todoValueLi.oninput = () => {
-                            checkLengthTodo(todoValueLi.value) ?
+                            checkLengthTodo(todoValueLi.value.trim()) ?
                             todoLiError.innerHTML = '' :
                             todoLiError.innerHTML = errorText.inputTodoErrorText;
                         }

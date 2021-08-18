@@ -68,7 +68,7 @@
 
             .todoInformationComment {
                 position: absolute;
-                top: 5px;
+                top: 3px;
                 left: 250px;
             }
 
@@ -94,6 +94,21 @@
 
                 &::-webkit-scrollbar {
                     display: none;
+                }
+            }
+
+            .bxs-circle {
+                position: absolute;
+                top: 3px;
+
+                &.urgent {
+                    left: 275px;
+                    color: brown;
+                }
+
+                &.main {
+                    left: 295px;
+                    color: blue;
                 }
             }
 

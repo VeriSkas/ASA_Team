@@ -25,6 +25,8 @@ export const renderTodos = async () => {
                         title,
                         todoValue,
                         comment,
+                        tagUrgent,
+                        tagMain,
                         complited,
                         important,
                         date,
@@ -77,7 +79,7 @@ export const renderTodos = async () => {
                         };
 
                         todoValueLi.oninput = () => {
-                            checkLengthTodo(todoValueLi.value) ?
+                            checkLengthTodo(todoValueLi.value.trim()) ?
                             todoLiError.innerHTML = '' :
                             todoLiError.innerHTML = errorText.inputTodoErrorText;
                         }
@@ -181,6 +183,20 @@ export const renderTodos = async () => {
                             todoLi.append(todoInformationComment);
                         }
 
+                        if (tagUrgent) {
+                            const tagNameUrgent = document.createElement('i');
+                            tagNameUrgent.className = 'bx bxs-circle urgent';
+                            tagNameUrgent.setAttribute('title', 'Task is urgent');
+                            todoLi.append(tagNameUrgent);
+                        }
+
+                        if (tagMain) {
+                            const tagNameMain = document.createElement('i');
+                            tagNameMain.className = 'bx bxs-circle main';
+                            tagNameMain.setAttribute('title', 'Task is main');
+                            todoLi.append(tagNameMain);
+                        }
+
                         todosContainer.prepend(todoLi);
                         todoLi.append(
                             complitedTodo,
@@ -205,6 +221,8 @@ export const todoHandler = () => {
         title: null,
         todoValue: null,
         comment: null,
+        tagMain: null,
+        tagUrgent: null,
         dateOfComment: null,
         date: null,
         dateTime: null,
@@ -215,7 +233,8 @@ export const todoHandler = () => {
     };
 
     formInput.oninput = () => {
-        checkLengthTodo(formInput.value) ?
+        console.log(formInput.value.trim());
+        checkLengthTodo(formInput.value.trim()) ?
             inputTodosError.innerHTML = '' :
             inputTodosError.innerHTML = errorText.inputTodoErrorText;
     }
@@ -223,7 +242,7 @@ export const todoHandler = () => {
     todo_form.addEventListener('submit', event => {
         event.preventDefault();
 
-        if (checkLengthTodo(formInput.value)) {
+        if (checkLengthTodo(formInput.value.trim())) {
             todo.title = getTitleLS()
             todo.todoValue = formInput.value;
             todo.date = moment().format();

@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { getTodos, updateTodo } from "../api/api-handlers";
 import { getTask, getTodo, getUID, setTodo } from "../shared/ls-service";
-import { checkLengthTodo } from '../shared/validators';
+import { checkLengthComment } from '../shared/validators';
 import { onloadPage } from './onloadPage';
 
 export const  handlerComment = () => {
@@ -10,7 +10,7 @@ export const  handlerComment = () => {
 
     textareaComment.onkeyup = event => {
         if (event.key === 'Enter') {
-            if (checkLengthTodo(textareaComment.value)) {
+            if (checkLengthComment(textareaComment.value.trim())) {
                 todo.comment = textareaComment.value;
                 todo.dateOfComment = moment().format();
 
@@ -22,7 +22,7 @@ export const  handlerComment = () => {
     }
 
     textareaComment.onblur = () => {
-        if (checkLengthTodo(textareaComment.value)) {
+        if (checkLengthComment(textareaComment.value.trim())) {
             todo.comment = textareaComment.value;
             todo.dateOfComment = moment().format();
 

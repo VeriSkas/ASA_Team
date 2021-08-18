@@ -119,10 +119,12 @@
 
                 &#activeTags_urgent {
                     color: brown;
+                    display: none;
                 }
-                
+
                 &#activeTags_main {
                     color: blue;
+                    display: none;
                 }
             }
         }
@@ -149,7 +151,7 @@
             &-main {
                 position: absolute;
                 z-index: 1;
-                
+
                 p {
                     width: 110px;
                     display: flex;
@@ -160,13 +162,17 @@
                     &#tagName_urgent {
                         color: brown;
                     }
-                    
+
                     &#tagName_main {
                         color: blue;
                     }
 
                     &:hover {
                         text-shadow: 2px 1px 3px black;
+                    }
+
+                    i.bx-check {
+                        visibility: hidden;
                     }
                 }
             }

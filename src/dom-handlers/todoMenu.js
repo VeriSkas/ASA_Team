@@ -4,6 +4,7 @@ import { createSubtask, getSubtask, deleteSubTask, updateSubtask } from '../api/
 import { checkValidSubtask } from '../shared/validators';
 import { errorText } from '../shared/constants/errorText';
 import { handlerComment, renderComment } from './createComment';
+import { createTagTask, renderTags } from './handlerTags';
 
 export const todoMenuSidebar = () => {
     const taskMenuCloseBtn = document.querySelector('.content__todoMenu_closeBtn');
@@ -23,6 +24,8 @@ export const todoMenuSidebar = () => {
     renderSubtask();
     renderComment();
     handlerComment();
+    createTagTask();
+    renderTags();
 }
 
 export const renderSubtask = () => {

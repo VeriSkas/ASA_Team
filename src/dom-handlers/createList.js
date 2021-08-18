@@ -44,8 +44,10 @@ export const createList = () => {
         event.preventDefault();
         getTitleLists()
             .then(titleLists => {
+                console.log(titleLists);
                 if (titleLists) {
                     const arrTitles = titleLists
+                        .filter(titleList => titleList.uuid === getUID())
                         .map(titleList => titleList.firstTitle)
                         .find(title => title === createListInput.value);
 
