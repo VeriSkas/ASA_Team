@@ -57,7 +57,7 @@ export const getCompletedTasks = () => {
 
                         if (todoValue.length > 150) {
                             todoValueLi.style.fontSize = '12px';
-                            todoValueLi.style.height = '40px';
+                            todoValueLi.style.height = '45px';
                         } else if (todoValue.length < 50) {
                             todoValueLi.style.height = '15px';
                         }

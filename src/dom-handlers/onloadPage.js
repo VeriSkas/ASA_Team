@@ -1,4 +1,4 @@
-import { getClickedPage, setTitleLS } from "../shared/ls-service"
+import { getClickedPage, setClickedPage, setTitleLS } from "../shared/ls-service"
 import { calendarLink, renderCalendar } from "./calendar";
 import { completedTasks_render, getCompletedTasks } from "./completed_todos";
 import { deletedTasks_render, getDeletedTasks } from "./deleted_todos";
@@ -62,10 +62,12 @@ export const onloadPage = async () => {
         todoHandler();
         await renderTodos();
     } else if (!page) {
+        console.log('not');
         calendar.style.display = 'none';
         todoList.style.display = 'block';
         todosElementHandler();
         setTitleLS('tasks');
+        setClickedPage('tasks');
         await renderTodos();
     }
 }
