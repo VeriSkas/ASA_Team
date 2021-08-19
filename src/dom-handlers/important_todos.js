@@ -22,6 +22,8 @@ export const getImportantTasks = () => {
                         title,
                         todoValue,
                         comment,
+                        tagUrgent,
+                        tagMain,
                         complited,
                         important,
                         date,
@@ -60,6 +62,13 @@ export const getImportantTasks = () => {
                         todoTime.innerHTML = dateTime;
                         titleListTodo.innerText = `list: ${title}`;
 
+                        if (todoValue.length > 150) {
+                            todoValueLi.style.fontSize = '12px';
+                            todoValueLi.style.height = '40px';
+                        } else if (todoValue.length < 50) {
+                            todoValueLi.style.height = '15px';
+                        }
+
                         todoMenu.onclick = () => {
                             taskMenu.classList.remove('close');
                             taskMenuTitle.innerHTML = todoValue;
@@ -69,9 +78,28 @@ export const getImportantTasks = () => {
                         };
 
                         todoValueLi.oninput = () => {
-                            checkLengthTodo(todoValueLi.value) ?
+                            checkLengthTodo(todoValueLi.value.trim()) ?
                             todoLiError.innerHTML = '' :
                             todoLiError.innerHTML = errorText.inputTodoErrorText;
+                        }
+
+                        todoValueLi.onkeyup = event => {
+                            if (event.key === 'Enter') {
+                                todoValueLi.value = todoValueLi.value.replace(/\n$/, '');
+
+                                if ((todoValueLi.value !== item.todoValue) && checkLengthTodo(todoValueLi.value)) {
+                                    item.date = moment().format();
+                                    item.dateTime = moment().format('LTS');
+                                    item.dateDMY = moment().format('LL');
+                                    item.todoValue = todoValueLi.value;
+
+                                    updateTodo( item )
+                                        .then(() => getImportantTasks());
+                                } else {
+                                    todoLiError.innerHTML = '';
+                                    todoValueLi.value = item.todoValue;
+                                }
+                            }
                         }
 
                         todoValueLi.onblur = () => {
@@ -150,7 +178,22 @@ export const getImportantTasks = () => {
                         if (comment) {
                             const todoInformationComment = document.createElement('i');
                             todoInformationComment.className = 'bx bx-message-rounded-check todoInformationComment';
+                            todoInformationComment.setAttribute('title', 'Task has a comment');
                             todoLi.append(todoInformationComment);
+                        }
+
+                        if (tagUrgent) {
+                            const tagNameUrgent = document.createElement('i');
+                            tagNameUrgent.className = 'bx bxs-circle urgent';
+                            tagNameUrgent.setAttribute('title', 'Task is urgent');
+                            todoLi.append(tagNameUrgent);
+                        }
+
+                        if (tagMain) {
+                            const tagNameMain = document.createElement('i');
+                            tagNameMain.className = 'bx bxs-circle main';
+                            tagNameMain.setAttribute('title', 'Task is main');
+                            todoLi.append(tagNameMain);
                         }
 
                         todosContainer.prepend(todoLi);
@@ -172,14 +215,18 @@ export const getImportantTasks = () => {
 
 export const importantTasks_render = () => {
     const importantTodos = document.querySelector('#nav-links_importantTodos');
+    const calendar = document.querySelector('.calendar__wrapper');
 
     importantTodos.addEventListener('click', event => {
         event.preventDefault();
         const title = document.querySelector('.content__todo_title');
         const inputTodos = document.querySelector('.content__todo_form');
+        const todoList = document.querySelector('.content__todo_todosMain');
 
         title.innerText = 'Important tasks';
         inputTodos.style.display = 'none';
+        calendar.style.display = 'none';
+        todoList.style.display = 'block';
 
         getImportantTasks();
         setClickedPage('importantTasks');

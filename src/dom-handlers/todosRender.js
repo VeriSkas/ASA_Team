@@ -25,6 +25,8 @@ export const renderTodos = async () => {
                         title,
                         todoValue,
                         comment,
+                        tagUrgent,
+                        tagMain,
                         complited,
                         important,
                         date,
@@ -60,6 +62,13 @@ export const renderTodos = async () => {
                         todoValueLi.innerHTML = todoValue;
                         todoTime.innerHTML = dateTime;
 
+                        if (todoValue.length > 150) {
+                            todoValueLi.style.fontSize = '12px';
+                            todoValueLi.style.height = '40px';
+                        } else if (todoValue.length < 50) {
+                            todoValueLi.style.height = '15px';
+                        }
+
                         todoMenu.onclick = () => {
                             taskMenu.classList.remove('close');
                             taskMenuTitle.innerHTML = todoValue;
@@ -69,13 +78,15 @@ export const renderTodos = async () => {
                         };
 
                         todoValueLi.oninput = () => {
-                            checkLengthTodo(todoValueLi.value) ?
+                            checkLengthTodo(todoValueLi.value.trim()) ?
                             todoLiError.innerHTML = '' :
                             todoLiError.innerHTML = errorText.inputTodoErrorText;
                         }
 
                         todoValueLi.onkeyup = event => {
                             if (event.key === 'Enter') {
+                                todoValueLi.value = todoValueLi.value.replace(/\n$/, '');
+
                                 if ((todoValueLi.value !== item.todoValue) && checkLengthTodo(todoValueLi.value)) {
                                     item.date = moment().format();
                                     item.dateTime = moment().format('LTS');
@@ -169,7 +180,22 @@ export const renderTodos = async () => {
                         if (comment) {
                             const todoInformationComment = document.createElement('i');
                             todoInformationComment.className = 'bx bx-message-rounded-check todoInformationComment';
+                            todoInformationComment.setAttribute('title', 'Task has a comment');
                             todoLi.append(todoInformationComment);
+                        }
+
+                        if (tagUrgent) {
+                            const tagNameUrgent = document.createElement('i');
+                            tagNameUrgent.className = 'bx bxs-circle urgent';
+                            tagNameUrgent.setAttribute('title', 'Task is urgent');
+                            todoLi.append(tagNameUrgent);
+                        }
+
+                        if (tagMain) {
+                            const tagNameMain = document.createElement('i');
+                            tagNameMain.className = 'bx bxs-circle main';
+                            tagNameMain.setAttribute('title', 'Task is main');
+                            todoLi.append(tagNameMain);
                         }
 
                         todosContainer.prepend(todoLi);
@@ -196,6 +222,8 @@ export const todoHandler = () => {
         title: null,
         todoValue: null,
         comment: null,
+        tagMain: null,
+        tagUrgent: null,
         dateOfComment: null,
         date: null,
         dateTime: null,
@@ -206,7 +234,7 @@ export const todoHandler = () => {
     };
 
     formInput.oninput = () => {
-        checkLengthTodo(formInput.value) ?
+        checkLengthTodo(formInput.value.trim()) ?
             inputTodosError.innerHTML = '' :
             inputTodosError.innerHTML = errorText.inputTodoErrorText;
     }
@@ -214,7 +242,7 @@ export const todoHandler = () => {
     todo_form.addEventListener('submit', event => {
         event.preventDefault();
 
-        if (checkLengthTodo(formInput.value)) {
+        if (checkLengthTodo(formInput.value.trim())) {
             todo.title = getTitleLS()
             todo.todoValue = formInput.value;
             todo.date = moment().format();

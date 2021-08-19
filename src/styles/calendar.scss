@@ -1,0 +1,128 @@
+@import './temps/colors.scss';
+
+.calendar__wrapper {
+    width: 110%;
+    min-width: 700px;
+    height: 100%;
+    margin-top: 50px;
+    display: grid;
+    grid-template: 1fr / 3fr 1fr;
+
+    &-content {
+        width: 90%;
+
+        #calendar {
+            min-width: 460px;
+        }
+    }
+
+    &-inputEvent {
+        height: 100%;
+        margin-top: 50px;
+
+        &-form {
+            height: 330px;
+            margin: 5px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+
+            input::-webkit-calendar-picker-indicator{
+                display: none;
+            }
+
+            &-input {
+                max-width: 380px;
+                width: 100%;
+                background-color: $colorInput;
+                margin: 17px 0;
+                height: 55px;
+                border-radius: 55px;
+                display: grid;
+                grid-template-columns: 15% 85%;
+                padding: 0 5px;
+                position: relative;
+
+                label {
+                    position: absolute;
+                    top: -3px;
+                    left: 45px;
+                    font-size: 12px;
+                    color: $colorPlaceholder;
+                }
+
+                input {
+                    grid-column: 2;
+                    margin-right: 20px;
+                    overflow-x: auto;
+                    background: none;
+                    border: none;
+                    outline: none;
+                    font-weight: 600;
+                    font-size: 20px;
+                    color: $colorText;
+                }
+            }
+
+            &_btn {
+                align-self: center;
+
+                button {
+                    width: 130px;
+                    height: 41px;
+                    margin-top: 20px;
+                    outline: none;
+                    background: none;
+                    border-radius: 49px;
+                    border: 3px solid $colorStartPage;
+                    font-weight: 600;
+                    font-size: 15px;
+                    color: $colorStartPage;
+                    text-transform: uppercase;
+                    cursor: pointer;
+
+                    &:disabled {
+                        color: #5232f840;
+                        border: 3px solid #5232f840;
+                    }
+                }
+            }
+        }
+
+    }
+}
+
+:root {
+    --fc-small-font-size: .85em;
+    --fc-page-bg-color: #fff;
+    --fc-neutral-bg-color: rgba(208, 208, 208, 0.3);
+    --fc-neutral-text-color: #808080;
+    --fc-border-color: #cccccc;
+
+    --fc-button-text-color: #fff;
+    --fc-button-bg-color: #2C3E50;
+    --fc-button-border-color: #2C3E50;
+    --fc-button-hover-bg-color: #1e2b37;
+    --fc-button-hover-border-color: #1a252f;
+    --fc-button-active-bg-color: #1a252f;
+    --fc-button-active-border-color: #151e27;
+
+    --fc-event-bg-color: #5232f8;
+    --fc-event-border-color: #5232f8;
+    --fc-event-text-color: #fff;
+    --fc-event-selected-overlay-color: rgba(0, 0, 0, 0.25);
+
+    --fc-more-link-bg-color: #d0d0d0;
+    --fc-more-link-text-color: inherit;
+
+    --fc-event-resizer-thickness: 8px;
+    --fc-event-resizer-dot-total-width: 8px;
+    --fc-event-resizer-dot-border-width: 1px;
+
+    --fc-non-business-color: rgba(215, 215, 215, 0.3);
+    --fc-bg-event-color: rgb(143, 223, 130);
+    --fc-bg-event-opacity: 0.3;
+    --fc-highlight-color: rgba(188, 232, 241, 0.3);
+    --fc-today-bg-color: rgba(255, 15, 227, 0.481);
+    --fc-now-indicator-color: red;
+}

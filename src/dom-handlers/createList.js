@@ -1,4 +1,4 @@
-import { getUID, setTitleLS, getTitleLS, setClickedPage } from '../shared/ls-service';
+import { getUID, setTitleLS, getTitleLS, setClickedPage, getClickedPage } from '../shared/ls-service';
 import {
     createTitleLists,
     getTitleLists,
@@ -14,6 +14,7 @@ import { todoHandler, renderTodos } from './todosRender';
 import { checkValidListName } from '../shared/validators';
 import { errorText } from '../shared/constants/errorText';
 import { showErrorNotification } from '../shared/error-handlers';
+import { onloadPage } from './onloadPage';
 
 export const createList = () => {
     const createListBtn = document.querySelector('.createListBtn');
@@ -46,6 +47,7 @@ export const createList = () => {
             .then(titleLists => {
                 if (titleLists) {
                     const arrTitles = titleLists
+                        .filter(titleList => titleList.uuid === getUID())
                         .map(titleList => titleList.firstTitle)
                         .find(title => title === createListInput.value);
 
@@ -55,12 +57,14 @@ export const createList = () => {
                         if (checkValidListName(createListInput.value)) {
                             titleList.title = createListInput.value;
                             titleList.firstTitle = createListInput.value;
-                            titlePage.innerHTML = createListInput.value;
                             createTitleLists(titleList)
-                                .then(renderTitleLists);
+                                .then(() => renderTitleLists())
+                                .then(() => {
+                                    setClickedPage(titleList.title);
+                                    onloadPage();
+                                })
                             setTitleLS(createListInput.value);
                             createListInput.value = null;
-                            todoInput.style.display = 'flex';
                         }
                     }
                 } else {
@@ -86,9 +90,11 @@ export const renderTitleLists = () => {
             const titlePage = document.querySelector('.content__todo_title');
             const todosContainer = document.querySelector('.content__todo_todosMain');
             const todoInput = document.querySelector('.content__todo_form');
+            const calendar = document.querySelector('.calendar__wrapper');
 
             subMenuLists.innerHTML = null;
             todosContainer.innerHTML = null;
+            subMenuLists.style.visibility = 'hidden';
 
             if ( titleGroup ) {
                 titleGroup.forEach( item => {
@@ -98,6 +104,7 @@ export const renderTitleLists = () => {
                         const deleteTitleBtn = document.createElement('a');
                         const changeListNameBtn = document.createElement('a');
 
+                        subMenuLists.style.visibility = 'visible';
                         titleLi.className = 'wrapper__content_sidebar-navLinks-link-subMenu-listName';
                         deleteTitleBtn.innerHTML = '<i class="bx bx-x"></i>';
                         deleteTitleBtn.setAttribute('title', 'Delete List');
@@ -109,6 +116,7 @@ export const renderTitleLists = () => {
                         titleA.onclick = () => {
                             titlePage.innerHTML = item.title;
                             todoInput.style.display = 'flex';
+                            calendar.style.display = 'none';
                             setTitleLS(item.title);
                             setClickedPage(item.title);
                             todoHandler();
@@ -140,6 +148,12 @@ export const renderTitleLists = () => {
 
                             await deleteTitleLists(item)
                                 .then(() => renderTitleLists())
+                                .then(() => {
+                                    if (getClickedPage() === item.title) {
+                                        setClickedPage('tasks');
+                                        onloadPage();
+                                    }
+                                })
                         }
 
                         changeListNameBtn.onclick = () => {

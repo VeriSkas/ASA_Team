@@ -55,8 +55,15 @@ export const getCompletedTasks = () => {
                         todoTime.innerHTML = item.dateTime;
                         titleListTodo.innerText = `list: ${item.title}`;
 
+                        if (todoValue.length > 150) {
+                            todoValueLi.style.fontSize = '12px';
+                            todoValueLi.style.height = '40px';
+                        } else if (todoValue.length < 50) {
+                            todoValueLi.style.height = '15px';
+                        }
+
                         todoValueLi.oninput = () => {
-                            checkLengthTodo(todoValueLi.value) ?
+                            checkLengthTodo(todoValueLi.value.trim()) ?
                             todoLiError.innerHTML = '' :
                             todoLiError.innerHTML = errorText.inputTodoErrorText;
                         }
@@ -150,6 +157,8 @@ export const getCompletedTasks = () => {
 
 export const completedTasks_render = () => {
     const completedTodos = document.querySelector('#nav-links_completedTodos');
+    const calendar = document.querySelector('.calendar__wrapper');
+    const todoList = document.querySelector('.content__todo_todosMain');
 
     completedTodos.addEventListener('click', event => {
         event.preventDefault();
@@ -157,7 +166,9 @@ export const completedTasks_render = () => {
         const inputTodos = document.querySelector('.content__todo_form');
 
         title.innerText = 'Completed tasks';
+        calendar.style.display = 'none';
         inputTodos.style.display = 'none';
+        todoList.style.display = 'block';
 
         getCompletedTasks();
         setClickedPage('complitedTasks');
