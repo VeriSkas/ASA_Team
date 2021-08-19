@@ -86,6 +86,8 @@ export const renderTodos = async () => {
 
                         todoValueLi.onkeyup = event => {
                             if (event.key === 'Enter') {
+                                todoValueLi.value = todoValueLi.value.replace(/\n$/, '');
+
                                 if ((todoValueLi.value !== item.todoValue) && checkLengthTodo(todoValueLi.value)) {
                                     item.date = moment().format();
                                     item.dateTime = moment().format('LTS');

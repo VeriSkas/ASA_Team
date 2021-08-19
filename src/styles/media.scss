@@ -1,64 +1,66 @@
-@media (max-width: 1600px) {
-    .content__todo {
-        width: 50%;
-        .calendar__wrapper {
-            width: 150%;
-        }
-    }
-}
+// пригодится в дальнейшем
 
-@media (max-width: 1300px) {
-    .content__todo {
-        left: 120px;
-    }
+//@media (max-width: 1600px) {
+//     .content__todo {
+//         width: 50%;
+//         .calendar__wrapper {
+//             width: 150%;
+//         }
+//     }
+// }
 
-    // .bx-menu {
-    //     visibility: hidden;
-    // }
-}
+// @media (max-width: 1300px) {
+//     .content__todo {
+//         left: 120px;
+//     }
 
-@media (max-width: 900px) {
-    .content__todoMenu {
-        width: 200px;
+//     // .bx-menu {
+//     //     visibility: hidden;
+//     // }
+// }
 
-        &.close {
-            right: -220px;
-        }
+// @media (max-width: 900px) {
+//     .content__todoMenu {
+//         width: 200px;
 
-        &_comment-textarea, &_subtask {
-            width: 180px
-        }
-    }
-}
+//         &.close {
+//             right: -220px;
+//         }
 
-@media (max-width: 750px) {
-    .content__todoMenu {
-        width: 150px;
+//         &_comment-textarea, &_subtask {
+//             width: 180px
+//         }
+//     }
+// }
 
-        &.close {
-            right: -170px;
-        }
+// @media (max-width: 750px) {
+//     .content__todoMenu {
+//         width: 150px;
 
-        &_comment-textarea, &_subtask {
-            width: 130px
-        }
-    }
-}
+//         &.close {
+//             right: -170px;
+//         }
 
-@media (max-width: 570px) {
-    .content__todo {
-        left: 110px;
-    }
+//         &_comment-textarea, &_subtask {
+//             width: 130px
+//         }
+//     }
+// }
 
-    .content__todo_form-addTodoBtn {
-        visibility: hidden;
-    }
+// @media (max-width: 570px) {
+//     .content__todo {
+//         left: 110px;
+//     }
 
-    .todoLi {
-        grid-template: 2fr/10% 60% 15% !important;
-        font-size: 10px;
-    }
-}
+//     .content__todo_form-addTodoBtn {
+//         visibility: hidden;
+//     }
+
+//     .todoLi {
+//         grid-template: 2fr/10% 60% 15% !important;
+//         font-size: 10px;
+//     }
+// }
 
 @media (max-width: 870px) {
     .container {

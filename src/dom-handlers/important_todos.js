@@ -76,6 +76,25 @@ export const getImportantTasks = () => {
                             todoLiError.innerHTML = errorText.inputTodoErrorText;
                         }
 
+                        todoValueLi.onkeyup = event => {
+                            if (event.key === 'Enter') {
+                                todoValueLi.value = todoValueLi.value.replace(/\n$/, '');
+
+                                if ((todoValueLi.value !== item.todoValue) && checkLengthTodo(todoValueLi.value)) {
+                                    item.date = moment().format();
+                                    item.dateTime = moment().format('LTS');
+                                    item.dateDMY = moment().format('LL');
+                                    item.todoValue = todoValueLi.value;
+
+                                    updateTodo( item )
+                                        .then(() => getImportantTasks());
+                                } else {
+                                    todoLiError.innerHTML = '';
+                                    todoValueLi.value = item.todoValue;
+                                }
+                            }
+                        }
+
                         todoValueLi.onblur = () => {
                             if ((todoValueLi.value !== item.todoValue) && checkLengthTodo(todoValueLi.value)) {
                                 item.date = moment().format();

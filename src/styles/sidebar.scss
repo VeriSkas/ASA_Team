@@ -29,6 +29,10 @@
         .wrapper__content_sidebar-navLinks {
             overflow: visible;
 
+            li#nav-links_inputList:hover {
+                background: none;
+            }
+
             &-link {
                 &:hover {
                     i {

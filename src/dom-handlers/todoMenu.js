@@ -79,10 +79,11 @@ export const renderSubtask = () => {
 
                         subtaskValue.onkeyup = event => {
                             if (event.key === 'Enter') {
+                                subtaskValue.value = subtaskValue.value.replace(/\n$/, '');
+
                                 if ((subtaskValue.value !== subtask.subTask) && checkValidSubtask(subtaskValue.value)) {
                                     subtask.date = moment().format();
                                     subtask.subTask = subtaskValue.value;
-
                                     updateSubtask(subtask)
                                         .then(() => renderSubtask());
                                 } else {
