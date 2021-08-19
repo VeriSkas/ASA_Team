@@ -7,4 +7,5 @@ export const REGEXP = {
     validListName: /^[a-zа-я0-9]{1,20}$/i,
     twoIdenticalSymbols: /([.!\-_+#%$‘&*/=?^`{|}~])\1{1,}/,
     validFormatsPhoto: /\.(png|jpg|svg|jpeg|bmp|gif)$/i,
+    inputEventLength: /^.{1,20}$/i,
 }

@@ -8,4 +8,7 @@ export const errorText = {
     sameListError: 'A list with the same name already exists',
     validSizePhoto: 'Photo size should be from 2Kb to 5Mb',
     validFormatsPhoto: 'Photo formats should be: .png .jpg .svg .jpeg .bmp .gif',
+    eventError: 'The event must contain from 1 to 20 characters',
+    eventEndDateError: 'The entered date is less than the start date',
+    eventStartDateError: 'The entered date has already passed',
 };

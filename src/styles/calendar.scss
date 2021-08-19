@@ -82,8 +82,8 @@
                     cursor: pointer;
 
                     &:disabled {
-                        background: $colorStartPage;
-                        color: $colorInput;
+                        color: #5232f840;
+                        border: 3px solid #5232f840;
                     }
                 }
             }

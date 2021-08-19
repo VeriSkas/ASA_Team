@@ -6,6 +6,8 @@ import interactionPlugin from '@fullcalendar/interaction';
 import moment from 'moment';
 import { getUID, setClickedPage } from "../shared/ls-service";
 import { createEvents, deleteEvent, getEvents, updateEvent } from '../api/api-handlers';
+import { checkLengthEvent } from '../shared/validators';
+import { errorText } from '../shared/constants/errorText';
 
 export const calendarLink = () => {
     const calendarLink = document.querySelector('#nav-links_calendar');
@@ -15,9 +17,11 @@ export const calendarLink = () => {
     const todoList = document.querySelector('.content__todo_todosMain');
     const dateStart = document.querySelector('#dateStart');
     const dateEnd = document.querySelector('#dateEnd');
+    const taskMenu = document.querySelector('.content__todoMenu');
 
     calendarLink.addEventListener('click', event => {
         event.preventDefault();
+        taskMenu.classList.add('close');
         calendar.style.display = 'grid';
         title.innerText = 'Calendar';
         inputTodos.style.display = 'none';
@@ -125,9 +129,14 @@ export const renderCalendar = () => {
 
 export const eventHandler = () => {
     const formEvent = document.querySelector('#inputEvent-form');
+    const eventBtn = document.querySelector('.calendar__wrapper-inputEvent-form_btn-button');
     const inputEvent = document.querySelector('.calendar__wrapper-inputEvent-form_event-input');
+    const eventError = document.querySelector('#inputEventErrorText');
+    const eventEndDateError = document.querySelector('#inputEventEndDateErrorText');
+    const eventStartDateError = document.querySelector('#inputEventStartDateErrorText');
     const dateEnd = document.querySelector('#dateEnd');
     const dateStart = document.querySelector('#dateStart');
+    const todayDate = moment().format().slice(0, 10);
 
     const eventValue = {
         title: null,
@@ -136,14 +145,75 @@ export const eventHandler = () => {
         uuid: null,
     }
 
+    const eventFormFields = {
+        startDate: {
+            isValid: false
+        },
+        endDate: {
+            isValid: false
+        },
+        event: {
+            isValid: false
+        },
+    }
+
+    eventBtn.setAttribute('disabled', true);
+
+    const checkFormValid = () => {
+        console.log(eventFormFields);
+        const isFormValid = Object.values(eventFormFields).every(value => value.isValid );
+        console.log(isFormValid);
+        isFormValid ? eventBtn.removeAttribute('disabled') : eventBtn.setAttribute('disabled', true);
+    };
+
+    inputEvent.oninput = () => {
+        if (checkLengthEvent(inputEvent.value)) {
+            eventFormFields.event.isValid = true;
+            eventError.innerText = '';
+        } else {
+            eventFormFields.event.isValid = false;
+            eventError.innerText = errorText.eventError;
+        }
+
+        checkFormValid();
+    }
+
+    dateStart.oninput = () => {
+        if (dateStart.value < todayDate) {
+            eventFormFields.startDate.isValid = false;
+            eventStartDateError.innerText = errorText.eventStartDateError;
+        } else {
+            eventFormFields.startDate.isValid = true;
+            eventStartDateError.innerText = '';
+        }
+
+        checkFormValid();
+    }
+
+    dateEnd.oninput = () => {
+        if (dateStart.value > dateEnd.value) {
+            eventFormFields.endDate.isValid = false;
+            eventEndDateError.innerText = errorText.eventEndDateError;
+        } else {
+            eventFormFields.endDate.isValid = true;
+            eventEndDateError.innerText = '';
+        }
+
+        checkFormValid();
+    }
+
     formEvent.addEventListener('submit', event => {
         event.preventDefault();
-        eventValue.title = inputEvent.value;
-        eventValue.start = dateStart.value;
-        eventValue.end = dateEnd.value;
-        eventValue.uuid = getUID();
-        createEvents(eventValue)
-            .then(() => renderCalendar());
-        inputEvent.value = '';
+        if (checkLengthEvent(inputEvent.value)) {
+            eventValue.title = inputEvent.value;
+            eventValue.start = dateStart.value;
+            eventValue.end = dateEnd.value;
+            eventValue.uuid = getUID();
+
+            createEvents(eventValue)
+                .then(() => renderCalendar());
+
+            inputEvent.value = '';
+        }
     })
 }

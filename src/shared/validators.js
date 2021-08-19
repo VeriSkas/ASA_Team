@@ -15,3 +15,5 @@ export const checkValidSubtask =  subtask => subtask.match(REGEXP.inputTodoLengt
 export const checkValidPhotoFormat = photo => photo.match(REGEXP.validFormatsPhoto);
 
 export const checkLengthComment = comment => comment.match(REGEXP.inputCommentLength);
+
+export const checkLengthEvent = event => event.match(REGEXP.inputEventLength);
