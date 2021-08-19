@@ -55,6 +55,13 @@ export const getCompletedTasks = () => {
                         todoTime.innerHTML = item.dateTime;
                         titleListTodo.innerText = `list: ${item.title}`;
 
+                        if (todoValue.length > 150) {
+                            todoValueLi.style.fontSize = '12px';
+                            todoValueLi.style.height = '40px';
+                        } else if (todoValue.length < 50) {
+                            todoValueLi.style.height = '15px';
+                        }
+
                         todoValueLi.oninput = () => {
                             checkLengthTodo(todoValueLi.value.trim()) ?
                             todoLiError.innerHTML = '' :

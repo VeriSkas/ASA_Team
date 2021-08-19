@@ -62,12 +62,11 @@ export const renderTodos = async () => {
                         todoValueLi.innerHTML = todoValue;
                         todoTime.innerHTML = dateTime;
 
-                        if (todoValue.length > 50) {
-                            todoValueLi.style.marginTop = '0px';
-                            todoValueLi.style.height = '60px';
-                            if (todoValue.length > 100) {
-                                todoValueLi.style.fontSize = '12px';
-                            }
+                        if (todoValue.length > 150) {
+                            todoValueLi.style.fontSize = '12px';
+                            todoValueLi.style.height = '40px';
+                        } else if (todoValue.length < 50) {
+                            todoValueLi.style.height = '15px';
                         }
 
                         todoMenu.onclick = () => {
@@ -235,7 +234,6 @@ export const todoHandler = () => {
     };
 
     formInput.oninput = () => {
-        console.log(formInput.value.trim());
         checkLengthTodo(formInput.value.trim()) ?
             inputTodosError.innerHTML = '' :
             inputTodosError.innerHTML = errorText.inputTodoErrorText;

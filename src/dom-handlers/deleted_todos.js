@@ -57,6 +57,13 @@ export const getDeletedTasks = () => {
 
                         todoValueLi.setAttribute('readonly', true);
 
+                        if (todoValue.length > 150) {
+                            todoValueLi.style.fontSize = '12px';
+                            todoValueLi.style.height = '40px';
+                        } else if (todoValue.length < 50) {
+                            todoValueLi.style.height = '15px';
+                        }
+
                         todoRecoverFromDeleted.onclick = async() => {
                             item.date = moment().format();
                             item.dateTime = moment().format('LTS');

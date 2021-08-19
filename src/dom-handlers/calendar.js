@@ -118,7 +118,7 @@ export const renderCalendar = () => {
             if(events) {
                 events.forEach(event => {
                     if(event.uuid === getUID()) {
-                        console.log(event);
+                        event.end = moment(event.end).add(1, 'day').format('YYYY-MM-DD');
                         calendar.addEvent(event);
                     }
                 });
@@ -160,9 +160,7 @@ export const eventHandler = () => {
     eventBtn.setAttribute('disabled', true);
 
     const checkFormValid = () => {
-        console.log(eventFormFields);
         const isFormValid = Object.values(eventFormFields).every(value => value.isValid );
-        console.log(isFormValid);
         isFormValid ? eventBtn.removeAttribute('disabled') : eventBtn.setAttribute('disabled', true);
     };
 
@@ -179,6 +177,34 @@ export const eventHandler = () => {
     }
 
     dateStart.oninput = () => {
+        if (dateStart.value > dateEnd.value) {
+            eventFormFields.endDate.isValid = false;
+            eventEndDateError.innerText = errorText.eventEndDateError;
+        } else {
+            eventFormFields.endDate.isValid = true;
+            eventEndDateError.innerText = '';
+        }
+
+        if (dateStart.value < todayDate) {
+            eventFormFields.startDate.isValid = false;
+            eventStartDateError.innerText = errorText.eventStartDateError;
+        } else {
+            eventFormFields.startDate.isValid = true;
+            eventStartDateError.innerText = '';
+        }
+
+        checkFormValid();
+    }
+
+    dateStart.onblur = () => {
+        if (dateStart.value > dateEnd.value) {
+            eventFormFields.endDate.isValid = false;
+            eventEndDateError.innerText = errorText.eventEndDateError;
+        } else {
+            eventFormFields.endDate.isValid = true;
+            eventEndDateError.innerText = '';
+        }
+
         if (dateStart.value < todayDate) {
             eventFormFields.startDate.isValid = false;
             eventStartDateError.innerText = errorText.eventStartDateError;
@@ -202,9 +228,24 @@ export const eventHandler = () => {
         checkFormValid();
     }
 
+    dateEnd.onblur = () => {
+        if (dateStart.value > dateEnd.value) {
+            eventFormFields.endDate.isValid = false;
+            eventEndDateError.innerText = errorText.eventEndDateError;
+        } else {
+            eventFormFields.endDate.isValid = true;
+            eventEndDateError.innerText = '';
+        }
+
+        checkFormValid();
+    }
+
     formEvent.addEventListener('submit', event => {
         event.preventDefault();
-        if (checkLengthEvent(inputEvent.value)) {
+        if (checkLengthEvent(inputEvent.value) &&
+            (dateStart.value < dateEnd.value) &&
+            (dateStart.value > todayDate)
+            ) {
             eventValue.title = inputEvent.value;
             eventValue.start = dateStart.value;
             eventValue.end = dateEnd.value;

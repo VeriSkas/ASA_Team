@@ -45,7 +45,6 @@ export const createList = () => {
         event.preventDefault();
         getTitleLists()
             .then(titleLists => {
-                console.log(titleLists);
                 if (titleLists) {
                     const arrTitles = titleLists
                         .filter(titleList => titleList.uuid === getUID())
@@ -58,12 +57,14 @@ export const createList = () => {
                         if (checkValidListName(createListInput.value)) {
                             titleList.title = createListInput.value;
                             titleList.firstTitle = createListInput.value;
-                            titlePage.innerHTML = createListInput.value;
                             createTitleLists(titleList)
-                                .then(renderTitleLists);
+                                .then(() => renderTitleLists())
+                                .then(() => {
+                                    setClickedPage(titleList.title);
+                                    onloadPage();
+                                })
                             setTitleLS(createListInput.value);
                             createListInput.value = null;
-                            todoInput.style.display = 'flex';
                         }
                     }
                 } else {
@@ -123,7 +124,6 @@ export const renderTitleLists = () => {
                         }
 
                         deleteTitleBtn.onclick = async () => {
-                            console.log(item);
                             await getTodos()
                                 .then(todos => {
                                     if(todos) {

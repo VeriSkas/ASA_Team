@@ -2,8 +2,9 @@
 
 .content__todoMenu {
     display: grid;
-    grid-template: 40px 3fr 1fr 1fr 1fr / 1fr;
+    grid-template: 60px 40px 3fr 1fr 1fr 1fr / 1fr;
     position: fixed;
+    top: 0;
     right: 0;
     height: 100vh;
     width: 260px;
@@ -18,11 +19,13 @@
     }
 
     &_closeBtn {
+        grid-row: 2;
         cursor: pointer;
         overflow-x: auto;
     }
 
     &_subtask {
+        grid-row: 3;
         background: $color3;
         background: linear-gradient(to bottom, $color3, transparent);
         border-radius: 10px;
@@ -88,6 +91,7 @@
     }
 
     &_tags {
+        grid-row: 4;
         background: $color3;
         background: linear-gradient(to bottom, $color3, transparent);
         border-radius: 10px;
@@ -118,12 +122,12 @@
                 }
 
                 &#activeTags_urgent {
-                    color: brown;
+                    color: #a50404;
                     display: none;
                 }
 
                 &#activeTags_main {
-                    color: blue;
+                    color: #037b07;
                     display: none;
                 }
             }
@@ -160,11 +164,11 @@
                     cursor: pointer;
 
                     &#tagName_urgent {
-                        color: brown;
+                        color: #a50404;
                     }
 
                     &#tagName_main {
-                        color: blue;
+                        color: #037b07;
                     }
 
                     &:hover {
@@ -180,6 +184,7 @@
     }
 
     &_comment {
+        grid-row: 5;
         width: 100%;
         position: relative;
 

@@ -62,6 +62,13 @@ export const getImportantTasks = () => {
                         todoTime.innerHTML = dateTime;
                         titleListTodo.innerText = `list: ${title}`;
 
+                        if (todoValue.length > 150) {
+                            todoValueLi.style.fontSize = '12px';
+                            todoValueLi.style.height = '40px';
+                        } else if (todoValue.length < 50) {
+                            todoValueLi.style.height = '15px';
+                        }
+
                         todoMenu.onclick = () => {
                             taskMenu.classList.remove('close');
                             taskMenuTitle.innerHTML = todoValue;
