@@ -55,8 +55,16 @@
                                     <i class='bx bx-down-arrow arrow'></i>
                                 </a>
                             </div>
-                            <ul class="wrapper__content_sidebar-navLinks-link-subMenu lists">
-                                <li><a class="link_name open" href="">Lists:</a></li>
+                            <ul class="wrapper__content_sidebar-navLinks-link-subMenu lists"></ul>
+                        </li>
+                        <li class="wrapper__content_sidebar-navLinks-link" id="nav-links_calendar">
+                            <a href="" class="wrapper__content_sidebar-navLinks-link-a">
+                                <i class='bx bx-calendar'></i>
+                                <span class="link_name">Calendar</span>
+                                <div class="counterTasks"></div>
+                            </a>
+                            <ul class="wrapper__content_sidebar-navLinks-link-subMenu blank">
+                                <li><a class="link_name" href="">Calendar</a></li>
                             </ul>
                         </li>
                         <li class="wrapper__content_sidebar-navLinks-link" id="nav-links_deletedTodos">
@@ -106,6 +114,32 @@
                     <div class="dividing"></div>
                     <p id="inputTodosError" class="inputError"></p>
                     <ul class="content__todo_todosMain"></ul>
+                    <div class="calendar__wrapper">
+                        <div class="calendar__wrapper-content">
+                            <div id='calendar'></div>
+                        </div>
+                        <div class="calendar__wrapper-inputEvent">
+                            <form class="calendar__wrapper-inputEvent-form" id="inputEvent-form">
+                                <div class="calendar__wrapper-inputEvent-form-input">
+                                    <label for="dateStart">Event start date:</label>
+                                    <input id="dateStart" type="date">
+                                    <p id="inputEventStartDateErrorText" class="inputError"></p>
+                                </div>
+                                <div class="calendar__wrapper-inputEvent-form-input">
+                                    <label for="dateEnd">Event end date:</label>
+                                    <input id="dateEnd" type="date">
+                                    <p id="inputEventEndDateErrorText" class="inputError"></p>
+                                </div>
+                                <div class="calendar__wrapper-inputEvent-form-input">
+                                    <input type="text" placeholder="Add event" class="calendar__wrapper-inputEvent-form_event-input">
+                                    <p id="inputEventErrorText" class="inputError"></p>
+                                </div>
+                                <div class="calendar__wrapper-inputEvent-form_btn">
+                                    <button type="submit" class="calendar__wrapper-inputEvent-form_btn-button">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
                 <div class="content__todoMenu close">
                     <h5 class="content__todoMenu_closeBtn">
@@ -126,6 +160,39 @@
                             </button>
                         </form>
                         <ul class="content__todoMenu_subtask-list"></ul>
+                    </div>
+                    <div class="content__todoMenu_tags">
+                        <div class="content__todoMenu_tags-activeTags">
+                            <div id="activeTags_urgent">
+                                <i class='bx bxs-circle' ></i>
+                                Urgent
+                                <i class="bx bx-x urgent"></i>
+                            </div>
+                            <div id="activeTags_main">
+                                <i class='bx bxs-circle'></i>
+                                Main
+                                <i class="bx bx-x main"></i>
+                            </div>
+                        </div>
+                        <p class="content__todoMenu_tags-title">
+                            <i class='bx bx-purchase-tag'></i>
+                            Choose tag:
+                        </p>
+                        <div class="content__todoMenu_tags-tagsName">
+                            <div class="content__todoMenu_tags-tagsName-main">
+                                <p class="content__todoMenu_tags-tagsName-main-tag" id="tagName_main">
+                                    <i class='bx bx-circle' ></i>
+                                    Main
+                                    <i class='bx bx-check main' ></i>
+                                </p>
+                                <p class="content__todoMenu_tags-tagsName-main-tag" id="tagName_urgent">
+                                    <i class='bx bx-circle' ></i>
+                                    Urgent
+                                    <i class='bx bx-check urgent' ></i>
+
+                                </p>
+                            </div>
+                        </div>
                     </div>
                     <div class="content__todoMenu_comment">
                         <textarea
@@ -149,11 +216,12 @@
                         <div class="modalProfile_wrapper_main_header-photo"></div>
                     </div>
                     <div class="modalProfile_wrapper_main_inputFile">
-                        <input type="file" id="input__file">
+                        <input type="file" id="input__file" title="Photo formats should be: .png .jpg .svg .jpeg .bmp .gif">
                         <label for="input__file" class="input__file-label">
                             <i class='bx bx-download'></i>
                             <span class="input__file-label-text">Сhange main photo</span>
-                         </label>
+                        </label>
+                        <p id="inputImgUpdateErrorText" class="inputError"></p>
                     </div>
                     <div class="modalProfile_wrapper_main_content">
                         <i class='bx bxs-user form' ></i>

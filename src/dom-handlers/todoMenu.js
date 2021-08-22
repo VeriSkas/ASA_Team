@@ -4,19 +4,28 @@ import { createSubtask, getSubtask, deleteSubTask, updateSubtask } from '../api/
 import { checkValidSubtask } from '../shared/validators';
 import { errorText } from '../shared/constants/errorText';
 import { handlerComment, renderComment } from './createComment';
+import { createTagTask, renderTags } from './handlerTags';
 
 export const todoMenuSidebar = () => {
     const taskMenuCloseBtn = document.querySelector('.content__todoMenu_closeBtn');
     const taskMenu = document.querySelector('.content__todoMenu');
+    const chooseTagBtn = document.querySelector('.content__todoMenu_tags-title');
+    const tagMenu = document.querySelector('.content__todoMenu_tags-tagsName');
 
     taskMenuCloseBtn.onclick = () => {
         taskMenu.classList.add('close');
     };
 
+    chooseTagBtn.onclick = () => {
+        tagMenu.classList.toggle('close');
+    }
+
     subtaskHandler();
     renderSubtask();
     renderComment();
     handlerComment();
+    createTagTask();
+    renderTags();
 }
 
 export const renderSubtask = () => {
@@ -70,10 +79,11 @@ export const renderSubtask = () => {
 
                         subtaskValue.onkeyup = event => {
                             if (event.key === 'Enter') {
+                                subtaskValue.value = subtaskValue.value.replace(/\n$/, '');
+
                                 if ((subtaskValue.value !== subtask.subTask) && checkValidSubtask(subtaskValue.value)) {
                                     subtask.date = moment().format();
                                     subtask.subTask = subtaskValue.value;
-
                                     updateSubtask(subtask)
                                         .then(() => renderSubtask());
                                 } else {

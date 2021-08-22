@@ -18,6 +18,7 @@ window.onload = async () => {
     switch (pathName) {
         case paths.home:
             const token = getToken();
+            window.addEventListener('resize', checkMediaQuery);
 
             if(!token) {
                 window.location.href = routes.startPage;
@@ -44,4 +45,3 @@ window.onload = async () => {
     }
 };
 
-window.addEventListener('resize', checkMediaQuery);

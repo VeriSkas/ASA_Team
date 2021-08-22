@@ -25,6 +25,8 @@ export const createTodo = async todo => {
         title,
         todoValue,
         comment,
+        tagMain,
+        tagUrgent,
         dateOfComment,
         date,
         dateTime,
@@ -42,6 +44,8 @@ export const createTodo = async todo => {
                 title,
                 todoValue,
                 comment,
+                tagMain,
+                tagUrgent,
                 dateOfComment,
                 date,
                 dateDMY,
@@ -93,6 +97,8 @@ export const updateTodo = async todo => {
         title,
         todoValue,
         comment,
+        tagMain,
+        tagUrgent,
         dateOfComment,
         date,
         dateTime,
@@ -110,6 +116,8 @@ export const updateTodo = async todo => {
                 title,
                 todoValue,
                 comment,
+                tagMain,
+                tagUrgent,
                 dateOfComment,
                 date,
                 dateTime,
@@ -130,6 +138,8 @@ export const createDeleteTodoList = async todo => {
         title,
         todoValue,
         comment,
+        tagMain,
+        tagUrgent,
         dateOfComment,
         date,
         dateTime,
@@ -148,6 +158,8 @@ export const createDeleteTodoList = async todo => {
                 title,
                 todoValue,
                 comment,
+                tagMain,
+                tagUrgent,
                 dateOfComment,
                 date,
                 dateTime,
@@ -198,6 +210,8 @@ export const createRecoverTodo = async recoverTodo => {
         title,
         todoValue,
         comment,
+        tagMain,
+        tagUrgent,
         dateOfComment,
         date,
         dateTime,
@@ -216,6 +230,8 @@ export const createRecoverTodo = async recoverTodo => {
                 title,
                 todoValue,
                 comment,
+                tagMain,
+                tagUrgent,
                 dateOfComment,
                 date,
                 dateDMY,
@@ -381,6 +397,84 @@ export const updateSubtask = async subtask => {
 
 export const deleteSubTask =  async ({ id }) => {
     return fetch( `${databaseURL}/todos/subtask/${id}.json`,
+        {
+            method: 'DELETE',
+            headers,
+        }
+    )
+        .then(response => response.json())
+};
+
+export const createEvents = async eventValue => {
+    const {
+        title,
+        start,
+        end,
+        uuid,
+    } = eventValue;
+    return fetch(
+        `${databaseURL}/events.json`,
+        {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({
+                title,
+                start,
+                end,
+                uuid,
+            })
+        }
+    )
+        .then( response => response.json())
+};
+
+export const getEvents = async () => {
+    return fetch(
+        `${databaseURL}/events.json`,
+        {
+            method: 'GET',
+            headers,
+        }
+    )
+        .then( response => response.json())
+        .then( result => {
+            if(result) {
+                const transformedArr = Object.keys(result).map( key => ({
+                    ...result[key],
+                    id: key
+                }))
+
+                return transformedArr;
+            };
+        })
+};
+
+export const updateEvent = async eventValue => {
+    const {
+        id,
+        title,
+        start,
+        end,
+        uuid,
+    } = eventValue;
+    return fetch( `${databaseURL}/events/${id}.json`,
+        {
+            method: 'PUT',
+            headers,
+            body: JSON.stringify({
+                id,
+                title,
+                start,
+                end,
+                uuid,
+            })
+        }
+    )
+        .then( response => response.json())
+}
+
+export const deleteEvent =  async id => {
+    return fetch( `${databaseURL}/events/${id}.json`,
         {
             method: 'DELETE',
             headers,

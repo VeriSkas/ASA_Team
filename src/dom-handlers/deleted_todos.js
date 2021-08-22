@@ -57,6 +57,13 @@ export const getDeletedTasks = () => {
 
                         todoValueLi.setAttribute('readonly', true);
 
+                        if (todoValue.length > 150) {
+                            todoValueLi.style.fontSize = '12px';
+                            todoValueLi.style.height = '45px';
+                        } else if (todoValue.length < 50) {
+                            todoValueLi.style.height = '15px';
+                        }
+
                         todoRecoverFromDeleted.onclick = async() => {
                             item.date = moment().format();
                             item.dateTime = moment().format('LTS');
@@ -105,6 +112,8 @@ export const getDeletedTasks = () => {
 
 export const deletedTasks_render = () => {
     const deletedTodos = document.querySelector('#nav-links_deletedTodos');
+    const calendar = document.querySelector('.calendar__wrapper');
+    const todoList = document.querySelector('.content__todo_todosMain');
 
     deletedTodos.addEventListener('click', event => {
         event.preventDefault();
@@ -113,6 +122,8 @@ export const deletedTasks_render = () => {
 
         title.innerText = 'Deleted tasks';
         inputTodos.style.display = 'none';
+        calendar.style.display = 'none';
+        todoList.style.display = 'block';
 
         getDeletedTasks();
         setClickedPage('deletedTasks');

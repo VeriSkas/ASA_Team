@@ -1,7 +1,7 @@
 import { updateUser, uploadPhoto } from "../../api/api-handlers";
 import { errorText } from "../../shared/constants/errorText";
 import { getPersonalData, setPersonalData } from "../../shared/ls-service";
-import { checkValidName } from "../../shared/validators";
+import { checkValidName, checkValidPhotoFormat } from "../../shared/validators";
 
 export const profile_modal = () => {
     const openModalBtn = document.querySelector('.wrapper__content_sidebar-navLinks-link_profile-photo');
@@ -12,9 +12,10 @@ export const profile_modal = () => {
     const saveUpdateBtn = document.querySelector('.modalProfile_wrapper_main_footer-btn')
     const loginUpdateInput = document.querySelector('.modalProfile_wrapper_main_content-input');
     const errorLoginText = document.querySelector('#inputLoginUpdateErrorText');
+    const errorImgInput = document.querySelector('#inputImgUpdateErrorText');
     const userInfo = getPersonalData();
 
-    loginUpdateInput.value = null;
+    loginUpdateInput.value = userInfo.loginName;
     photoInputInner.innerText = 'Сhange main photo';
     photoInput.value = null;
 
@@ -39,9 +40,13 @@ export const profile_modal = () => {
     }
 
     saveUpdateBtn.onclick = () => {
-        if (loginUpdateInput.value) {
-            userInfo.loginName = loginUpdateInput.value;
-            updateUser(userInfo);
+        const warming = confirm('Do you really want to change your profile?');
+        if (warming) {
+            if (loginUpdateInput.value) {
+                userInfo.loginName = loginUpdateInput.value;
+                setPersonalData(userInfo);
+                updateUser(userInfo);
+            }
         }
 
         loginUpdateInput.value = null;
@@ -49,25 +54,38 @@ export const profile_modal = () => {
     }
 
     photoInput.oninput = event => {
-        const imgName = photoInput.value;
+        const minSize = 20000;
+        const maxSize = 5000000;
+        const sizePhoto = event.target.files[0].size;
+        const namePhoto = event.target.files[0].name;
+        let imgName = null;
         photoInputInner.innerText = photoInput.value;
 
-        if (imgName) {
+        if (sizePhoto > maxSize || sizePhoto < minSize) {
+            errorImgInput.innerText = errorText.validSizePhoto;
+        } else if ( !checkValidPhotoFormat(namePhoto)) {
+            errorImgInput.innerText = errorText.validFormatsPhoto;
+        } else {
+            imgName = photoInput.value;
+            errorImgInput.innerText = '';
             saveUpdateBtn.removeAttribute('disabled');
         }
 
         saveUpdateBtn.onclick = () => {
-            if (loginUpdateInput.value && imgName) {
-                userInfo.loginName = loginUpdateInput.value;
-                setPersonalData(userInfo);
-                uploadPhoto(event, imgName);
-            } else if (imgName) {
-                uploadPhoto(event, imgName);
+            const warming = confirm('Do you really want to change your profile?');
+
+            if (warming) {
+                if (loginUpdateInput.value && imgName) {
+                    userInfo.loginName = loginUpdateInput.value;
+                    setPersonalData(userInfo);
+                    uploadPhoto(event, imgName);
+                } else if (imgName) {
+                    uploadPhoto(event, imgName);
+                }
             }
 
             loginUpdateInput.value = null;
             photoInputInner.innerText = 'Сhange main photo';
-            photoInput.value = null;
             saveUpdateBtn.setAttribute('disabled', true);
         }
     }
