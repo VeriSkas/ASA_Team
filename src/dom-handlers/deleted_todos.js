@@ -1,31 +1,27 @@
 import moment from 'moment';
 import { getDeleteTodolist, finalDeleteTodo, createRecoverTodo } from '../api/api-handlers';
 import { getUID, setClickedPage } from '../shared/ls-service';
+import { sortTodoRender } from './filtersClick';
+import { onloadPage } from './onloadPage';
 import { counterTasksRender } from './sidebar';
 
 export const getDeletedTasks = () => {
-    getDeleteTodolist()
+    return getDeleteTodolist()
         .then( todos => {
             const todosContainer = document.querySelector('.content__todo_todosMain');
-            const taskMenu = document.querySelector('.content__todoMenu');
-            taskMenu.classList.add('close');
             todosContainer.innerHTML = null;
 
             counterTasksRender();
 
             if(todos) {
+                todos = sortTodoRender(todos);
+
                 todos.forEach( item => {
                     const {
-                        id,
                         uuid,
-                        title,
                         todoValue,
-                        comment,
                         complited,
                         important,
-                        date,
-                        dateDMY,
-                        dateTime
                     } = item;
 
                     if (getUID() === uuid) {
@@ -66,8 +62,6 @@ export const getDeletedTasks = () => {
 
                         todoRecoverFromDeleted.onclick = async() => {
                             item.date = moment().format();
-                            item.dateTime = moment().format('LTS');
-                            item.dateDMY = moment().format('LL');
                             await createRecoverTodo(item);
                             await finalDeleteTodo(item)
                                 .then(() => getDeletedTasks());
@@ -127,5 +121,6 @@ export const deletedTasks_render = () => {
 
         getDeletedTasks();
         setClickedPage('deletedTasks');
+        onloadPage();
     })
 }

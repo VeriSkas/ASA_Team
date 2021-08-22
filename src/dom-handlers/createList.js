@@ -121,6 +121,7 @@ export const renderTitleLists = () => {
                             setClickedPage(item.title);
                             todoHandler();
                             renderTodos();
+                            onloadPage();
                         }
 
                         deleteTitleBtn.onclick = async () => {

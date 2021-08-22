@@ -5,6 +5,12 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous"
+        >
         <title>Create Write Do I.T.</title>
     </head>
     <body>
@@ -106,6 +112,19 @@
                 <div class="content__todo">
                     <h1 class="content__todo_title"></h1>
                     <h4 class="content__todo_todayDate"></h4>
+                    <div class="content__todo-filter">
+                        <div class="content__todo-filter-sort dropstart">
+                            <i class='bx bx-sort-alt-2' data-bs-toggle="dropdown" aria-expanded="false" title="Sort by..."></i>
+                            <ul class="content__todo-filter-sort-ul dropdown-menu">
+                                <li class="content__todo-filter-sort-ul-item dropdown-item" id="sortByNameAscending">sort by name &uuarr;</li>
+                                <li class="content__todo-filter-sort-ul-item dropdown-item" id="sortByNameDescending">sort by name &ddarr;</li>
+                                <li class="content__todo-filter-sort-ul-item dropdown-item" id="sortByDateAscending">sort by date &uuarr;</li>
+                                <li class="content__todo-filter-sort-ul-item dropdown-item" id="sortByDateDescending">sort by date &ddarr;</li>
+                                <li class="content__todo-filter-sort-ul-item dropdown-item" id="sortByTagMain">with tag main <i class="bx bxs-circle main"></i> </li>
+                                <li class="content__todo-filter-sort-ul-item dropdown-item" id="sortByTagUrgent">with tag urgent <i class="bx bxs-circle urgent"></i></li>
+                            </ul>
+                        </div>
+                    </div>
                     <form id="content__todo_form" class="content__todo_form">
                         <button type="submit" class="content__todo_form-todoAddPlus" title="Add task">&#10133;</button>
                         <input type="text" id="content__todo_form-input" class="content__todo_form-input" placeholder="Add task">
@@ -241,5 +260,10 @@
         </div>
 
         <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous">
+        </script>
     </body>
 </html>

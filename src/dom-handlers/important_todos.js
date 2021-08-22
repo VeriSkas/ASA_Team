@@ -1,23 +1,28 @@
+import moment from 'moment';
+
 import { getTodos, deleteTodo, updateTodo, createDeleteTodoList } from '../api/api-handlers';
 import { getUID, setTodo, setTask, setClickedPage } from '../shared/ls-service';
+import { sortTodoRender } from './filtersClick';
+import { onloadPage } from './onloadPage';
 import { counterTasksRender } from './sidebar';
+import { subtaskOfTask } from './subtask';
 import { todoMenuSidebar } from './todoMenu.js';
 
 export const getImportantTasks = () => {
-    getTodos()
+    return getTodos()
         .then( todos => {
             const todosContainer = document.querySelector('.content__todo_todosMain');
             const taskMenu = document.querySelector('.content__todoMenu');
             const taskMenuTitle = document.querySelector('.content__todoMenu_subtask_title');
-            taskMenu.classList.add('close');
             todosContainer.innerHTML = null;
 
             counterTasksRender();
 
             if(todos) {
+                todos = sortTodoRender(todos);
+
                 todos.forEach(item => {
                     const {
-                        id,
                         uuid,
                         title,
                         todoValue,
@@ -27,8 +32,6 @@ export const getImportantTasks = () => {
                         complited,
                         important,
                         date,
-                        dateDMY,
-                        dateTime
                     } = item;
 
                     if ((getUID() === uuid) && item.important && !item.complited) {
@@ -36,11 +39,14 @@ export const getImportantTasks = () => {
                         const todoLiError = document.createElement('p');
                         const todoValueLi = document.createElement('textarea');
                         const complitedTodo = document.createElement('span');
-                        const todoTime = document.createElement('span');
+                        const todoTime = document.createElement('div');
+                        const todoTimeTime = document.createElement('p');
+                        const todoTimeDay = document.createElement('p');
                         const todoDelete = document.createElement('i');
                         const todoImportant = document.createElement('span');
                         const titleListTodo = document.createElement('p');
                         const todoMenu = document.createElement('i');
+                        const todoSubtask = document.createElement('span');
 
                         todoLi.className = 'todoLi';
                         todoLiError.className = 'inputError';
@@ -52,6 +58,7 @@ export const getImportantTasks = () => {
                         todoDelete.className = 'bx bxs-trash todos-deleteImg';
                         complitedTodo.className = 'todo-complited';
                         todoMenu.className = 'bx bx-notepad todoMenu';
+                        todoSubtask.className = 'todoSubtask';
 
                         todoDelete.setAttribute('title', 'Delete task');
                         todoImportant.setAttribute('title', 'Important task');
@@ -59,7 +66,9 @@ export const getImportantTasks = () => {
                         todoMenu.setAttribute('title', 'Open task-menu');
 
                         todoValueLi.innerHTML = todoValue;
-                        todoTime.innerHTML = dateTime;
+                        todoTimeTime.innerHTML = `${moment(date).format('LT')}`;
+                        todoTimeDay.innerHTML = `${moment(date).format('DD/MM/YY')} `;
+                        todoTime.append(todoTimeTime, todoTimeDay);
                         titleListTodo.innerText = `list: ${title}`;
 
                         if (todoValue.length > 150) {
@@ -89,8 +98,6 @@ export const getImportantTasks = () => {
 
                                 if ((todoValueLi.value !== item.todoValue) && checkLengthTodo(todoValueLi.value)) {
                                     item.date = moment().format();
-                                    item.dateTime = moment().format('LTS');
-                                    item.dateDMY = moment().format('LL');
                                     item.todoValue = todoValueLi.value;
 
                                     updateTodo( item )
@@ -105,8 +112,6 @@ export const getImportantTasks = () => {
                         todoValueLi.onblur = () => {
                             if ((todoValueLi.value !== item.todoValue) && checkLengthTodo(todoValueLi.value)) {
                                 item.date = moment().format();
-                                item.dateTime = moment().format('LTS');
-                                item.dateDMY = moment().format('LL');
                                 item.todoValue = todoValueLi.value;
 
                                 updateTodo( item )
@@ -196,6 +201,19 @@ export const getImportantTasks = () => {
                             todoLi.append(tagNameMain);
                         }
 
+                        subtaskOfTask(item.id).then(response => {
+                            let activeSubtask = 0;
+                            if (response.length) {
+                                response.forEach(subtask => {
+                                    if (!subtask.complited) {
+                                        activeSubtask++;
+                                    }
+                                })
+                                todoSubtask.innerText = `${activeSubtask} of ${response.length} subTasks`;
+                                todoLi.append(todoSubtask);
+                            }
+                        });
+
                         todosContainer.prepend(todoLi);
                         todoLi.append(
                             complitedTodo,
@@ -230,5 +248,6 @@ export const importantTasks_render = () => {
 
         getImportantTasks();
         setClickedPage('importantTasks');
+        onloadPage();
     })
 }

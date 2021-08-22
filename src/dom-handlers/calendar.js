@@ -8,6 +8,7 @@ import { getUID, setClickedPage } from "../shared/ls-service";
 import { createEvents, deleteEvent, getEvents, updateEvent } from '../api/api-handlers';
 import { checkLengthEvent } from '../shared/validators';
 import { errorText } from '../shared/constants/errorText';
+import { onloadPage } from './onloadPage';
 
 export const calendarLink = () => {
     const calendarLink = document.querySelector('#nav-links_calendar');
@@ -17,18 +18,19 @@ export const calendarLink = () => {
     const todoList = document.querySelector('.content__todo_todosMain');
     const dateStart = document.querySelector('#dateStart');
     const dateEnd = document.querySelector('#dateEnd');
-    const taskMenu = document.querySelector('.content__todoMenu');
+    const sortBtn = document.querySelector('.content__todo-filter-sort');
 
     calendarLink.addEventListener('click', event => {
         event.preventDefault();
-        taskMenu.classList.add('close');
         calendar.style.display = 'grid';
         title.innerText = 'Calendar';
         inputTodos.style.display = 'none';
         todoList.style.display = 'none';
+        sortBtn.style.visibility = 'hidden';
 
         setClickedPage('calendar');
         renderCalendar();
+        onloadPage();
     })
 
     eventHandler();

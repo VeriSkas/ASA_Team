@@ -5,6 +5,8 @@ import { errorText } from '../shared/constants/errorText';
 import { getTitleLS, getUID, setTodo, setTask } from '../shared/ls-service';
 import { todoMenuSidebar } from './todoMenu.js';
 import { counterTasksRender } from './sidebar';
+import { sortTodoRender } from './filtersClick';
+import { subtaskOfTask } from './subtask';
 
 export const renderTodos = async () => {
     const titleLS = getTitleLS();
@@ -13,11 +15,12 @@ export const renderTodos = async () => {
             const todosContainer = document.querySelector('.content__todo_todosMain');
             const taskMenu = document.querySelector('.content__todoMenu');
             const taskMenuTitle = document.querySelector('.content__todoMenu_subtask_title');
-            taskMenu.classList.add('close');
             todosContainer.innerHTML = null;
             counterTasksRender();
 
             if(todos) {
+                todos = sortTodoRender(todos);
+
                 todos.forEach( item => {
                     const {
                         id,
@@ -30,8 +33,6 @@ export const renderTodos = async () => {
                         complited,
                         important,
                         date,
-                        dateDMY,
-                        dateTime
                     } = item;
 
                     if ((getUID() === uuid) && (title === titleLS) && !complited ) {
@@ -39,10 +40,13 @@ export const renderTodos = async () => {
                         const todoLiError = document.createElement('p');
                         const todoValueLi = document.createElement('textarea');
                         const complitedTodo = document.createElement('span');
-                        const todoTime = document.createElement('span');
+                        const todoTime = document.createElement('div');
+                        const todoTimeTime = document.createElement('p');
+                        const todoTimeDay = document.createElement('p');
                         const todoDelete = document.createElement('i');
                         const todoImportant = document.createElement('span');
                         const todoMenu = document.createElement('i');
+                        const todoSubtask = document.createElement('span');
 
                         todoLi.className = 'todoLi';
                         todoLiError.className = 'inputError';
@@ -53,6 +57,7 @@ export const renderTodos = async () => {
                         todoDelete.className = 'bx bxs-trash todos-deleteImg';
                         complitedTodo.className = 'todo-complited';
                         todoMenu.className = 'bx bx-notepad todoMenu';
+                        todoSubtask.className = 'todoSubtask';
 
                         todoDelete.setAttribute('title', 'Delete task');
                         todoImportant.setAttribute('title', 'Important task');
@@ -60,7 +65,9 @@ export const renderTodos = async () => {
                         todoMenu.setAttribute('title', 'Open task-menu');
 
                         todoValueLi.innerHTML = todoValue;
-                        todoTime.innerHTML = dateTime;
+                        todoTimeTime.innerHTML = `${moment(date).format('LT')}`;
+                        todoTimeDay.innerHTML = `${moment(date).format('DD/MM/YY')} `;
+                        todoTime.append(todoTimeTime, todoTimeDay);
 
                         if (todoValue.length > 150) {
                             todoValueLi.style.fontSize = '12px';
@@ -89,8 +96,6 @@ export const renderTodos = async () => {
 
                                 if ((todoValueLi.value !== item.todoValue) && checkLengthTodo(todoValueLi.value)) {
                                     item.date = moment().format();
-                                    item.dateTime = moment().format('LTS');
-                                    item.dateDMY = moment().format('LL');
                                     item.todoValue = todoValueLi.value;
 
                                     updateTodo( item )
@@ -105,12 +110,10 @@ export const renderTodos = async () => {
                         todoValueLi.onblur = () => {
                             if ((todoValueLi.value !== item.todoValue) && checkLengthTodo(todoValueLi.value)) {
                                 item.date = moment().format();
-                                item.dateTime = moment().format('LTS');
-                                item.dateDMY = moment().format('LL');
                                 item.todoValue = todoValueLi.value;
 
                                 updateTodo( item )
-                                    .then(() => renderTodos());
+                                .then(() => renderTodos());
                             } else {
                                 todoLiError.innerHTML = '';
                                 todoValueLi.value = item.todoValue;
@@ -141,13 +144,13 @@ export const renderTodos = async () => {
                                 todoImportant.innerHTML = '&#10029;';
                                 item.important = true;
                                 updateTodo( item )
-                                .then(() => counterTasksRender());
+                                    .then(() => counterTasksRender());
                             } else {
                                 todoImportant.removeAttribute('clicked');
                                 todoImportant.innerHTML = '&#9734;';
                                 item.important = false;
                                 updateTodo( item )
-                                .then(() => counterTasksRender());
+                                    .then(() => counterTasksRender());
                             }
                         }
 
@@ -167,7 +170,7 @@ export const renderTodos = async () => {
                                 complitedTodo.innerHTML = '&#9746;';
                                 item.complited = true;
                                 updateTodo( item )
-                                    .then(() => renderTodos());
+                                .then(() => renderTodos());
                             } else {
                                 complitedTodo.removeAttribute('clicked');
                                 complitedTodo.innerHTML = '&#x2610;';
@@ -198,6 +201,19 @@ export const renderTodos = async () => {
                             todoLi.append(tagNameMain);
                         }
 
+                        subtaskOfTask(item.id).then(response => {
+                            let activeSubtask = 0;
+                            if (response.length) {
+                                response.forEach(subtask => {
+                                    if (!subtask.complited) {
+                                        activeSubtask++;
+                                    }
+                                })
+                                todoSubtask.innerText = `${activeSubtask} of ${response.length} subTasks`;
+                                todoLi.append(todoSubtask);
+                            }
+                        });
+
                         todosContainer.prepend(todoLi);
                         todoLi.append(
                             complitedTodo,
@@ -226,8 +242,6 @@ export const todoHandler = () => {
         tagUrgent: null,
         dateOfComment: null,
         date: null,
-        dateTime: null,
-        dateDMY: null,
         complited: false,
         important: false,
         uuid: null,
@@ -246,8 +260,6 @@ export const todoHandler = () => {
             todo.title = getTitleLS()
             todo.todoValue = formInput.value;
             todo.date = moment().format();
-            todo.dateTime = moment().format('LTS');
-            todo.dateDMY = moment().format('LL');
             todo.uuid = getUID();
 
             createTodo(todo)

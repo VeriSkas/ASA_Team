@@ -29,8 +29,6 @@ export const createTodo = async todo => {
         tagUrgent,
         dateOfComment,
         date,
-        dateTime,
-        dateDMY,
         complited,
         important,
         uuid
@@ -48,8 +46,6 @@ export const createTodo = async todo => {
                 tagUrgent,
                 dateOfComment,
                 date,
-                dateDMY,
-                dateTime,
                 complited,
                 important,
                 uuid
@@ -101,8 +97,6 @@ export const updateTodo = async todo => {
         tagUrgent,
         dateOfComment,
         date,
-        dateTime,
-        dateDMY,
         complited,
         important,
         uuid
@@ -120,8 +114,6 @@ export const updateTodo = async todo => {
                 tagUrgent,
                 dateOfComment,
                 date,
-                dateTime,
-                dateDMY,
                 complited,
                 important,
                 uuid,
@@ -142,8 +134,6 @@ export const createDeleteTodoList = async todo => {
         tagUrgent,
         dateOfComment,
         date,
-        dateTime,
-        dateDMY,
         complited,
         important,
         uuid
@@ -162,8 +152,6 @@ export const createDeleteTodoList = async todo => {
                 tagUrgent,
                 dateOfComment,
                 date,
-                dateTime,
-                dateDMY,
                 complited,
                 important,
                 uuid
@@ -214,8 +202,6 @@ export const createRecoverTodo = async recoverTodo => {
         tagUrgent,
         dateOfComment,
         date,
-        dateTime,
-        dateDMY,
         complited,
         important,
         uuid
@@ -234,8 +220,6 @@ export const createRecoverTodo = async recoverTodo => {
                 tagUrgent,
                 dateOfComment,
                 date,
-                dateDMY,
-                dateTime,
                 complited,
                 important,
                 uuid
