@@ -27,13 +27,21 @@ export const sortDateDescending = todos => {  // по убыванию
 }
 
 export const sortByTagMain = todos => {
-    const sortNameArr = todos
-        .filter(todo => todo.tagMain)
+    const main = todos
+        .filter(todo => todo.tagMain);
+    const notMain = todos
+        .filter(todo => !todo.tagMain);
+    const sortNameArr = notMain.concat(main);
+
     return sortNameArr;
 }
 
 export const sortByTagUrgent = todos => {
-    const sortNameArr = todos
-        .filter(todo => todo.tagUrgent)
+    const urgent = todos
+        .filter(todo => todo.tagUrgent);
+    const notUrgent = todos
+        .filter(todo => !todo.tagUrgent);
+    const sortNameArr = notUrgent.concat(urgent);
+
     return sortNameArr;
 }

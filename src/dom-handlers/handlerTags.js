@@ -34,6 +34,8 @@ export const createTagTask = () => {
                     renderTodos();
                 } else if (getClickedPage() === 'importantTasks') {
                     getImportantTasks();
+                } else if (getClickedPage()) {
+                    renderTodos();
                 }
             })
     }
@@ -63,6 +65,8 @@ export const createTagTask = () => {
                     renderTodos();
                 } else if (getClickedPage() === 'importantTasks') {
                     getImportantTasks();
+                } else if (getClickedPage()) {
+                    renderTodos();
                 }
             })
     }
@@ -78,6 +82,8 @@ export const createTagTask = () => {
                     renderTodos();
                 } else if (getClickedPage() === 'importantTasks') {
                     getImportantTasks();
+                } else if (getClickedPage()) {
+                    renderTodos();
                 }
             })
     }
@@ -93,6 +99,8 @@ export const createTagTask = () => {
                     renderTodos();
                 } else if (getClickedPage() === 'importantTasks') {
                     getImportantTasks();
+                } else if (getClickedPage()) {
+                    renderTodos();
                 }
             })
     }

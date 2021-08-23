@@ -235,8 +235,22 @@ export const importantTasks_render = () => {
     const importantTodos = document.querySelector('#nav-links_importantTodos');
     const calendar = document.querySelector('.calendar__wrapper');
 
-    importantTodos.addEventListener('click', event => {
-        event.preventDefault();
+    // importantTodos.addEventListener('click', event => {
+    //     event.preventDefault();
+    //     const title = document.querySelector('.content__todo_title');
+    //     const inputTodos = document.querySelector('.content__todo_form');
+    //     const todoList = document.querySelector('.content__todo_todosMain');
+
+    //     title.innerText = 'Important tasks';
+    //     inputTodos.style.display = 'none';
+    //     calendar.style.display = 'none';
+    //     todoList.style.display = 'block';
+
+    //     getImportantTasks();
+    //     setClickedPage('importantTasks');
+    //     onloadPage();
+    // })
+    importantTodos.onclick = () => {
         const title = document.querySelector('.content__todo_title');
         const inputTodos = document.querySelector('.content__todo_form');
         const todoList = document.querySelector('.content__todo_todosMain');
@@ -249,5 +263,5 @@ export const importantTasks_render = () => {
         getImportantTasks();
         setClickedPage('importantTasks');
         onloadPage();
-    })
+    }
 }

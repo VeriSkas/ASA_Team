@@ -161,8 +161,7 @@ export const completedTasks_render = () => {
     const calendar = document.querySelector('.calendar__wrapper');
     const todoList = document.querySelector('.content__todo_todosMain');
 
-    completedTodos.addEventListener('click', event => {
-        event.preventDefault();
+    completedTodos.onclick = () => {
         const title = document.querySelector('.content__todo_title');
         const inputTodos = document.querySelector('.content__todo_form');
 
@@ -174,5 +173,5 @@ export const completedTasks_render = () => {
         getCompletedTasks();
         setClickedPage('complitedTasks');
         onloadPage()
-    })
+    }
 }

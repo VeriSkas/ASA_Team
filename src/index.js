@@ -11,9 +11,14 @@ import { profile_modal } from './components/profile/profile_modal';
 import { checkMediaQuery } from './shared/media';
 import { onloadPage } from './dom-handlers/onloadPage';
 import { userProfile } from './dom-handlers/userInfo';
+import { hideSpiner, showSpiner } from './dom-handlers/spiner';
+
+showSpiner();
 
 window.onload = async () => {
     const pathName = Object.values(paths).find( path => path === window.location.pathname);
+
+    hideSpiner();
 
     switch (pathName) {
         case paths.home:

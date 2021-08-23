@@ -20,8 +20,7 @@ export const calendarLink = () => {
     const dateEnd = document.querySelector('#dateEnd');
     const sortBtn = document.querySelector('.content__todo-filter-sort');
 
-    calendarLink.addEventListener('click', event => {
-        event.preventDefault();
+    calendarLink.onclick = () => {
         calendar.style.display = 'grid';
         title.innerText = 'Calendar';
         inputTodos.style.display = 'none';
@@ -31,7 +30,7 @@ export const calendarLink = () => {
         setClickedPage('calendar');
         renderCalendar();
         onloadPage();
-    })
+    }
 
     eventHandler();
     dateStart.value = moment().format().slice(0, 10);

@@ -7,7 +7,7 @@ export const tasks_render = () => {
 
     todoHandler();
 
-    allTodos.addEventListener('click', event => {
+    allTodos.onclick = () => {
         const inputTodos = document.querySelector('.content__todo_form');
         const title = document.querySelector('.content__todo_title');
         const calendar = document.querySelector('.calendar__wrapper');
@@ -18,10 +18,9 @@ export const tasks_render = () => {
         calendar.style.display = 'none';
         todoList.style.display = 'block';
 
-        event.preventDefault();
         setTitleLS('tasks');
         setClickedPage('tasks');
         renderTodos();
         onloadPage();
-    })
+    }
 }

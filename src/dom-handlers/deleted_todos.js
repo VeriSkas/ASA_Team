@@ -109,8 +109,7 @@ export const deletedTasks_render = () => {
     const calendar = document.querySelector('.calendar__wrapper');
     const todoList = document.querySelector('.content__todo_todosMain');
 
-    deletedTodos.addEventListener('click', event => {
-        event.preventDefault();
+    deletedTodos.onclick = () => {
         const title = document.querySelector('.content__todo_title');
         const inputTodos = document.querySelector('.content__todo_form');
 
@@ -122,5 +121,5 @@ export const deletedTasks_render = () => {
         getDeletedTasks();
         setClickedPage('deletedTasks');
         onloadPage();
-    })
+    }
 }

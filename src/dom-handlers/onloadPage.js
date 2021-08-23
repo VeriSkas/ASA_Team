@@ -25,67 +25,77 @@ export const onloadPage = async () => {
     calendarLink();
     filtersClick();
 
-    if (page === 'tasks') {
-        todosElementHandler();
-        calendar.style.display = 'none';
-        todoList.style.display = 'block';
-        title.innerText = 'My To-Do List';
-        inputTodos.style.display = 'flex';
-        sortBtn.style.visibility = 'visible';
-        setTitleLS('tasks');
-        todoHandler();
-        await renderTodos();
-        removeSortBtn();
-    } else if (page === 'importantTasks') {
-        calendar.style.display = 'none';
-        todoList.style.display = 'block';
-        title.innerText = 'Important tasks';
-        inputTodos.style.display = 'none';
-        sortBtn.style.visibility = 'visible';
-        await getImportantTasks();
-        removeSortBtn();
-    } else if (page === 'complitedTasks') {
-        calendar.style.display = 'none';
-        todoList.style.display = 'block';
-        title.innerText = 'Completed tasks';
-        inputTodos.style.display = 'none';
-        sortBtn.style.visibility = 'visible';
-        await getCompletedTasks();
-        removeSortBtn();
-    } else if (page === 'deletedTasks') {
-        calendar.style.display = 'none';
-        todoList.style.display = 'block';
-        title.innerText = 'Deleted tasks';
-        inputTodos.style.display = 'none';
-        sortBtn.style.visibility = 'visible';
-        await getDeletedTasks();
-        removeSortBtn();
-    } else if (page === 'calendar') {
-        title.innerText = 'Calendar';
-        inputTodos.style.display = 'none';
-        todoList.style.display = 'none';
-        sortBtn.style.visibility = 'hidden';
-        renderCalendar();
-    } else if (page) {
-        calendar.style.display = 'none';
-        todoList.style.display = 'block';
-        todosElementHandler();
-        title.innerText = page;
-        inputTodos.style.display = 'flex';
-        sortBtn.style.visibility = 'visible';
-        setTitleLS(page);
-        todoHandler();
-        await renderTodos();
-        removeSortBtn();
-    } else if (!page) {
-        calendar.style.display = 'none';
-        todoList.style.display = 'block';
-        sortBtn.style.visibility = 'visible';
-        todosElementHandler();
-        setTitleLS('tasks');
-        setClickedPage('tasks');
-        await renderTodos();
-        removeSortBtn();
+    switch (page) {
+        case 'tasks':
+            todosElementHandler();
+            calendar.style.display = 'none';
+            todoList.style.display = 'block';
+            title.innerText = 'My To-Do List';
+            inputTodos.style.display = 'flex';
+            sortBtn.style.visibility = 'visible';
+            setTitleLS('tasks');
+            todoHandler();
+            await renderTodos();
+            removeSortBtn();
+            break;
+        case 'importantTasks':
+            calendar.style.display = 'none';
+            todoList.style.display = 'block';
+            title.innerText = 'Important tasks';
+            inputTodos.style.display = 'none';
+            sortBtn.style.visibility = 'visible';
+            await getImportantTasks();
+            removeSortBtn();
+            break;
+        case 'complitedTasks':
+            calendar.style.display = 'none';
+            todoList.style.display = 'block';
+            title.innerText = 'Completed tasks';
+            inputTodos.style.display = 'none';
+            sortBtn.style.visibility = 'visible';
+            await getCompletedTasks();
+            removeSortBtn();
+            break;
+        case 'deletedTasks':
+            calendar.style.display = 'none';
+            todoList.style.display = 'block';
+            title.innerText = 'Deleted tasks';
+            inputTodos.style.display = 'none';
+            sortBtn.style.visibility = 'visible';
+            await getDeletedTasks();
+            removeSortBtn();
+            break;
+        case 'calendar':
+            title.innerText = 'Calendar';
+            inputTodos.style.display = 'none';
+            todoList.style.display = 'none';
+            sortBtn.style.visibility = 'hidden';
+            renderCalendar();
+            break;
+        case page:
+            calendar.style.display = 'none';
+            todoList.style.display = 'block';
+            todosElementHandler();
+            title.innerText = page;
+            inputTodos.style.display = 'flex';
+            sortBtn.style.visibility = 'visible';
+            setTitleLS(page);
+            todoHandler();
+            await renderTodos();
+            removeSortBtn();
+            break;
+        case !page:
+            calendar.style.display = 'none';
+            todoList.style.display = 'block';
+            sortBtn.style.visibility = 'visible';
+            todosElementHandler();
+            setTitleLS('tasks');
+            setClickedPage('tasks');
+            await renderTodos();
+            removeSortBtn();
+            break;
+        default:
+            break;
     }
 
 }

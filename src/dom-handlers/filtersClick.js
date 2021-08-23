@@ -9,6 +9,10 @@ export const filtersClick = () => {
     const sortByDateDescendingBtn = document.querySelector('#sortByDateDescending');
     const sortByTagMainBtn = document.querySelector('#sortByTagMain');
     const sortByTagUrgentBtn = document.querySelector('#sortByTagUrgent');
+    const filterBtn = document.querySelector('.bx.bx-sort-alt-2');
+    const filterItem = document.querySelector('.content__todo-filter-sort-ul');
+
+    filterBtn.onclick = () => filterItem.classList.toggle('close');
 
     sortByNameAscendingBtn.onclick = () => {
         setSortBtn('NameAscendingBtn');

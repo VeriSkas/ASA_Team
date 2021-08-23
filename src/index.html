@@ -5,12 +5,6 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-            crossorigin="anonymous"
-        >
         <title>Create Write Do I.T.</title>
     </head>
     <body>
@@ -24,7 +18,7 @@
                     </div>
                     <ul class="wrapper__content_sidebar-navLinks">
                         <li id="nav-links_allTasks" class="wrapper__content_sidebar-navLinks-link">
-                            <a href="">
+                            <a>
                                 <i class='bx bxs-calendar-check' ></i>
                                 <span class="link_name">Tasks</span>
                                 <div class="counterTasks" id="tasks_counter"></div>
@@ -34,7 +28,7 @@
                             </ul>
                         </li>
                         <li class="wrapper__content_sidebar-navLinks-link" id="nav-links_importantTodos">
-                            <a href="" class="wrapper__content_sidebar-navLinks-link-a">
+                            <a class="wrapper__content_sidebar-navLinks-link-a">
                                 <i class='bx bxs-star-half'></i>
                                 <span class="link_name"> Important </span>
                                 <div class="counterTasks" id="importantTasks_counter"></div>
@@ -44,7 +38,7 @@
                             </ul>
                         </li>
                         <li class="wrapper__content_sidebar-navLinks-link" id="nav-links_completedTodos">
-                            <a href="" class="wrapper__content_sidebar-navLinks-link-a">
+                            <a class="wrapper__content_sidebar-navLinks-link-a">
                                 <i class='bx bx-task-x' ></i>
                                 <span class="link_name">Completed</span>
                                 <div class="counterTasks" id="complitedTasks_counter"></div>
@@ -64,7 +58,7 @@
                             <ul class="wrapper__content_sidebar-navLinks-link-subMenu lists"></ul>
                         </li>
                         <li class="wrapper__content_sidebar-navLinks-link" id="nav-links_calendar">
-                            <a href="" class="wrapper__content_sidebar-navLinks-link-a">
+                            <a class="wrapper__content_sidebar-navLinks-link-a">
                                 <i class='bx bx-calendar'></i>
                                 <span class="link_name">Calendar</span>
                                 <div class="counterTasks"></div>
@@ -74,7 +68,7 @@
                             </ul>
                         </li>
                         <li class="wrapper__content_sidebar-navLinks-link" id="nav-links_deletedTodos">
-                            <a href="" class="wrapper__content_sidebar-navLinks-link-a">
+                            <a class="wrapper__content_sidebar-navLinks-link-a">
                                 <i class='bx bxs-trash' ></i>
                                 <span class="link_name">Deleted</span>
                                 <div class="counterTasks" id="deletedTasks_counter"></div>
@@ -113,15 +107,15 @@
                     <h1 class="content__todo_title"></h1>
                     <h4 class="content__todo_todayDate"></h4>
                     <div class="content__todo-filter">
-                        <div class="content__todo-filter-sort dropstart">
-                            <i class='bx bx-sort-alt-2' data-bs-toggle="dropdown" aria-expanded="false" title="Sort by..."></i>
-                            <ul class="content__todo-filter-sort-ul dropdown-menu">
-                                <li class="content__todo-filter-sort-ul-item dropdown-item" id="sortByNameAscending">sort by name &uuarr;</li>
-                                <li class="content__todo-filter-sort-ul-item dropdown-item" id="sortByNameDescending">sort by name &ddarr;</li>
-                                <li class="content__todo-filter-sort-ul-item dropdown-item" id="sortByDateAscending">sort by date &uuarr;</li>
-                                <li class="content__todo-filter-sort-ul-item dropdown-item" id="sortByDateDescending">sort by date &ddarr;</li>
-                                <li class="content__todo-filter-sort-ul-item dropdown-item" id="sortByTagMain">with tag main <i class="bx bxs-circle main"></i> </li>
-                                <li class="content__todo-filter-sort-ul-item dropdown-item" id="sortByTagUrgent">with tag urgent <i class="bx bxs-circle urgent"></i></li>
+                        <div class="content__todo-filter-sort">
+                            <i class='bx bx-sort-alt-2' title="Sort by..."></i>
+                            <ul class="content__todo-filter-sort-ul close">
+                                <li class="content__todo-filter-sort-ul-item" id="sortByNameAscending">sort by name &uuarr;</li>
+                                <li class="content__todo-filter-sort-ul-item" id="sortByNameDescending">sort by name &ddarr;</li>
+                                <li class="content__todo-filter-sort-ul-item" id="sortByDateAscending">sort by date &uuarr;</li>
+                                <li class="content__todo-filter-sort-ul-item" id="sortByDateDescending">sort by date &ddarr;</li>
+                                <li class="content__todo-filter-sort-ul-item" id="sortByTagMain">with tag main <i class="bx bxs-circle main"></i> </li>
+                                <li class="content__todo-filter-sort-ul-item" id="sortByTagUrgent">with tag urgent <i class="bx bxs-circle urgent"></i></li>
                             </ul>
                         </div>
                     </div>
@@ -260,10 +254,5 @@
         </div>
 
         <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-            crossorigin="anonymous">
-        </script>
     </body>
-</html>
+    </html>
