@@ -1,12 +1,11 @@
 import moment from 'moment';
-import { getTodo, getUID, getTask, getClickedPage } from '../shared/ls-service';
+import { getTodo, getUID, getTask } from '../shared/ls-service';
 import { createSubtask, getSubtask, deleteSubTask, updateSubtask } from '../api/api-handlers';
 import { checkValidSubtask } from '../shared/validators';
 import { errorText } from '../shared/constants/errorText';
 import { handlerComment, renderComment } from './createComment';
 import { createTagTask, renderTags } from './handlerTags';
-import { getImportantTasks } from './important_todos';
-import { renderTodos } from './todosRender';
+import { renderTodosAfterUpdate } from './onloadPage';
 
 export const todoMenuSidebar = () => {
     const taskMenuCloseBtn = document.querySelector('.content__todoMenu_closeBtn');
@@ -57,13 +56,7 @@ export const renderSubtask = () => {
                         deleteSubtask.onclick = () => {
                             deleteSubTask(subtask)
                                 .then(() => renderSubtask())
-                                .then( () => {
-                                    if (getClickedPage() === 'tasks') {
-                                        renderTodos();
-                                    } else if (getClickedPage() === 'importantTasks') {
-                                        getImportantTasks();
-                                    }
-                                })
+                                .then( () => renderTodosAfterUpdate());
                         }
 
                         if (complited) {
@@ -79,24 +72,12 @@ export const renderSubtask = () => {
                                 subtask.complited = false;
                                 updateSubtask(subtask)
                                     .then(() => renderSubtask())
-                                    .then( () => {
-                                        if (getClickedPage() === 'tasks') {
-                                            renderTodos();
-                                        } else if (getClickedPage() === 'importantTasks') {
-                                            getImportantTasks();
-                                        }
-                                    })
+                                    .then( () => renderTodosAfterUpdate());
                             } else {
                                 subtask.complited = true;
                                 updateSubtask(subtask)
                                     .then(() => renderSubtask())
-                                    .then( () => {
-                                        if (getClickedPage() === 'tasks') {
-                                            renderTodos();
-                                        } else if (getClickedPage() === 'importantTasks') {
-                                            getImportantTasks();
-                                        }
-                                    })
+                                    .then( () => renderTodosAfterUpdate());
                             }
                         }
 
@@ -176,13 +157,7 @@ export const subtaskHandler = () => {
 
             createSubtask(subtask)
                 .then(() => renderSubtask())
-                .then( () => {
-                    if (getClickedPage() === 'tasks') {
-                        renderTodos();
-                    } else if (getClickedPage() === 'importantTasks') {
-                        getImportantTasks();
-                    }
-                })
+                .then( () => renderTodosAfterUpdate());
             subtaskInput.value = null;
         }
     })

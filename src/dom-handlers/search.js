@@ -1,31 +1,82 @@
 import moment from 'moment';
+import { deleteTodo, getTodos, updateTodo } from "../api/api-handlers";
 import {
-    getTodos,
-    createTodo,
-    deleteTodo,
-    updateTodo,
-    createDeleteTodoList
-} from '../api/api-handlers';
-import { checkLengthTodo } from '../shared/validators';
-import { errorText } from '../shared/constants/errorText';
-import { getTitleLS, getUID, setTodo, setTask } from '../shared/ls-service';
-import { todoMenuSidebar } from './todoMenu.js';
-import { counterTasksRender } from './sidebar';
-import { sortTodoRender } from './filtersClick';
-import { subtaskOfTask } from './subtask';
+    getUID,
+    setClickedPage,
+    setTask,
+    setSearchTodoLS,
+    setTodo,
+    getSearchTodoLS
+} from "../shared/ls-service";
+import { onloadPage } from "./onloadPage";
+import { filterByTagMain, filterByTagUrgent, searchTaskFilter } from '../shared/filters';
+import { sortTodoRender } from "./filtersClick";
+import { todoMenuSidebar } from "./todoMenu";
+import { checkLengthTodo } from "../shared/validators";
+import { subtaskOfTask } from "./subtask";
 
-export const renderTodos = async () => {
-    const titleLS = getTitleLS();
+export const searchLink = () => {
+    const searchLink = document.querySelector('#nav-links_searchTodos');
+    const title = document.querySelector('.content__todo_title');
+    const inputSearch = document.querySelector('.content__todo_formSearch-input');
+    const searchBtn = document.querySelector('.content__todo_formSearch-searchTodoBtn');
+    const tagMainSearch = document.querySelector('#content__todo-filter-filterTags-main');
+    const tagUrgentSearch = document.querySelector('#content__todo-filter-filterTags-urgent');
+
+    searchLink.onclick = () => {
+        title.innerText = `Search (${getSearchTodoLS() || ''})`;
+        setClickedPage('search');
+        onloadPage();
+    }
+
+    searchBtn.onclick = event => {
+        event.preventDefault();
+        let searchValue = inputSearch.value;
+        getSearchTask(searchValue);
+        setSearchTodoLS(searchValue);
+        inputSearch.value = '';
+        title.innerText = `Search (${getSearchTodoLS() || ''})`;
+    }
+
+    tagMainSearch.onclick = () => {
+        inputSearch.value = '';
+        getSearchTask('"Search by green tag MAIN"');
+        setSearchTodoLS('"Search by green tag MAIN"');
+        title.innerText = `Search (${getSearchTodoLS() || ''})`;
+    }
+
+    tagUrgentSearch.onclick = () => {
+        inputSearch.value = '';
+        getSearchTask('"Search by red tag URGENT"');
+        setSearchTodoLS('"Search by red tag URGENT"');
+        title.innerText = `Search (${getSearchTodoLS() || ''})`;
+    }
+}
+
+export const getSearchTask = async value => {
     return getTodos()
         .then( todos => {
             const todosContainer = document.querySelector('.content__todo_todosMain');
             const taskMenu = document.querySelector('.content__todoMenu');
             const taskMenuTitle = document.querySelector('.content__todoMenu_subtask_title');
             todosContainer.innerHTML = null;
-            counterTasksRender();
 
-            if(todos) {
+            if (todos) {
                 todos = sortTodoRender(todos);
+
+                switch (value) {
+                    case '"Search by green tag MAIN"':
+                        todos = filterByTagMain(todos);
+                        break;
+                    case '"Search by red tag URGENT"':
+                        todos = filterByTagUrgent(todos);
+                        break;
+                    case value:
+                        todos = searchTaskFilter(todos, value);
+                        break;
+                    default:
+                        break;
+                }
 
                 todos.forEach( item => {
                     const {
@@ -41,7 +92,7 @@ export const renderTodos = async () => {
                         date,
                     } = item;
 
-                    if ((getUID() === uuid) && (title === titleLS) && !complited ) {
+                    if ((getUID() === uuid)) {
                         const todoLi = document.createElement('li');
                         const todoLiError = document.createElement('p');
                         const todoValueLi = document.createElement('textarea');
@@ -51,6 +102,7 @@ export const renderTodos = async () => {
                         const todoTimeDay = document.createElement('p');
                         const todoDelete = document.createElement('i');
                         const todoImportant = document.createElement('span');
+                        const titleListTodo = document.createElement('p');
                         const todoMenu = document.createElement('i');
                         const todoSubtask = document.createElement('span');
 
@@ -64,6 +116,7 @@ export const renderTodos = async () => {
                         complitedTodo.className = 'todo-complited';
                         todoMenu.className = 'bx bx-notepad todoMenu';
                         todoSubtask.className = 'todoSubtask';
+                        titleListTodo.className = 'titleListTodo';
 
                         todoDelete.setAttribute('title', 'Delete task');
                         todoImportant.setAttribute('title', 'Important task');
@@ -74,6 +127,7 @@ export const renderTodos = async () => {
                         todoTimeTime.innerHTML = `${moment(date).format('LT')}`;
                         todoTimeDay.innerHTML = `${moment(date).format('DD/MM/YY')} `;
                         todoTime.append(todoTimeTime, todoTimeDay);
+                        titleListTodo.innerText = `list: ${title}`;
 
                         if (todoValue.length > 150) {
                             todoValueLi.style.fontSize = '12px';
@@ -105,7 +159,7 @@ export const renderTodos = async () => {
                                     item.todoValue = todoValueLi.value;
 
                                     updateTodo( item )
-                                        .then(() => renderTodos());
+                                        .then(() => getSearchTask());
                                 } else {
                                     todoLiError.innerHTML = '';
                                     todoValueLi.value = item.todoValue;
@@ -119,7 +173,7 @@ export const renderTodos = async () => {
                                 item.todoValue = todoValueLi.value;
 
                                 updateTodo( item )
-                                .then(() => renderTodos());
+                                .then(() => getSearchTask());
                             } else {
                                 todoLiError.innerHTML = '';
                                 todoValueLi.value = item.todoValue;
@@ -129,7 +183,7 @@ export const renderTodos = async () => {
                         todoDelete.onclick = async () => {
                             await createDeleteTodoList(item);
                             await deleteTodo(item)
-                                .then(() => renderTodos());
+                                .then(() => getSearchTask());
 
                             taskMenu.classList.add('close');
                         }
@@ -149,14 +203,12 @@ export const renderTodos = async () => {
                                 todoImportant.setAttribute('clicked', true);
                                 todoImportant.innerHTML = '&#10029;';
                                 item.important = true;
-                                updateTodo( item )
-                                    .then(() => counterTasksRender());
+                                updateTodo( item );
                             } else {
                                 todoImportant.removeAttribute('clicked');
                                 todoImportant.innerHTML = '&#9734;';
                                 item.important = false;
-                                updateTodo( item )
-                                    .then(() => counterTasksRender());
+                                updateTodo( item );
                             }
                         }
 
@@ -175,14 +227,12 @@ export const renderTodos = async () => {
                                 complitedTodo.setAttribute('clicked', true);
                                 complitedTodo.innerHTML = '&#9746;';
                                 item.complited = true;
-                                updateTodo( item )
-                                .then(() => renderTodos());
+                                updateTodo( item );
                             } else {
                                 complitedTodo.removeAttribute('clicked');
                                 complitedTodo.innerHTML = '&#x2610;';
                                 item.complited = false;
-                                updateTodo( item )
-                                    .then(() => counterTasksRender());
+                                updateTodo( item );
                             }
                         }
 
@@ -228,50 +278,11 @@ export const renderTodos = async () => {
                             todoDelete,
                             todoImportant,
                             todoMenu,
+                            titleListTodo,
                             todoLiError
                         );
                     }
                 });
             };
         });
-};
-
-export const todoHandler = () => {
-    const todo_form = document.getElementById('content__todo_form');
-    const formInput = document.getElementById('content__todo_form-input');
-    const inputTodosError = document.querySelector('#inputTodosError');
-    const todo = {
-        title: null,
-        todoValue: null,
-        comment: null,
-        tagMain: null,
-        tagUrgent: null,
-        dateOfComment: null,
-        date: null,
-        complited: false,
-        important: false,
-        uuid: null,
-    };
-
-    formInput.oninput = () => {
-        checkLengthTodo(formInput.value.trim()) ?
-            inputTodosError.innerHTML = '' :
-            inputTodosError.innerHTML = errorText.inputTodoErrorText;
-    }
-
-    todo_form.addEventListener('submit', event => {
-        event.preventDefault();
-
-        if (checkLengthTodo(formInput.value.trim())) {
-            todo.title = getTitleLS()
-            todo.todoValue = formInput.value;
-            todo.date = moment().format();
-            todo.uuid = getUID();
-
-            createTodo(todo)
-                .then( () => renderTodos());
-        }
-
-        formInput.value = null;
-    });
-};
+}

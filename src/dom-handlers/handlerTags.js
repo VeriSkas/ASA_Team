@@ -1,6 +1,7 @@
 import { getTodos, updateTodo } from "../api/api-handlers";
 import { getClickedPage, getTask, getTodo, getUID, setTodo } from "../shared/ls-service";
 import { getImportantTasks } from "./important_todos";
+import { renderTodosAfterUpdate } from "./onloadPage";
 import { renderTodos } from "./todosRender";
 
 export const createTagTask = () => {
@@ -29,15 +30,7 @@ export const createTagTask = () => {
         setTodo(task);
         updateTodo(task)
             .then(() => renderTags())
-            .then( () => {
-                if (getClickedPage() === 'tasks') {
-                    renderTodos();
-                } else if (getClickedPage() === 'importantTasks') {
-                    getImportantTasks();
-                } else if (getClickedPage()) {
-                    renderTodos();
-                }
-            })
+            .then( () => renderTodosAfterUpdate());
     }
 
     tagNameUrgent.onclick = () => {
@@ -60,15 +53,7 @@ export const createTagTask = () => {
         setTodo(task);
         updateTodo(task)
             .then(() => renderTags())
-            .then( () => {
-                if (getClickedPage() === 'tasks') {
-                    renderTodos();
-                } else if (getClickedPage() === 'importantTasks') {
-                    getImportantTasks();
-                } else if (getClickedPage()) {
-                    renderTodos();
-                }
-            })
+            .then( () => renderTodosAfterUpdate());
     }
 
     deleteTagUrgent.onclick = () => {
@@ -77,15 +62,7 @@ export const createTagTask = () => {
         setTodo(task);
         updateTodo(task)
             .then(() => renderTags())
-            .then( () => {
-                if (getClickedPage() === 'tasks') {
-                    renderTodos();
-                } else if (getClickedPage() === 'importantTasks') {
-                    getImportantTasks();
-                } else if (getClickedPage()) {
-                    renderTodos();
-                }
-            })
+            .then( () => renderTodosAfterUpdate());
     }
 
     deleteTagMain.onclick = () => {
@@ -94,15 +71,7 @@ export const createTagTask = () => {
         setTodo(task);
         updateTodo(task)
             .then(() => renderTags())
-            .then( () => {
-                if (getClickedPage() === 'tasks') {
-                    renderTodos();
-                } else if (getClickedPage() === 'importantTasks') {
-                    getImportantTasks();
-                } else if (getClickedPage()) {
-                    renderTodos();
-                }
-            })
+            .then( () => renderTodosAfterUpdate());
     }
 };
 
@@ -144,5 +113,4 @@ export const renderTags = () => {
                 })
             }
         })
-        
 }

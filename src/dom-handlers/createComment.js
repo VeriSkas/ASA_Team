@@ -2,33 +2,35 @@ import moment from 'moment';
 import { getTodos, updateTodo } from "../api/api-handlers";
 import { getTask, getTodo, getUID, setTodo } from "../shared/ls-service";
 import { checkLengthComment } from '../shared/validators';
-import { onloadPage } from './onloadPage';
+import { renderTodosAfterUpdate } from './onloadPage';
 
 export const  handlerComment = () => {
     const textareaComment = document.querySelector('.content__todoMenu_comment-textarea');
-    const todo = getTodo();
 
     textareaComment.onkeyup = event => {
+        const todo = getTodo();
         if (event.key === 'Enter') {
             if (checkLengthComment(textareaComment.value.trim())) {
                 todo.comment = textareaComment.value;
                 todo.dateOfComment = moment().format();
 
                 updateTodo(todo)
-                    .then( () => renderComment());
+                    .then( () => renderComment())
+                    .then( () => renderTodosAfterUpdate());
                 setTodo(todo);
             }
         }
     }
 
     textareaComment.onblur = () => {
+        const todo = getTodo();
         if (checkLengthComment(textareaComment.value.trim())) {
             todo.comment = textareaComment.value;
             todo.dateOfComment = moment().format();
 
             updateTodo(todo)
                 .then( () => renderComment())
-                .then( () => onloadPage())
+                .then( () => renderTodosAfterUpdate());
             setTodo(todo);
         }
     }

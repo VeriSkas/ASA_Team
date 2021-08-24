@@ -1,4 +1,11 @@
-import { sortByTagMain, sortByTagUrgent, sortDateAscending, sortDateDescending, sortNameAscending, sortNameDescending } from "../shared/filters";
+import {
+    sortByTagMain,
+    sortByTagUrgent,
+    sortDateAscending,
+    sortDateDescending,
+    sortNameAscending,
+    sortNameDescending
+} from "../shared/filters";
 import { getSortBtn, setSortBtn } from "../shared/ls-service";
 import { onloadPage } from "./onloadPage";
 

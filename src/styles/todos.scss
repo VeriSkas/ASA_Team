@@ -16,6 +16,22 @@
         display: flex;
         justify-content: flex-end;
 
+        &-filterTags {
+            i.bxs-search-alt-2 {
+                margin-right: 10px;
+                font-size: 20px;
+                cursor: pointer;
+
+                &#content__todo-filter-filterTags-main {
+                    color: #037b07;
+                }
+
+                &#content__todo-filter-filterTags-urgent {
+                    color: #a50404;
+                }
+            }
+        }
+
         &-sort {
             margin-right: 30px;
             position: relative;
@@ -93,14 +109,41 @@
         }
     }
 
+    &_formSearch {
+        display: flex;
+        align-items: center;
+        height: 50px;
+
+        &-input {
+            width: 80%;
+            height: 95%;
+            margin-left: 100px;
+            border: 0;
+            background: $color3;
+            outline: none;
+        }
+
+        &-searchTodoBtn {
+            padding: 0;
+            border: 0;
+            background: $color3;
+            cursor: pointer;
+
+            .bx-search-alt-2 {
+                font-size: 20px;
+                font-weight: 700;
+            }
+        }
+    }
+
     .dividing {
         background: $colorText;
     }
 
     #inputTodosError {
         position: absolute;
-        top: 155px;
-        left: 50px;
+        top: 135px;
+        left: 60px;
     }
 
     &_todosMain {
