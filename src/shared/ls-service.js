@@ -37,3 +37,7 @@ export const setSortBtn = sortBtnClicked => localStorage.setItem('sortBtnClicked
 export const getSortBtn = () => localStorage.getItem('sortBtnClicked');
 
 export const removeSortBtn = () => localStorage.removeItem('sortBtnClicked');
+
+export const setSearchTodoLS = task => localStorage.setItem('searchTask', task);
+
+export const getSearchTodoLS = () => localStorage.getItem('searchTask');

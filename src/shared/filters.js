@@ -12,14 +12,14 @@ export const sortNameDescending = todos => {
     return sortNameArr;
 }
 
-export const sortDateAscending = todos => {  //  по возрастанию такая формула, так как рендерится через prepand
+export const sortDateAscending = todos => {
     const sortNameArr = todos
         .filter(todo => todo.date)
         .sort(( a, b ) => a.date > b.date ? -1 : 1);
     return sortNameArr;
 }
 
-export const sortDateDescending = todos => {  // по убыванию
+export const sortDateDescending = todos => {
     const sortNameArr = todos
         .filter(todo => todo.date)
         .sort(( a, b ) => a.date > b.date ? 1 : -1);
@@ -44,4 +44,30 @@ export const sortByTagUrgent = todos => {
     const sortNameArr = notUrgent.concat(urgent);
 
     return sortNameArr;
+}
+
+export const searchTaskFilter = (todos, searchValue) => {
+    const filterTodos = todos.filter(todo => {
+        if(todo.todoValue) {
+            const todoValue = todo.todoValue;
+            const reg = new RegExp(searchValue, 'gi');
+            if (todoValue.match(reg)) {
+                return todo;
+            }
+        }
+    });
+
+    return filterTodos;
+}
+
+export const filterByTagMain = todos => {
+    const main = todos
+        .filter(todo => todo.tagMain);
+    return main;
+}
+
+export const filterByTagUrgent = todos => {
+    const urgent = todos
+        .filter(todo => todo.tagUrgent);
+    return urgent;
 }
