@@ -15,6 +15,7 @@ import { checkValidListName } from '../shared/validators';
 import { errorText } from '../shared/constants/errorText';
 import { showErrorNotification } from '../shared/error-handlers';
 import { onloadPage } from './onloadPage';
+import { pageNameInLS } from '../shared/textInLS';
 
 export const createList = () => {
     const createListBtn = document.querySelector('.createListBtn');
@@ -151,7 +152,7 @@ export const renderTitleLists = () => {
                                 .then(() => renderTitleLists())
                                 .then(() => {
                                     if (getClickedPage() === item.title) {
-                                        setClickedPage('tasks');
+                                        setClickedPage(pageNameInLS.tasks);
                                         onloadPage();
                                     }
                                 })

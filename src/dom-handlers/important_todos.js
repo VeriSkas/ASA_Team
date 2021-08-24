@@ -1,11 +1,11 @@
 import moment from 'moment';
 
-import { getTodos, deleteTodo, updateTodo, createDeleteTodoList } from '../api/api-handlers';
+import { getTodos, deleteTodo, updateTodo, createDeleteTodoList, getSubtask } from '../api/api-handlers';
 import { getUID, setTodo, setTask, setClickedPage } from '../shared/ls-service';
+import { pageNameInLS } from '../shared/textInLS';
 import { sortTodoRender } from './filtersClick';
 import { onloadPage } from './onloadPage';
 import { counterTasksRender } from './sidebar';
-import { subtaskOfTask } from './subtask';
 import { todoMenuSidebar } from './todoMenu.js';
 
 export const getImportantTasks = () => {
@@ -29,6 +29,7 @@ export const getImportantTasks = () => {
                         comment,
                         tagUrgent,
                         tagMain,
+                        subtask,
                         complited,
                         important,
                         date,
@@ -201,18 +202,20 @@ export const getImportantTasks = () => {
                             todoLi.append(tagNameMain);
                         }
 
-                        subtaskOfTask(item.id).then(response => {
+                        if (subtask) {
                             let activeSubtask = 0;
-                            if (response && response.length) {
-                                response.forEach(subtask => {
-                                    if (!subtask.complited) {
-                                        activeSubtask++;
-                                    }
+                            getSubtask(item)
+                                .then(subtasks => {
+                                    subtasks.forEach( subTask => {
+                                        if (!subTask.complited) {
+                                            activeSubtask++;
+                                        }
+                                    })
+
+                                    todoSubtask.innerText = `${activeSubtask} of ${subtasks.length} subTasks`;
+                                    todoLi.append(todoSubtask);
                                 })
-                                todoSubtask.innerText = `${activeSubtask} of ${response.length} subTasks`;
-                                todoLi.append(todoSubtask);
-                            }
-                        });
+                        }
 
                         todosContainer.prepend(todoLi);
                         todoLi.append(
@@ -246,7 +249,7 @@ export const importantTasks_render = () => {
         todoList.style.display = 'block';
 
         getImportantTasks();
-        setClickedPage('importantTasks');
+        setClickedPage(pageNameInLS.importantTasks);
         onloadPage();
     }
 }

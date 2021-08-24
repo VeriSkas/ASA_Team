@@ -9,6 +9,7 @@ import { createEvents, deleteEvent, getEvents, updateEvent } from '../api/api-ha
 import { checkLengthEvent } from '../shared/validators';
 import { errorText } from '../shared/constants/errorText';
 import { onloadPage } from './onloadPage';
+import { pageNameInLS } from '../shared/textInLS';
 
 export const calendarLink = () => {
     const calendarLink = document.querySelector('#nav-links_calendar');
@@ -27,7 +28,7 @@ export const calendarLink = () => {
         todoList.style.display = 'none';
         sortBtn.style.visibility = 'hidden';
 
-        setClickedPage('calendar');
+        setClickedPage(pageNameInLS.calendar);
         renderCalendar();
         onloadPage();
     }

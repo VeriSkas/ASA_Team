@@ -5,6 +5,7 @@ import {
     setTitleLS,
     getSearchTodoLS
 } from "../shared/ls-service"
+import { pageNameInLS } from "../shared/textInLS";
 import { calendarLink, renderCalendar } from "./calendar";
 import { completedTasks_render, getCompletedTasks } from "./completed_todos";
 import { deletedTasks_render, getDeletedTasks } from "./deleted_todos";
@@ -36,7 +37,7 @@ export const onloadPage = async () => {
     searchLink();
 
     switch (page) {
-        case 'tasks':
+        case pageNameInLS.tasks:
             todosElementHandler();
             inputSearch.style.display = 'none';
             calendar.style.display = 'none';
@@ -45,12 +46,12 @@ export const onloadPage = async () => {
             inputTodos.style.display = 'flex';
             sortBtn.style.visibility = 'visible';
             searchTagsBtn.style.visibility = 'hidden';
-            setTitleLS('tasks');
+            setTitleLS(pageNameInLS.tasks);
             todoHandler();
             await renderTodos();
             removeSortBtn();
             break;
-        case 'importantTasks':
+        case pageNameInLS.importantTasks:
             inputSearch.style.display = 'none';
             calendar.style.display = 'none';
             todoList.style.display = 'block';
@@ -61,7 +62,7 @@ export const onloadPage = async () => {
             await getImportantTasks();
             removeSortBtn();
             break;
-        case 'complitedTasks':
+        case pageNameInLS.complitedTasks:
             inputSearch.style.display = 'none';
             calendar.style.display = 'none';
             todoList.style.display = 'block';
@@ -72,7 +73,7 @@ export const onloadPage = async () => {
             await getCompletedTasks();
             removeSortBtn();
             break;
-        case 'deletedTasks':
+        case pageNameInLS.deletedTasks:
             inputSearch.style.display = 'none';
             calendar.style.display = 'none';
             todoList.style.display = 'block';
@@ -83,7 +84,7 @@ export const onloadPage = async () => {
             await getDeletedTasks();
             removeSortBtn();
             break;
-        case 'calendar':
+        case pageNameInLS.calendar:
             inputSearch.style.display = 'none';
             title.innerText = 'Calendar';
             inputTodos.style.display = 'none';
@@ -92,7 +93,7 @@ export const onloadPage = async () => {
             searchTagsBtn.style.visibility = 'hidden';
             renderCalendar();
             break;
-        case 'search':
+        case pageNameInLS.search:
             inputSearch.style.display = 'block';
             calendar.style.display = 'none';
             title.innerText = `Search (${getSearchTodoLS() || ''})`;
@@ -124,8 +125,8 @@ export const onloadPage = async () => {
             sortBtn.style.visibility = 'visible';
             searchTagsBtn.style.visibility = 'hidden';
             todosElementHandler();
-            setTitleLS('tasks');
-            setClickedPage('tasks');
+            setTitleLS(pageNameInLS.tasks);
+            setClickedPage(pageNameInLS.tasks);
             await renderTodos();
             removeSortBtn();
             break;
@@ -137,13 +138,13 @@ export const onloadPage = async () => {
 export const renderTodosAfterUpdate = () => {
     const clickedPage = getClickedPage();
     switch (clickedPage) {
-        case 'tasks':
+        case pageNameInLS.tasks:
             renderTodos();
             break;
-        case 'importantTasks':
+        case pageNameInLS.importantTasks:
             getImportantTasks();
             break;
-        case 'search':
+        case pageNameInLS.search:
             getSearchTask();
             break;
         case clickedPage:

@@ -5,7 +5,7 @@ import axios from 'axios';
 
 import { databaseURL, firebaseConfig, authURL } from './api-config';
 import { showErrorNotification } from '../shared/error-handlers';
-import { setToken, getUID, setUID, getPersonalData, setPersonalData } from '../shared/ls-service';
+import { setToken, getUID, setUID, getPersonalData, setPersonalData, getTask, getTodo } from '../shared/ls-service';
 import { routes } from '../shared/constants/routes';
 import { userProfile } from '../dom-handlers/userInfo';
 import { refreshPhoto } from '../components/profile/profile_modal';
@@ -30,6 +30,7 @@ export const createTodo = async todo => {
         comment,
         tagMain,
         tagUrgent,
+        subtask,
         dateOfComment,
         date,
         complited,
@@ -47,6 +48,7 @@ export const createTodo = async todo => {
                 comment,
                 tagMain,
                 tagUrgent,
+                subtask,
                 dateOfComment,
                 date,
                 complited,
@@ -110,6 +112,7 @@ export const updateTodo = async todo => {
         comment,
         tagMain,
         tagUrgent,
+        subtask,
         dateOfComment,
         date,
         complited,
@@ -127,6 +130,7 @@ export const updateTodo = async todo => {
                 comment,
                 tagMain,
                 tagUrgent,
+                subtask,
                 dateOfComment,
                 date,
                 complited,
@@ -152,6 +156,7 @@ export const createDeleteTodoList = async todo => {
         comment,
         tagMain,
         tagUrgent,
+        subtask,
         dateOfComment,
         date,
         complited,
@@ -170,6 +175,7 @@ export const createDeleteTodoList = async todo => {
                 comment,
                 tagMain,
                 tagUrgent,
+                subtask,
                 dateOfComment,
                 date,
                 complited,
@@ -236,6 +242,7 @@ export const createRecoverTodo = async recoverTodo => {
         tagUrgent,
         dateOfComment,
         date,
+        subtask,
         complited,
         important,
         uuid
@@ -252,6 +259,7 @@ export const createRecoverTodo = async recoverTodo => {
                 comment,
                 tagMain,
                 tagUrgent,
+                subtask,
                 dateOfComment,
                 date,
                 complited,
@@ -362,6 +370,7 @@ export const deleteList = async title => {
 
 export const createSubtask = async subtask => {
     showSpiner();
+    const todo = getTodo();
     const {
         title,
         task,
@@ -372,7 +381,7 @@ export const createSubtask = async subtask => {
         uuid
     } = subtask;
     return fetch(
-        `${databaseURL}/todos/subtask.json`,
+        `${databaseURL}/todos/${todo.id}/subtask.json`,
         {
             method: 'POST',
             headers,
@@ -393,10 +402,10 @@ export const createSubtask = async subtask => {
         })
 }
 
-export const getSubtask = async () => {
+export const getSubtask = async todo => {
     showSpiner();
     return fetch(
-        `${databaseURL}/todos/subtask.json`,
+        `${databaseURL}/todos/${todo.id}/subtask.json`,
         {
             method: 'GET',
             headers,
@@ -417,6 +426,7 @@ export const getSubtask = async () => {
 
 export const updateSubtask = async subtask => {
     showSpiner();
+    const todo = getTodo();
     const {
         title,
         task,
@@ -427,7 +437,7 @@ export const updateSubtask = async subtask => {
         complited,
         id,
     } = subtask;
-    return fetch( `${databaseURL}/todos/subtask/${id}.json`,
+    return fetch( `${databaseURL}/todos/${todo.id}/subtask/${id}.json`,
         {
             method: 'PUT',
             headers,
@@ -450,7 +460,8 @@ export const updateSubtask = async subtask => {
 
 export const deleteSubTask =  async ({ id }) => {
     showSpiner();
-    return fetch( `${databaseURL}/todos/subtask/${id}.json`,
+    const todo = getTodo();
+    return fetch( `${databaseURL}/todos/${todo.id}/subtask/${id}.json`,
         {
             method: 'DELETE',
             headers,

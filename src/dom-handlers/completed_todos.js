@@ -2,6 +2,7 @@ import moment from 'moment';
 
 import { getTodos, deleteTodo, updateTodo, createDeleteTodoList } from '../api/api-handlers';
 import { getUID, setClickedPage } from '../shared/ls-service';
+import { pageNameInLS } from '../shared/textInLS';
 import { sortTodoRender } from './filtersClick';
 import { onloadPage } from './onloadPage';
 import { counterTasksRender } from './sidebar';
@@ -171,7 +172,7 @@ export const completedTasks_render = () => {
         todoList.style.display = 'block';
 
         getCompletedTasks();
-        setClickedPage('complitedTasks');
+        setClickedPage(pageNameInLS.complitedTasks);
         onloadPage()
     }
 }

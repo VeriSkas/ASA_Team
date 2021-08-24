@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { deleteTodo, getTodos, updateTodo } from "../api/api-handlers";
+import { deleteTodo, getSubtask, getTodos, updateTodo } from "../api/api-handlers";
 import {
     getUID,
     setClickedPage,
@@ -13,7 +13,7 @@ import { filterByTagMain, filterByTagUrgent, searchTaskFilter } from '../shared/
 import { sortTodoRender } from "./filtersClick";
 import { todoMenuSidebar } from "./todoMenu";
 import { checkLengthTodo } from "../shared/validators";
-import { subtaskOfTask } from "./subtask";
+import { pageNameInLS, searchTagTextInLS } from '../shared/textInLS';
 
 export const searchLink = () => {
     const searchLink = document.querySelector('#nav-links_searchTodos');
@@ -25,7 +25,7 @@ export const searchLink = () => {
 
     searchLink.onclick = () => {
         title.innerText = `Search (${getSearchTodoLS() || ''})`;
-        setClickedPage('search');
+        setClickedPage(pageNameInLS.search);
         onloadPage();
     }
 
@@ -40,15 +40,15 @@ export const searchLink = () => {
 
     tagMainSearch.onclick = () => {
         inputSearch.value = '';
-        getSearchTask('"Search by green tag MAIN"');
-        setSearchTodoLS('"Search by green tag MAIN"');
+        getSearchTask(searchTagTextInLS.tagMain);
+        setSearchTodoLS(searchTagTextInLS.tagMain);
         title.innerText = `Search (${getSearchTodoLS() || ''})`;
     }
 
     tagUrgentSearch.onclick = () => {
         inputSearch.value = '';
-        getSearchTask('"Search by red tag URGENT"');
-        setSearchTodoLS('"Search by red tag URGENT"');
+        getSearchTask(searchTagTextInLS.tagUrgent);
+        setSearchTodoLS(searchTagTextInLS.tagUrgent);
         title.innerText = `Search (${getSearchTodoLS() || ''})`;
     }
 }
@@ -65,10 +65,10 @@ export const getSearchTask = async value => {
                 todos = sortTodoRender(todos);
 
                 switch (value) {
-                    case '"Search by green tag MAIN"':
+                    case searchTagTextInLS.tagMain:
                         todos = filterByTagMain(todos);
                         break;
-                    case '"Search by red tag URGENT"':
+                    case searchTagTextInLS.tagUrgent:
                         todos = filterByTagUrgent(todos);
                         break;
                     case value:
@@ -87,6 +87,7 @@ export const getSearchTask = async value => {
                         comment,
                         tagUrgent,
                         tagMain,
+                        subtask,
                         complited,
                         important,
                         date,
@@ -257,18 +258,20 @@ export const getSearchTask = async value => {
                             todoLi.append(tagNameMain);
                         }
 
-                        subtaskOfTask(item.id).then(response => {
+                        if (subtask) {
                             let activeSubtask = 0;
-                            if (response && response.length) {
-                                response.forEach(subtask => {
-                                    if (!subtask.complited) {
-                                        activeSubtask++;
-                                    }
+                            getSubtask(item)
+                                .then(subtasks => {
+                                    subtasks.forEach( subTask => {
+                                        if (!subTask.complited) {
+                                            activeSubtask++;
+                                        }
+                                    })
+
+                                    todoSubtask.innerText = `${activeSubtask} of ${subtasks.length} subTasks`;
+                                    todoLi.append(todoSubtask);
                                 })
-                                todoSubtask.innerText = `${activeSubtask} of ${response.length} subTasks`;
-                                todoLi.append(todoSubtask);
-                            }
-                        });
+                        }
 
                         todosContainer.prepend(todoLi);
                         todoLi.append(

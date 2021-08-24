@@ -4,7 +4,8 @@ import {
     createTodo,
     deleteTodo,
     updateTodo,
-    createDeleteTodoList
+    createDeleteTodoList,
+    getSubtask
 } from '../api/api-handlers';
 import { checkLengthTodo } from '../shared/validators';
 import { errorText } from '../shared/constants/errorText';
@@ -12,7 +13,6 @@ import { getTitleLS, getUID, setTodo, setTask } from '../shared/ls-service';
 import { todoMenuSidebar } from './todoMenu.js';
 import { counterTasksRender } from './sidebar';
 import { sortTodoRender } from './filtersClick';
-import { subtaskOfTask } from './subtask';
 
 export const renderTodos = async () => {
     const titleLS = getTitleLS();
@@ -36,6 +36,7 @@ export const renderTodos = async () => {
                         comment,
                         tagUrgent,
                         tagMain,
+                        subtask,
                         complited,
                         important,
                         date,
@@ -207,18 +208,20 @@ export const renderTodos = async () => {
                             todoLi.append(tagNameMain);
                         }
 
-                        subtaskOfTask(item.id).then(response => {
+                        if (subtask) {
                             let activeSubtask = 0;
-                            if (response && response.length) {
-                                response.forEach(subtask => {
-                                    if (!subtask.complited) {
-                                        activeSubtask++;
-                                    }
+                            getSubtask(item)
+                                .then(subtasks => {
+                                    subtasks.forEach( subTask => {
+                                        if (!subTask.complited) {
+                                            activeSubtask++;
+                                        }
+                                    })
+
+                                    todoSubtask.innerText = `${activeSubtask} of ${subtasks.length} subTasks`;
+                                    todoLi.append(todoSubtask);
                                 })
-                                todoSubtask.innerText = `${activeSubtask} of ${response.length} subTasks`;
-                                todoLi.append(todoSubtask);
-                            }
-                        });
+                        }
 
                         todosContainer.prepend(todoLi);
                         todoLi.append(

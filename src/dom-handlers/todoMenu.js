@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { getTodo, getUID, getTask } from '../shared/ls-service';
+import { getTodo, setTodo } from '../shared/ls-service';
 import { createSubtask, getSubtask, deleteSubTask, updateSubtask } from '../api/api-handlers';
 import { checkValidSubtask } from '../shared/validators';
 import { errorText } from '../shared/constants/errorText';
@@ -30,87 +30,88 @@ export const todoMenuSidebar = () => {
 }
 
 export const renderSubtask = () => {
-    getSubtask()
+    const todo = getTodo();
+
+    getSubtask(todo)
         .then( subtasks => {
             const listSubtask = document.querySelector('.content__todoMenu_subtask-list');
             listSubtask.innerHTML = null;
 
             if(subtasks) {
+                todo.subtask = subtasks;
+                setTodo(todo);
                 subtasks.forEach( subtask => {
                     const { id, uuid, subTask, idTodo, complited } = subtask;
+                    const subtaskLi = document.createElement('li');
+                    const deleteSubtask = document.createElement('i');
+                    const subtaskValue = document.createElement('textarea');
+                    const checkbox = document.createElement('i');
 
-                    if(uuid === getUID() && idTodo === getTask()) {
-                        const subtaskLi = document.createElement('li');
-                        const deleteSubtask = document.createElement('i');
-                        const subtaskValue = document.createElement('textarea');
-                        const checkbox = document.createElement('i');
+                    subtaskValue.innerText = subTask;
+                    subtaskValue.className = 'content__todoMenu_subtask-list-li-value';
+                    subtaskLi.className = 'content__todoMenu_subtask-list-li';
+                    deleteSubtask.className = 'bx bx-x';
+                    deleteSubtask.setAttribute('title', 'Delete subTask');
+                    checkbox.setAttribute('title', 'Complited subTask');
+                    subtaskValue.setAttribute('title', errorText.inputTodoErrorText);
 
-                        subtaskValue.innerText = subTask;
-                        subtaskValue.className = 'content__todoMenu_subtask-list-li-value';
-                        subtaskLi.className = 'content__todoMenu_subtask-list-li';
-                        deleteSubtask.className = 'bx bx-x';
-                        deleteSubtask.setAttribute('title', 'Delete subTask');
-                        checkbox.setAttribute('title', 'Complited subTask');
-                        subtaskValue.setAttribute('title', errorText.inputTodoErrorText);
+                    deleteSubtask.onclick = () => {
+                        deleteSubTask(subtask)
+                            .then(() => renderSubtask())
+                            .then( () => renderTodosAfterUpdate());
+                    }
 
-                        deleteSubtask.onclick = () => {
-                            deleteSubTask(subtask)
+                    if (complited) {
+                        checkbox.className = 'bx bxs-check-circle';
+                        subtaskValue.style.textDecoration = 'line-through';
+                    } else {
+                        checkbox.className = 'bx bx-check-circle';
+                        subtaskValue.style.textDecoration = 'none';
+                    }
+
+                    checkbox.onclick = () => {
+                        if(complited) {
+                            subtask.complited = false;
+                            updateSubtask(subtask)
+                                .then(() => renderSubtask())
+                                .then( () => renderTodosAfterUpdate());
+                        } else {
+                            subtask.complited = true;
+                            updateSubtask(subtask)
                                 .then(() => renderSubtask())
                                 .then( () => renderTodosAfterUpdate());
                         }
+                    }
 
-                        if (complited) {
-                            checkbox.className = 'bx bxs-check-circle';
-                            subtaskValue.style.textDecoration = 'line-through';
-                        } else {
-                            checkbox.className = 'bx bx-check-circle';
-                            subtaskValue.style.textDecoration = 'none';
-                        }
+                    subtaskValue.onkeyup = event => {
+                        if (event.key === 'Enter') {
+                            subtaskValue.value = subtaskValue.value.replace(/\n$/, '');
 
-                        checkbox.onclick = () => {
-                            if(complited) {
-                                subtask.complited = false;
-                                updateSubtask(subtask)
-                                    .then(() => renderSubtask())
-                                    .then( () => renderTodosAfterUpdate());
-                            } else {
-                                subtask.complited = true;
-                                updateSubtask(subtask)
-                                    .then(() => renderSubtask())
-                                    .then( () => renderTodosAfterUpdate());
-                            }
-                        }
-
-                        subtaskValue.onkeyup = event => {
-                            if (event.key === 'Enter') {
-                                subtaskValue.value = subtaskValue.value.replace(/\n$/, '');
-
-                                if ((subtaskValue.value !== subtask.subTask) && checkValidSubtask(subtaskValue.value)) {
-                                    subtask.date = moment().format();
-                                    subtask.subTask = subtaskValue.value;
-                                    updateSubtask(subtask)
-                                        .then(() => renderSubtask());
-                                } else {
-                                    subtaskValue.value = subtask.subTask;
-                                }
-                            }
-                        }
-
-                        subtaskValue.onblur = () => {
                             if ((subtaskValue.value !== subtask.subTask) && checkValidSubtask(subtaskValue.value)) {
                                 subtask.date = moment().format();
                                 subtask.subTask = subtaskValue.value;
-
                                 updateSubtask(subtask)
                                     .then(() => renderSubtask());
                             } else {
                                 subtaskValue.value = subtask.subTask;
                             }
                         }
-
-                        listSubtask.prepend(subtaskLi);
-                        subtaskLi.prepend( checkbox, subtaskValue, deleteSubtask);
                     }
+
+                    subtaskValue.onblur = () => {
+                        if ((subtaskValue.value !== subtask.subTask) && checkValidSubtask(subtaskValue.value)) {
+                            subtask.date = moment().format();
+                            subtask.subTask = subtaskValue.value;
+
+                            updateSubtask(subtask)
+                                .then(() => renderSubtask());
+                        } else {
+                            subtaskValue.value = subtask.subTask;
+                        }
+                    }
+
+                    listSubtask.prepend(subtaskLi);
+                    subtaskLi.prepend( checkbox, subtaskValue, deleteSubtask);
                 })
             }
         })

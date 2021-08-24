@@ -1,8 +1,6 @@
 import { getTodos, updateTodo } from "../api/api-handlers";
-import { getClickedPage, getTask, getTodo, getUID, setTodo } from "../shared/ls-service";
-import { getImportantTasks } from "./important_todos";
+import {  getTask, getTodo, getUID, setTodo } from "../shared/ls-service";
 import { renderTodosAfterUpdate } from "./onloadPage";
-import { renderTodos } from "./todosRender";
 
 export const createTagTask = () => {
     const tagNameMain = document.querySelector('#tagName_main');
