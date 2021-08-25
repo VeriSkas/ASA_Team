@@ -11,6 +11,7 @@ export const startPageStyle = () => {
     const bottomImg = document.querySelector('#bottomImg');
     const textTitle = document.querySelector('.main_startPage_header-text');
     const startPageBtn = document.querySelector('.startPageBtn');
+    const clickSquare = document.querySelector('.afterDiv');
 
     window.addEventListener('scroll', () => {
         let value = window.scrollY;
@@ -29,6 +30,10 @@ export const startPageStyle = () => {
     });
 
     startPageBtn.onclick = () => {
+        window.location.href = routes.signIn_Up;
+    }
+
+    clickSquare.onclick = () => {
         window.location.href = routes.signIn_Up;
     }
 }
