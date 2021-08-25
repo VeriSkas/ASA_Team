@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack --mode development",
-    "prod": "webpack --mode production",
+    "build": "webpack --mode production",
     "start": "webpack serve --mode development --open"
   },
   "author": "",
@@ -30,6 +30,7 @@
     "@fullcalendar/timegrid": "^5.9.0",
     "axios": "^0.21.1",
     "boxicons": "^2.0.7",
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
     "firebase": "^8.5.0",
     "html-loader": "^2.1.2",
     "moment": "^2.29.1"
