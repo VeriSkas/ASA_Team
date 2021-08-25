@@ -1,31 +1,28 @@
 import moment from 'moment';
 import { getDeleteTodolist, finalDeleteTodo, createRecoverTodo } from '../api/api-handlers';
 import { getUID, setClickedPage } from '../shared/ls-service';
+import { pageNameInLS } from '../shared/textInLS';
+import { sortTodoRender } from './filtersClick';
+import { onloadPage } from './onloadPage';
 import { counterTasksRender } from './sidebar';
 
 export const getDeletedTasks = () => {
-    getDeleteTodolist()
+    return getDeleteTodolist()
         .then( todos => {
             const todosContainer = document.querySelector('.content__todo_todosMain');
-            const taskMenu = document.querySelector('.content__todoMenu');
-            taskMenu.classList.add('close');
             todosContainer.innerHTML = null;
 
             counterTasksRender();
 
             if(todos) {
+                todos = sortTodoRender(todos);
+
                 todos.forEach( item => {
                     const {
-                        id,
                         uuid,
-                        title,
                         todoValue,
-                        comment,
                         complited,
                         important,
-                        date,
-                        dateDMY,
-                        dateTime
                     } = item;
 
                     if (getUID() === uuid) {
@@ -66,8 +63,6 @@ export const getDeletedTasks = () => {
 
                         todoRecoverFromDeleted.onclick = async() => {
                             item.date = moment().format();
-                            item.dateTime = moment().format('LTS');
-                            item.dateDMY = moment().format('LL');
                             await createRecoverTodo(item);
                             await finalDeleteTodo(item)
                                 .then(() => getDeletedTasks());
@@ -115,8 +110,7 @@ export const deletedTasks_render = () => {
     const calendar = document.querySelector('.calendar__wrapper');
     const todoList = document.querySelector('.content__todo_todosMain');
 
-    deletedTodos.addEventListener('click', event => {
-        event.preventDefault();
+    deletedTodos.onclick = () => {
         const title = document.querySelector('.content__todo_title');
         const inputTodos = document.querySelector('.content__todo_form');
 
@@ -126,6 +120,7 @@ export const deletedTasks_render = () => {
         todoList.style.display = 'block';
 
         getDeletedTasks();
-        setClickedPage('deletedTasks');
-    })
+        setClickedPage(pageNameInLS.deletedTasks);
+        onloadPage();
+    }
 }

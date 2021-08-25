@@ -1,30 +1,30 @@
+import moment from 'moment';
+
 import { getTodos, deleteTodo, updateTodo, createDeleteTodoList } from '../api/api-handlers';
 import { getUID, setClickedPage } from '../shared/ls-service';
+import { pageNameInLS } from '../shared/textInLS';
+import { sortTodoRender } from './filtersClick';
+import { onloadPage } from './onloadPage';
 import { counterTasksRender } from './sidebar';
 
 export const getCompletedTasks = () => {
-    getTodos()
+    return getTodos()
         .then( todos => {
             const todosContainer = document.querySelector('.content__todo_todosMain');
-            const taskMenu = document.querySelector('.content__todoMenu');
-            taskMenu.classList.add('close');
             todosContainer.innerHTML = null;
 
             counterTasksRender();
 
             if(todos) {
+                todos = sortTodoRender(todos);
+
                 todos.forEach( item => {
                     const {
-                        id,
                         uuid,
-                        title,
                         todoValue,
-                        comment,
                         complited,
                         important,
                         date,
-                        dateDMY,
-                        dateTime
                     } = item;
 
                     if ((getUID() === uuid) && item.complited) {
@@ -32,7 +32,9 @@ export const getCompletedTasks = () => {
                         const todoLiError = document.createElement('p');
                         const todoValueLi = document.createElement('textarea');
                         const complitedTodo = document.createElement('span');
-                        const todoTime = document.createElement('span');
+                        const todoTime = document.createElement('div');
+                        const todoTimeTime = document.createElement('p');
+                        const todoTimeDay = document.createElement('p');
                         const todoDelete = document.createElement('i');
                         const todoImportant = document.createElement('span');
                         const titleListTodo = document.createElement('p');
@@ -52,7 +54,9 @@ export const getCompletedTasks = () => {
                         complitedTodo.setAttribute('title', 'Complited task');
 
                         todoValueLi.innerHTML = item.todoValue;
-                        todoTime.innerHTML = item.dateTime;
+                        todoTimeTime.innerHTML = `${moment(date).format('LT')}`;
+                        todoTimeDay.innerHTML = `${moment(date).format('DD/MM/YY')} `;
+                        todoTime.append(todoTimeTime, todoTimeDay);
                         titleListTodo.innerText = `list: ${item.title}`;
 
                         if (todoValue.length > 150) {
@@ -71,8 +75,6 @@ export const getCompletedTasks = () => {
                         todoValueLi.onblur = () => {
                             if ((todoValueLi.value !== item.todoValue) && checkLengthTodo(todoValueLi.value)) {
                                 item.date = moment().format();
-                                item.dateTime = moment().format('LTS');
-                                item.dateDMY = moment().format('LL');
                                 item.todoValue = todoValueLi.value;
 
                                 updateTodo( item )
@@ -160,8 +162,7 @@ export const completedTasks_render = () => {
     const calendar = document.querySelector('.calendar__wrapper');
     const todoList = document.querySelector('.content__todo_todosMain');
 
-    completedTodos.addEventListener('click', event => {
-        event.preventDefault();
+    completedTodos.onclick = () => {
         const title = document.querySelector('.content__todo_title');
         const inputTodos = document.querySelector('.content__todo_form');
 
@@ -171,6 +172,7 @@ export const completedTasks_render = () => {
         todoList.style.display = 'block';
 
         getCompletedTasks();
-        setClickedPage('complitedTasks');
-    })
+        setClickedPage(pageNameInLS.complitedTasks);
+        onloadPage()
+    }
 }

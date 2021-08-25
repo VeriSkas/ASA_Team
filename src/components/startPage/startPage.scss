@@ -1,11 +1,10 @@
 @import '../../styles/temps/colors.scss';
 
-body {
+.main_startPage {
     background: $colorStartPage;
     background: linear-gradient(0deg, rgba(120,0,238,1) 0%, rgba(54,87,255,1) 100%);
-}
+    overflow: auto;
 
-.main_startPage {
     &_header{
         position: relative;
         width: 100%;

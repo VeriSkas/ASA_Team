@@ -18,33 +18,33 @@
                     </div>
                     <ul class="wrapper__content_sidebar-navLinks">
                         <li id="nav-links_allTasks" class="wrapper__content_sidebar-navLinks-link">
-                            <a href="">
+                            <a>
                                 <i class='bx bxs-calendar-check' ></i>
                                 <span class="link_name">Tasks</span>
                                 <div class="counterTasks" id="tasks_counter"></div>
                             </a>
                             <ul class="wrapper__content_sidebar-navLinks-link-subMenu blank">
-                                <li><a class="link_name" href="">Tasks</a></li>
+                                <li><a class="link_name">Tasks</a></li>
                             </ul>
                         </li>
                         <li class="wrapper__content_sidebar-navLinks-link" id="nav-links_importantTodos">
-                            <a href="" class="wrapper__content_sidebar-navLinks-link-a">
+                            <a class="wrapper__content_sidebar-navLinks-link-a">
                                 <i class='bx bxs-star-half'></i>
                                 <span class="link_name"> Important </span>
                                 <div class="counterTasks" id="importantTasks_counter"></div>
                             </a>
                             <ul class="wrapper__content_sidebar-navLinks-link-subMenu blank">
-                                <li><a class="link_name" href="">Important </a></li>
+                                <li><a class="link_name">Important </a></li>
                             </ul>
                         </li>
                         <li class="wrapper__content_sidebar-navLinks-link" id="nav-links_completedTodos">
-                            <a href="" class="wrapper__content_sidebar-navLinks-link-a">
+                            <a class="wrapper__content_sidebar-navLinks-link-a">
                                 <i class='bx bx-task-x' ></i>
                                 <span class="link_name">Completed</span>
                                 <div class="counterTasks" id="complitedTasks_counter"></div>
                             </a>
                             <ul class="wrapper__content_sidebar-navLinks-link-subMenu blank">
-                                <li><a class="link_name" href="">Completed</a></li>
+                                <li><a class="link_name">Completed</a></li>
                             </ul>
                         </li>
                         <li class="wrapper__content_sidebar-navLinks-link" id="nav-links_lists">
@@ -58,23 +58,33 @@
                             <ul class="wrapper__content_sidebar-navLinks-link-subMenu lists"></ul>
                         </li>
                         <li class="wrapper__content_sidebar-navLinks-link" id="nav-links_calendar">
-                            <a href="" class="wrapper__content_sidebar-navLinks-link-a">
+                            <a class="wrapper__content_sidebar-navLinks-link-a">
                                 <i class='bx bx-calendar'></i>
                                 <span class="link_name">Calendar</span>
                                 <div class="counterTasks"></div>
                             </a>
                             <ul class="wrapper__content_sidebar-navLinks-link-subMenu blank">
-                                <li><a class="link_name" href="">Calendar</a></li>
+                                <li><a class="link_name">Calendar</a></li>
+                            </ul>
+                        </li>
+                        <li class="wrapper__content_sidebar-navLinks-link" id="nav-links_searchTodos">
+                            <a class="wrapper__content_sidebar-navLinks-link-a">
+                                <i class='bx bx-search-alt'></i>
+                                <span class="link_name">Search</span>
+                                <div class="counterTasks"></div>
+                            </a>
+                            <ul class="wrapper__content_sidebar-navLinks-link-subMenu blank">
+                                <li><a class="link_name">Search</a></li>
                             </ul>
                         </li>
                         <li class="wrapper__content_sidebar-navLinks-link" id="nav-links_deletedTodos">
-                            <a href="" class="wrapper__content_sidebar-navLinks-link-a">
+                            <a class="wrapper__content_sidebar-navLinks-link-a">
                                 <i class='bx bxs-trash' ></i>
                                 <span class="link_name">Deleted</span>
                                 <div class="counterTasks" id="deletedTasks_counter"></div>
                             </a>
                             <ul class="wrapper__content_sidebar-navLinks-link-subMenu blank">
-                                <li><a class="link_name" href="">Deleted</a></li>
+                                <li><a class="link_name">Deleted</a></li>
                             </ul>
                         </li>
                         <li class="wrapper__content_sidebar-navLinks-link" id="nav-links_inputList">
@@ -106,10 +116,34 @@
                 <div class="content__todo">
                     <h1 class="content__todo_title"></h1>
                     <h4 class="content__todo_todayDate"></h4>
+                    <div class="content__todo-filter">
+                        <div class="content__todo-filter-filterTags">
+                            <i class='bx bxs-search-alt-2' id="content__todo-filter-filterTags-main" title="Search main todos"></i>
+                            <i class='bx bxs-search-alt-2' id="content__todo-filter-filterTags-urgent" title="Search urgent todos"></i>
+                        </div>
+                        <div class="content__todo-filter-sort">
+                            <i class='bx bx-sort-alt-2' title="Sort by..."></i>
+                            <ul class="content__todo-filter-sort-ul close">
+                                <li class="content__todo-filter-sort-ul-item" id="sortByNameAscending">sort by name &uuarr;</li>
+                                <li class="content__todo-filter-sort-ul-item" id="sortByNameDescending">sort by name &ddarr;</li>
+                                <li class="content__todo-filter-sort-ul-item" id="sortByDateAscending">sort by date &uuarr;</li>
+                                <li class="content__todo-filter-sort-ul-item" id="sortByDateDescending">sort by date &ddarr;</li>
+                                <li class="content__todo-filter-sort-ul-item" id="sortByTagMain">with tag main <i class="bx bxs-circle main"></i> </li>
+                                <li class="content__todo-filter-sort-ul-item" id="sortByTagUrgent">with tag urgent <i class="bx bxs-circle urgent"></i></li>
+                            </ul>
+                        </div>
+                    </div>
                     <form id="content__todo_form" class="content__todo_form">
                         <button type="submit" class="content__todo_form-todoAddPlus" title="Add task">&#10133;</button>
                         <input type="text" id="content__todo_form-input" class="content__todo_form-input" placeholder="Add task">
                         <button type="submit" class="content__todo_form-addTodoBtn" title="Add task"> &#9998; Add... </button>
+                    </form>
+                    <form id="content__todo_formSearch" class="content__todo_formSearch">
+                        <input type="text" class="content__todo_formSearch-input" placeholder="Search task">
+                        <button type="submit" class="content__todo_formSearch-searchTodoBtn" title="Search task">
+                            <i class='bx bx-search-alt-2' ></i>
+                            Search...
+                        </button>
                     </form>
                     <div class="dividing"></div>
                     <p id="inputTodosError" class="inputError"></p>
@@ -242,4 +276,4 @@
 
         <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
     </body>
-</html>
+    </html>
