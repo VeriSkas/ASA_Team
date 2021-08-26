@@ -7,13 +7,17 @@
     }
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 1500px) {
     .content__todo {
-        left: 120px;
-
         .calendar__wrapper {
             width: 130%;
         }
+    }
+}
+
+@media (max-width: 1300px) {
+    .content__todo {
+        left: 120px;
     }
 }
 
@@ -293,8 +297,32 @@
             }
         }
         .modalWrapper {
-            width: 330px;
-            height: 330px;
+            width: 300px;
+            height: 300px;
+
+            .modalProfile_wrapper_main{
+                height: 300px;
+
+                &_header {
+                    &-photo {
+                        height: 80px;
+                        width: 80px;
+                    }
+                }
+
+                &_inputFile, &_content {
+                    max-width: 300px;
+                    margin: 0;
+                }
+
+                &_footer {
+                    &-btn {
+                        height: 30px;
+                        margin-top: 0;
+                        margin-bottom: 10px;
+                    }
+                }
+            }
         }
     }
 }
