@@ -20,6 +20,7 @@ export const calendarLink = () => {
     const dateStart = document.querySelector('#dateStart');
     const dateEnd = document.querySelector('#dateEnd');
     const sortBtn = document.querySelector('.content__todo-filter-sort');
+    console.log('test');
 
     calendarLink.onclick = () => {
         calendar.style.display = 'grid';
