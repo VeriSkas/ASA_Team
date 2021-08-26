@@ -8,4 +8,5 @@ export const REGEXP = {
     twoIdenticalSymbols: /([.!\-_+#%$‘&*/=?^`{|}~])\1{1,}/,
     validFormatsPhoto: /\.(png|jpg|svg|jpeg|bmp|gif)$/i,
     inputEventLength: /^.{1,20}$/i,
+    inputSearchLength: /^.{1,50}$/si,
 }

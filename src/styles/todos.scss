@@ -113,6 +113,7 @@
         display: flex;
         align-items: center;
         height: 50px;
+        position: relative;
 
         &-input {
             width: 80%;
@@ -133,6 +134,12 @@
                 font-size: 20px;
                 font-weight: 700;
             }
+        }
+
+        #inputSearchTodosError {
+            position: absolute;
+            top: 33px;
+            left: 100px
         }
     }
 

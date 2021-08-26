@@ -11,4 +11,5 @@ export const errorText = {
     eventError: 'The event must contain from 1 to 20 characters',
     eventEndDateError: 'The entered date is less than the start date',
     eventStartDateError: 'The entered date has already passed',
+    searchLength: 'The search task must contain from 1 to 50 characters',
 };
