@@ -24,8 +24,7 @@
             z-index: 10;
         }
 
-        &:after {
-            content: '';
+        .afterDiv {
             position: absolute;
             top: 0;
             left: 0;
@@ -34,6 +33,7 @@
             background: linear-gradient(to top, $colorStartPage, transparent);
             z-index: 10;
             mix-blend-mode: color;
+            cursor: pointer;
         }
 
         img {

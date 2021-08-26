@@ -145,7 +145,7 @@ export const renderTodosAfterUpdate = () => {
             getImportantTasks();
             break;
         case pageNameInLS.search:
-            getSearchTask();
+            getSearchTask(getSearchTodoLS());
             break;
         case clickedPage:
             renderTodos();

@@ -166,8 +166,27 @@ export const eventHandler = () => {
         isFormValid ? eventBtn.removeAttribute('disabled') : eventBtn.setAttribute('disabled', true);
     };
 
+    dateStart.value = moment().format().slice(0, 10);
+    dateEnd.value = dateStart.value;
+
+    if (dateStart.value > dateEnd.value) {
+        eventFormFields.endDate.isValid = false;
+        eventEndDateError.innerText = errorText.eventEndDateError;
+    } else {
+        eventFormFields.endDate.isValid = true;
+        eventEndDateError.innerText = '';
+    }
+
+    if (dateStart.value < todayDate) {
+        eventFormFields.startDate.isValid = false;
+        eventStartDateError.innerText = errorText.eventStartDateError;
+    } else {
+        eventFormFields.startDate.isValid = true;
+        eventStartDateError.innerText = '';
+    }
+
     inputEvent.oninput = () => {
-        if (checkLengthEvent(inputEvent.value)) {
+        if (checkLengthEvent(inputEvent.value.trim())) {
             eventFormFields.event.isValid = true;
             eventError.innerText = '';
         } else {
@@ -247,7 +266,7 @@ export const eventHandler = () => {
         if (checkLengthEvent(inputEvent.value) &&
             (dateStart.value < dateEnd.value) &&
             (dateStart.value > todayDate)
-            ) {
+        ) {
             eventValue.title = inputEvent.value;
             eventValue.start = dateStart.value;
             eventValue.end = dateEnd.value;

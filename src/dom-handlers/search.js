@@ -12,8 +12,9 @@ import { onloadPage } from "./onloadPage";
 import { filterByTagMain, filterByTagUrgent, searchTaskFilter } from '../shared/filters';
 import { sortTodoRender } from "./filtersClick";
 import { todoMenuSidebar } from "./todoMenu";
-import { checkLengthTodo } from "../shared/validators";
+import { checkLengthSearchTodo } from "../shared/validators";
 import { pageNameInLS, searchTagTextInLS } from '../shared/textInLS';
+import { errorText } from '../shared/constants/errorText';
 
 export const searchLink = () => {
     const searchLink = document.querySelector('#nav-links_searchTodos');
@@ -22,6 +23,7 @@ export const searchLink = () => {
     const searchBtn = document.querySelector('.content__todo_formSearch-searchTodoBtn');
     const tagMainSearch = document.querySelector('#content__todo-filter-filterTags-main');
     const tagUrgentSearch = document.querySelector('#content__todo-filter-filterTags-urgent');
+    const inputSearchError = document.querySelector('#inputSearchTodosError');
 
     searchLink.onclick = () => {
         title.innerText = `Search (${getSearchTodoLS() || ''})`;
@@ -29,13 +31,21 @@ export const searchLink = () => {
         onloadPage();
     }
 
+    inputSearch.oninput = () => {
+        checkLengthSearchTodo(inputSearch.value.trim()) ?
+            inputSearchError.innerHTML = '' :
+            inputSearchError.innerHTML = errorText.searchLength;
+    }
+
     searchBtn.onclick = event => {
         event.preventDefault();
         let searchValue = inputSearch.value;
-        getSearchTask(searchValue);
-        setSearchTodoLS(searchValue);
-        inputSearch.value = '';
-        title.innerText = `Search (${getSearchTodoLS() || ''})`;
+        if (checkLengthSearchTodo(searchValue.trim())) {
+            getSearchTask(searchValue);
+            setSearchTodoLS(searchValue);
+            inputSearch.value = '';
+            title.innerText = `Search (${getSearchTodoLS() || ''})`;
+        }
     }
 
     tagMainSearch.onclick = () => {
