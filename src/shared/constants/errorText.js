@@ -13,3 +13,7 @@ export const errorText = {
     eventStartDateError: 'The entered date has already passed',
     searchLength: 'The search task must contain from 1 to 50 characters',
 };
+
+export const textConfirm ={
+    updateProfile: 'Do you really want to change your profile?',
+}

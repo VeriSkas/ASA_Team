@@ -9,8 +9,8 @@
 @import './todos.scss';
 @import './todoMenu.scss';
 @import './calendar.scss';
-@import './media.scss';
 @import './spiner.scss';
+@import './media.scss';
 
 * {
     margin: 0;
@@ -22,7 +22,7 @@
     position: absolute;
     left: 25px;
     top: 55px;
-    color: red;
+    color: $errorInput;
     font-size: 12px;
 }
 
@@ -57,8 +57,8 @@ input:-webkit-autofill:active {
     width: 200px;
     height: 100px;
     padding: 10px;
-    background: #ff5757;
-    color: white;
+    background: $errorNotification;
+    color: $colorInput;
     border-radius: 5px;
 
     &.signUp {
