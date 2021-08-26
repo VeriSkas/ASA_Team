@@ -36,16 +36,10 @@ jobs:
       - name: Build dependencies
         run: npm run build
   deploy:
-    name: Deploy
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        with:
-          name: build
-          path: build
-      - name: Deploy to Firebase
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+    uses: FirebaseExtended/action-hosting-deploy@v0
+      with:
+        repoToken: '${{ secrets.GITHUB_TOKEN }}'
+        firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ASA_TEAM_B3F17 }}'
+        channelId: live
+        projectId: asa-team-b3f17
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
