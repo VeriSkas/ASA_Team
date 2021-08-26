@@ -183,7 +183,7 @@
         background: $color5;
         background: linear-gradient(240deg, $color5 0%, $color6 50%);
         height: 100vh;
-        // padding-top: 30px;
+        padding-top: 30px;
         overflow: auto;
 
         &::-webkit-scrollbar {
@@ -390,7 +390,7 @@
                 .wrapper__content_sidebar-navLinks-link_profile {
                     a {
                         i {
-                            color: #f0f0f0;
+                            color: $colorInput;
                         }
                     }
                 }

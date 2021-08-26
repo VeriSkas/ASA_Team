@@ -11,7 +11,7 @@
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
-    background: #ebe0ffc7;
+    background: $modal;
     opacity: 0;
     visibility: hidden;
     transition: opacity 1.3s ease-in-out;

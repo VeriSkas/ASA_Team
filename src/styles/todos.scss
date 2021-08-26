@@ -23,11 +23,11 @@
                 cursor: pointer;
 
                 &#content__todo-filter-filterTags-main {
-                    color: #037b07;
+                    color: $mainTag;
                 }
 
                 &#content__todo-filter-filterTags-urgent {
-                    color: #a50404;
+                    color: $urgentTag;
                 }
             }
         }
@@ -52,7 +52,7 @@
                 padding: 10px;
                 border-radius: 10px;
                 z-index: 2;
-                background-color: #ccbaef;
+                background-color: $color7;
                 list-style: none;
 
                 &.close {
@@ -64,16 +64,16 @@
 
                     i.bxs-circle {
                         &.main {
-                            color: #037b07;
+                            color: $mainTag;
                         }
 
                         &.urgent {
-                            color: #a50404;
+                            color: $urgentTag;
                         }
                     }
 
                     &:hover {
-                        background-color: #7f43f8;
+                        background-color: $color8;
                     }
                 }
             }
@@ -215,12 +215,12 @@
 
                 &.urgent {
                     left: 275px;
-                    color: #a50404;
+                    color: $urgentTag;
                 }
 
                 &.main {
                     left: 295px;
-                    color: #037b07;
+                    color: $mainTag;
                 }
             }
 

@@ -82,8 +82,8 @@
                     cursor: pointer;
 
                     &:disabled {
-                        color: #5232f840;
-                        border: 3px solid #5232f840;
+                        color: $color10;
+                        border: 3px solid $color10;
                     }
                 }
             }
