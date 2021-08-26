@@ -15,3 +15,7 @@ export const hideSpiner = () => {
     const wrapperSpiner = document.querySelector('.spiner');
     wrapperSpiner.remove();
 }
+
+// <div id="escapingBallG">
+// 	<div id="escapingBall_1" class="escapingBallG"></div>
+// </div>
