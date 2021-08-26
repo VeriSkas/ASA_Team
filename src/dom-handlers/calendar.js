@@ -264,8 +264,8 @@ export const eventHandler = () => {
     formEvent.addEventListener('submit', event => {
         event.preventDefault();
         if (checkLengthEvent(inputEvent.value) &&
-            (dateStart.value < dateEnd.value) &&
-            (dateStart.value > todayDate)
+            (dateStart.value <= dateEnd.value) &&
+            (dateStart.value >= todayDate)
         ) {
             eventValue.title = inputEvent.value;
             eventValue.start = dateStart.value;
