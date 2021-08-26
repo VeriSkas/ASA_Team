@@ -1,66 +1,241 @@
-// пригодится в дальнейшем
+@media (max-width: 1600px) {
+    .content__todo {
+        width: 50%;
+        .calendar__wrapper {
+            width: 150%;
+        }
+    }
+}
 
-//@media (max-width: 1600px) {
-//     .content__todo {
-//         width: 50%;
-//         .calendar__wrapper {
-//             width: 150%;
-//         }
-//     }
-// }
+@media (max-width: 1300px) {
+    .content__todo {
+        left: 120px;
 
-// @media (max-width: 1300px) {
-//     .content__todo {
-//         left: 120px;
-//     }
+        .calendar__wrapper {
+            width: 130%;
+        }
+    }
+}
 
-//     // .bx-menu {
-//     //     visibility: hidden;
-//     // }
-// }
+@media (max-width: 1200px) {
+    .content__todo {
+        .calendar__wrapper {
+            width: 100%;
+        }
+    }
+}
 
-// @media (max-width: 900px) {
-//     .content__todoMenu {
-//         width: 200px;
+@media (max-width: 920px) {
+    .content__todo {
+        width: 30%;
 
-//         &.close {
-//             right: -220px;
-//         }
+        &_todosMain {
+            .todoLi {
+                .todo-important,
+                .todoMenu,
+                .todos-deleteImg,
+                .todo-complited,
+                .todoRecover {
+                    font-size: 14px;
+                }
 
-//         &_comment-textarea, &_subtask {
-//             width: 180px
-//         }
-//     }
-// }
+                .todoSubtask {
+                    left: 140px;
+                }
+            }
+        }
 
-// @media (max-width: 750px) {
-//     .content__todoMenu {
-//         width: 150px;
+        .calendar__wrapper {
+            grid-template: 1fr 1fr / 1fr;
 
-//         &.close {
-//             right: -170px;
-//         }
+            &-content {
+                width: 50%;
+            }
 
-//         &_comment-textarea, &_subtask {
-//             width: 130px
-//         }
-//     }
-// }
+            &-inputEvent {
+                width: 300px;
+            }
+        }
+    }
 
-// @media (max-width: 570px) {
-//     .content__todo {
-//         left: 110px;
-//     }
+    .content__todoMenu {
+        width: 200px;
 
-//     .content__todo_form-addTodoBtn {
-//         visibility: hidden;
-//     }
+        &.close {
+            right: -220px;
+        }
 
-//     .todoLi {
-//         grid-template: 2fr/10% 60% 15% !important;
-//         font-size: 10px;
-//     }
-// }
+        &_comment-textarea, &_subtask, &_tags {
+            width: 180px
+        }
+
+        &_tags {
+            height: 130px;
+
+            &-activeTags {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    }
+}
+
+@media (max-width: 750px) {
+    .main_startPage {
+        &_header {
+            &-text {
+                font-size: 8em;
+            }
+        }
+
+        &_content {
+            &_todoText {
+                &-title {
+                    margin-bottom: 20px;
+                    font-size: 35px;
+
+                }
+
+                &-text {
+                    line-height: 25px;
+                    font-size: 15px;
+                }
+            }
+        }
+    }
+
+    .content__todoMenu {
+        width: 150px;
+
+        &.close {
+            right: -170px;
+        }
+
+        &_comment-textarea, &_subtask, &_tags {
+            width: 130px
+        }
+    }
+
+    .modal.open {
+        .modalWrapper {
+            transform: translate(-13%, -25%);
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .wrapper__content_sidebar.close {
+        width: 40px;
+        .wrapper__content_sidebar-logoDetails {
+            i {
+                min-width: 35px;
+            }
+        }
+
+        .wrapper__content_sidebar-navLinks {
+            &-link {
+                &-a {
+                    i {
+                        min-width: 35px;
+                    }
+                }
+
+                &:hover {
+                    .wrapper__content_sidebar-navLinks-link-subMenu {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+
+    .content__todo {
+        width: 20%;
+
+        &_todosMain {
+            .todoLi {
+                grid-template: 1fr/10% 75% 5% 5% 5%;
+
+                .todos-time {
+                    display: none;
+                }
+            }
+        }
+
+        .calendar__wrapper {
+            &-content {
+                #calendar {
+                    min-width: 300px;
+                }
+            }
+        }
+    }
+
+    .modal {
+        &.open {
+            .modalWrapper {
+                transform: translate(-20%, -25%);
+            }
+        }
+        .modalWrapper {
+            width: 330px;
+            height: 330px;
+        }
+    }
+}
+
+@media (max-width: 570px) {
+    .container__forms_signin-signup-form-inputField {
+        max-width: 300px;
+    }
+
+    .content__todo {
+        left: 50px;
+    }
+
+    .content__todo_form-addTodoBtn {
+        visibility: hidden;
+    }
+
+    .todoLi {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 450px) {
+    .modal {
+        &.open {
+            .modalWrapper {
+                transform: translate(-2%, -40%);
+            }
+        }
+    }
+}
+
+@media (max-width: 400px) {
+    .main_startPage {
+        &_header {
+            &-text {
+                font-size: 5em;
+            }
+        }
+    }
+
+    .wrapper__content_sidebar {
+        &-navLinks {
+            #nav-links_calendar {
+                display: none;
+            }
+        }
+    }
+}
+
+@media (max-width: 380px) {
+    .content__todo {
+        width: 19%;
+        left: 45px;
+    }
+}
 
 @media (max-width: 870px) {
     .container {
