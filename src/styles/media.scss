@@ -7,13 +7,17 @@
     }
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 1500px) {
     .content__todo {
-        left: 120px;
-
         .calendar__wrapper {
             width: 130%;
         }
+    }
+}
+
+@media (max-width: 1300px) {
+    .content__todo {
+        left: 120px;
     }
 }
 
