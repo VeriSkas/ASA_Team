@@ -7,6 +7,7 @@ import {
     sortNameDescending
 } from "../shared/filters";
 import { getSortBtn, setSortBtn } from "../shared/ls-service";
+import { filterBtnInLS } from "../shared/textInLS";
 import { onloadPage } from "./onloadPage";
 
 export const filtersClick = () => {
@@ -22,32 +23,32 @@ export const filtersClick = () => {
     filterBtn.onclick = () => filterItem.classList.toggle('close');
 
     sortByNameAscendingBtn.onclick = () => {
-        setSortBtn('NameAscendingBtn');
+        setSortBtn(filterBtnInLS.nameAscendingBtn);
         onloadPage();
     };
 
     sortByNameDescendingBtn.onclick = () => {
-        setSortBtn('NameDescendingBtn');
+        setSortBtn(filterBtnInLS.nameDescendingBtn);
         onloadPage();
     };
 
     sortByDateAscendingBtn.onclick = () => {
-        setSortBtn('DateAscendingBtn');
+        setSortBtn(filterBtnInLS.dateAscendingBtn);
         onloadPage();
     };
 
     sortByDateDescendingBtn.onclick = () => {
-        setSortBtn('DateDescendingBtn');
+        setSortBtn(filterBtnInLS.dateDescendingBtn);
         onloadPage();
     };
 
     sortByTagMainBtn.onclick = () => {
-        setSortBtn('sortByTagMainBtn');
+        setSortBtn(filterBtnInLS.sortByTagMainBtn);
         onloadPage();
     };
 
     sortByTagUrgentBtn.onclick = () => {
-        setSortBtn('sortByTagUrgentBtn');
+        setSortBtn(filterBtnInLS.sortByTagUrgentBtn);
         onloadPage();
     };
 }
@@ -56,22 +57,22 @@ export const sortTodoRender = todos => {
     const sortBtnClicked = getSortBtn();
 
     switch (sortBtnClicked) {
-        case 'NameAscendingBtn':
+        case filterBtnInLS.nameAscendingBtn:
             return sortNameAscending(todos);
 
-        case 'NameDescendingBtn':
+        case filterBtnInLS.nameDescendingBtn:
             return sortNameDescending(todos);
 
-        case 'DateAscendingBtn':
+        case filterBtnInLS.dateAscendingBtn:
             return sortDateAscending(todos);
 
-        case 'DateDescendingBtn':
+        case filterBtnInLS.dateDescendingBtn:
             return sortDateDescending(todos);
 
-        case 'sortByTagMainBtn':
+        case filterBtnInLS.sortByTagMainBtn:
             return sortByTagMain(todos);
 
-        case 'sortByTagUrgentBtn':
+        case filterBtnInLS.sortByTagUrgentBtn:
             return sortByTagUrgent(todos);
 
         default:

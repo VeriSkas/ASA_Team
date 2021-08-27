@@ -13,6 +13,7 @@ import { getTitleLS, getUID, setTodo, setTask } from '../shared/ls-service';
 import { todoMenuSidebar } from './todoMenu.js';
 import { counterTasksRender } from './sidebar';
 import { sortTodoRender } from './filtersClick';
+import { tooltips } from '../shared/constants/textFile';
 
 export const renderTodos = async () => {
     const titleLS = getTitleLS();
@@ -66,10 +67,10 @@ export const renderTodos = async () => {
                         todoMenu.className = 'bx bx-notepad todoMenu';
                         todoSubtask.className = 'todoSubtask';
 
-                        todoDelete.setAttribute('title', 'Delete task');
-                        todoImportant.setAttribute('title', 'Important task');
-                        complitedTodo.setAttribute('title', 'Complited task');
-                        todoMenu.setAttribute('title', 'Open task-menu');
+                        todoDelete.setAttribute('title', tooltips.deleteTask);
+                        todoImportant.setAttribute('title', tooltips.importantTask);
+                        complitedTodo.setAttribute('title', tooltips.complitedTask);
+                        todoMenu.setAttribute('title', tooltips.taskMenu);
 
                         todoValueLi.innerHTML = todoValue;
                         todoTimeTime.innerHTML = `${moment(date).format('LT')}`;
@@ -190,21 +191,21 @@ export const renderTodos = async () => {
                         if (comment) {
                             const todoInformationComment = document.createElement('i');
                             todoInformationComment.className = 'bx bx-message-rounded-check todoInformationComment';
-                            todoInformationComment.setAttribute('title', 'Task has a comment');
+                            todoInformationComment.setAttribute('title', tooltips.comment);
                             todoLi.append(todoInformationComment);
                         }
 
                         if (tagUrgent) {
                             const tagNameUrgent = document.createElement('i');
                             tagNameUrgent.className = 'bx bxs-circle urgent';
-                            tagNameUrgent.setAttribute('title', 'Task is urgent');
+                            tagNameUrgent.setAttribute('title', tooltips.tagUrgent);
                             todoLi.append(tagNameUrgent);
                         }
 
                         if (tagMain) {
                             const tagNameMain = document.createElement('i');
                             tagNameMain.className = 'bx bxs-circle main';
-                            tagNameMain.setAttribute('title', 'Task is main');
+                            tagNameMain.setAttribute('title', tooltips.tagMain);
                             todoLi.append(tagNameMain);
                         }
 

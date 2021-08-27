@@ -15,6 +15,7 @@ import { todoMenuSidebar } from "./todoMenu";
 import { checkLengthSearchTodo } from "../shared/validators";
 import { pageNameInLS, searchTagTextInLS } from '../shared/textInLS';
 import { errorText } from '../shared/constants/errorText';
+import { innerTextTitle, tooltips } from '../shared/constants/textFile';
 
 export const searchLink = () => {
     const searchLink = document.querySelector('#nav-links_searchTodos');
@@ -26,7 +27,7 @@ export const searchLink = () => {
     const inputSearchError = document.querySelector('#inputSearchTodosError');
 
     searchLink.onclick = () => {
-        title.innerText = `Search (${getSearchTodoLS() || ''})`;
+        title.innerText = `${innerTextTitle.search} "${getSearchTodoLS() || ''}"`;
         setClickedPage(pageNameInLS.search);
         onloadPage();
     }
@@ -44,7 +45,7 @@ export const searchLink = () => {
             getSearchTask(searchValue);
             setSearchTodoLS(searchValue);
             inputSearch.value = '';
-            title.innerText = `Search (${getSearchTodoLS() || ''})`;
+            title.innerText = `${innerTextTitle.search} "${getSearchTodoLS() || ''}"`;
         }
     }
 
@@ -52,14 +53,14 @@ export const searchLink = () => {
         inputSearch.value = '';
         getSearchTask(searchTagTextInLS.tagMain);
         setSearchTodoLS(searchTagTextInLS.tagMain);
-        title.innerText = `Search (${getSearchTodoLS() || ''})`;
+        title.innerText = `${innerTextTitle.search} "${getSearchTodoLS() || ''}"`;
     }
 
     tagUrgentSearch.onclick = () => {
         inputSearch.value = '';
         getSearchTask(searchTagTextInLS.tagUrgent);
         setSearchTodoLS(searchTagTextInLS.tagUrgent);
-        title.innerText = `Search (${getSearchTodoLS() || ''})`;
+        title.innerText = `${innerTextTitle.search} "${getSearchTodoLS() || ''}"`;
     }
 }
 
@@ -129,10 +130,10 @@ export const getSearchTask = async value => {
                         todoSubtask.className = 'todoSubtask';
                         titleListTodo.className = 'titleListTodo';
 
-                        todoDelete.setAttribute('title', 'Delete task');
-                        todoImportant.setAttribute('title', 'Important task');
-                        complitedTodo.setAttribute('title', 'Complited task');
-                        todoMenu.setAttribute('title', 'Open task-menu');
+                        todoDelete.setAttribute('title', tooltips.deleteTask);
+                        todoImportant.setAttribute('title', tooltips.importantTask);
+                        complitedTodo.setAttribute('title', tooltips.complitedTask);
+                        todoMenu.setAttribute('title', tooltips.taskMenu);
 
                         todoValueLi.innerHTML = todoValue;
                         todoTimeTime.innerHTML = `${moment(date).format('LT')}`;
@@ -250,21 +251,21 @@ export const getSearchTask = async value => {
                         if (comment) {
                             const todoInformationComment = document.createElement('i');
                             todoInformationComment.className = 'bx bx-message-rounded-check todoInformationComment';
-                            todoInformationComment.setAttribute('title', 'Task has a comment');
+                            todoInformationComment.setAttribute('title', tooltips.comment);
                             todoLi.append(todoInformationComment);
                         }
 
                         if (tagUrgent) {
                             const tagNameUrgent = document.createElement('i');
                             tagNameUrgent.className = 'bx bxs-circle urgent';
-                            tagNameUrgent.setAttribute('title', 'Task is urgent');
+                            tagNameUrgent.setAttribute('title', tooltips.tagUrgent);
                             todoLi.append(tagNameUrgent);
                         }
 
                         if (tagMain) {
                             const tagNameMain = document.createElement('i');
                             tagNameMain.className = 'bx bxs-circle main';
-                            tagNameMain.setAttribute('title', 'Task is main');
+                            tagNameMain.setAttribute('title', tooltips.tagMain);
                             todoLi.append(tagNameMain);
                         }
 

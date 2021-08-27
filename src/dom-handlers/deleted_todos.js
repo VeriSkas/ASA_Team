@@ -1,5 +1,6 @@
 import moment from 'moment';
 import { getDeleteTodolist, finalDeleteTodo, createRecoverTodo } from '../api/api-handlers';
+import { innerTextTitle, tooltips } from '../shared/constants/textFile';
 import { getUID, setClickedPage } from '../shared/ls-service';
 import { pageNameInLS } from '../shared/textInLS';
 import { sortTodoRender } from './filtersClick';
@@ -45,8 +46,8 @@ export const getDeletedTasks = () => {
                         complitedTodo.className = 'todo-complited';
                         todoRecoverFromDeleted.className = 'bx bx-reset todoRecover';
 
-                        todoDelete.setAttribute('title', 'Delete task');
-                        todoRecoverFromDeleted.setAttribute('title', 'Restore task');
+                        todoDelete.setAttribute('title', tooltips.deleteTask);
+                        todoRecoverFromDeleted.setAttribute('title', tooltips.recoverTask);
                         complitedTodo.style.cursor = 'default';
                         todoImportant.style.cursor = 'default';
 
@@ -114,7 +115,7 @@ export const deletedTasks_render = () => {
         const title = document.querySelector('.content__todo_title');
         const inputTodos = document.querySelector('.content__todo_form');
 
-        title.innerText = 'Deleted tasks';
+        title.innerText = innerTextTitle.deletedTasks;
         inputTodos.style.display = 'none';
         calendar.style.display = 'none';
         todoList.style.display = 'block';
