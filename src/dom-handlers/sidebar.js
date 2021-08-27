@@ -1,7 +1,7 @@
 import { getDeleteTodolist, getTodos } from '../api/api-handlers';
 import { routes } from '../shared/constants/routes';
 import { clearLS, getTitleLS, getUID } from '../shared/ls-service';
-
+import { pageNameInLS } from '../shared/textInLS';
 import { createList, renderTitleLists } from './createList';
 
 export const showSidebar = () => {
@@ -49,7 +49,7 @@ export const counterTasksRender = async () => {
                         counterImportantTasks.innerHTML = counterImportant;
                         counterComplitedTasks.innerHTML = counterComplited;
 
-                        if (!item.complited && (item.title === 'tasks'))  {
+                        if (!item.complited && (item.title === pageNameInLS.tasks)) {
                             counter++;
                             counterTasks.innerHTML = counter;
                         }

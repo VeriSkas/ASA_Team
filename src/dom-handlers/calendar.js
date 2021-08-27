@@ -92,10 +92,11 @@ export const renderCalendar = () => {
                 start: event.event.startStr,
                 end: event.event.endStr,
                 id: event.event.id,
-                uuid: null,
+                uuid: getUID(),
             };
             const updateQestion = confirm(`Update event: '${eventValue.title}' ?`);
             if (updateQestion) {
+                eventValue.end = moment(eventValue.end).subtract(1, 'd').format('YYYY-MM-DD');
                 updateEvent(eventValue);
             }
         },
@@ -106,10 +107,11 @@ export const renderCalendar = () => {
                 start: event.event.startStr,
                 end: event.event.endStr,
                 id: event.event.id,
-                uuid: null,
+                uuid: getUID(),
             };
             const updateQestion = confirm(`Update event: '${eventValue.title}' ?`);
             if (updateQestion) {
+                eventValue.end = moment(eventValue.end).subtract(1, 'd').format('YYYY-MM-DD');
                 updateEvent(eventValue);
             }
         },

@@ -1,6 +1,7 @@
 import moment from 'moment';
 
 import { getTodos, deleteTodo, updateTodo, createDeleteTodoList } from '../api/api-handlers';
+import { innerTextTitle, tooltips } from '../shared/constants/textFile';
 import { getUID, setClickedPage } from '../shared/ls-service';
 import { pageNameInLS } from '../shared/textInLS';
 import { sortTodoRender } from './filtersClick';
@@ -49,9 +50,9 @@ export const getCompletedTasks = () => {
                         todoDelete.className = 'bx bxs-trash todos-deleteImg';
                         complitedTodo.className = 'todo-complited';
 
-                        todoDelete.setAttribute('title', 'Delete task');
-                        todoImportant.setAttribute('title', 'Important task');
-                        complitedTodo.setAttribute('title', 'Complited task');
+                        todoDelete.setAttribute('title', tooltips.deleteTask);
+                        todoImportant.setAttribute('title', tooltips.importantTask);
+                        complitedTodo.setAttribute('title', tooltips.complitedTask);
 
                         todoValueLi.innerHTML = item.todoValue;
                         todoTimeTime.innerHTML = `${moment(date).format('LT')}`;
@@ -98,23 +99,6 @@ export const getCompletedTasks = () => {
                             todoImportant.innerHTML = '&#9734;';
                             todoImportant.removeAttribute('clicked');
                         }
-
-                        // ПУСТЬ ПОКА ПОВИСИТ
-                        // todoImportant.onclick = () => {
-                        //     let isClicked = todoImportant.getAttribute('clicked');
-
-                        //     if (!isClicked) {
-                        //         todoImportant.setAttribute('clicked', true);
-                        //         todoImportant.innerHTML = '&#10029;';
-                        //         item.important = true;
-                        //         updateTodo( item );
-                        //     } else {
-                        //         todoImportant.removeAttribute('clicked');
-                        //         todoImportant.innerHTML = '&#9734;';
-                        //         item.important = false;
-                        //         updateTodo( item );
-                        //     }
-                        // }
 
                         if (complited) {
                             complitedTodo.innerHTML = '&#9746;';
@@ -166,7 +150,7 @@ export const completedTasks_render = () => {
         const title = document.querySelector('.content__todo_title');
         const inputTodos = document.querySelector('.content__todo_form');
 
-        title.innerText = 'Completed tasks';
+        title.innerText = innerTextTitle.complitedTasks;
         calendar.style.display = 'none';
         inputTodos.style.display = 'none';
         todoList.style.display = 'block';

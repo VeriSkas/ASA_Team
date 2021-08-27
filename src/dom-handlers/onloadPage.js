@@ -1,3 +1,4 @@
+import { innerTextTitle } from "../shared/constants/textFile";
 import {
     getClickedPage,
     removeSortBtn,
@@ -37,12 +38,25 @@ export const onloadPage = async () => {
     searchLink();
 
     switch (page) {
+        case null:
+            inputSearch.style.display = 'none';
+            calendar.style.display = 'none';
+            todoList.style.display = 'block';
+            sortBtn.style.visibility = 'visible';
+            searchTagsBtn.style.visibility = 'hidden';
+            title.innerText = innerTextTitle.mainPageText;
+            setTitleLS(pageNameInLS.tasks);
+            todosElementHandler();
+            setClickedPage(pageNameInLS.tasks);
+            await renderTodos();
+            removeSortBtn();
+            break;
         case pageNameInLS.tasks:
             todosElementHandler();
             inputSearch.style.display = 'none';
             calendar.style.display = 'none';
             todoList.style.display = 'block';
-            title.innerText = 'My To-Do List';
+            title.innerText = innerTextTitle.mainPageText;
             inputTodos.style.display = 'flex';
             sortBtn.style.visibility = 'visible';
             searchTagsBtn.style.visibility = 'hidden';
@@ -55,7 +69,7 @@ export const onloadPage = async () => {
             inputSearch.style.display = 'none';
             calendar.style.display = 'none';
             todoList.style.display = 'block';
-            title.innerText = 'Important tasks';
+            title.innerText = innerTextTitle.importantTasks;
             inputTodos.style.display = 'none';
             sortBtn.style.visibility = 'visible';
             searchTagsBtn.style.visibility = 'hidden';
@@ -66,7 +80,7 @@ export const onloadPage = async () => {
             inputSearch.style.display = 'none';
             calendar.style.display = 'none';
             todoList.style.display = 'block';
-            title.innerText = 'Completed tasks';
+            title.innerText = innerTextTitle.complitedTasks;
             inputTodos.style.display = 'none';
             sortBtn.style.visibility = 'visible';
             searchTagsBtn.style.visibility = 'hidden';
@@ -77,7 +91,7 @@ export const onloadPage = async () => {
             inputSearch.style.display = 'none';
             calendar.style.display = 'none';
             todoList.style.display = 'block';
-            title.innerText = 'Deleted tasks';
+            title.innerText = innerTextTitle.deletedTasks;
             inputTodos.style.display = 'none';
             sortBtn.style.visibility = 'visible';
             searchTagsBtn.style.visibility = 'hidden';
@@ -86,7 +100,7 @@ export const onloadPage = async () => {
             break;
         case pageNameInLS.calendar:
             inputSearch.style.display = 'none';
-            title.innerText = 'Calendar';
+            title.innerText = innerTextTitle.calendar;
             inputTodos.style.display = 'none';
             todoList.style.display = 'none';
             sortBtn.style.visibility = 'hidden';
@@ -96,7 +110,7 @@ export const onloadPage = async () => {
         case pageNameInLS.search:
             inputSearch.style.display = 'block';
             calendar.style.display = 'none';
-            title.innerText = `Search (${getSearchTodoLS() || ''})`;
+            title.innerText = `${innerTextTitle.search} "${getSearchTodoLS() || ''}"`;
             sortBtn.style.visibility = 'visible';
             searchTagsBtn.style.visibility = 'visible';
             todoList.style.display = 'block';
@@ -115,18 +129,6 @@ export const onloadPage = async () => {
             searchTagsBtn.style.visibility = 'hidden';
             setTitleLS(page);
             todoHandler();
-            await renderTodos();
-            removeSortBtn();
-            break;
-        case !page:
-            inputSearch.style.display = 'none';
-            calendar.style.display = 'none';
-            todoList.style.display = 'block';
-            sortBtn.style.visibility = 'visible';
-            searchTagsBtn.style.visibility = 'hidden';
-            todosElementHandler();
-            setTitleLS(pageNameInLS.tasks);
-            setClickedPage(pageNameInLS.tasks);
             await renderTodos();
             removeSortBtn();
             break;

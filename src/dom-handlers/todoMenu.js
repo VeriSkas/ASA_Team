@@ -6,6 +6,7 @@ import { errorText } from '../shared/constants/errorText';
 import { handlerComment, renderComment } from './createComment';
 import { createTagTask, renderTags } from './handlerTags';
 import { renderTodosAfterUpdate } from './onloadPage';
+import { tooltips } from '../shared/constants/textFile';
 
 export const todoMenuSidebar = () => {
     const taskMenuCloseBtn = document.querySelector('.content__todoMenu_closeBtn');
@@ -51,8 +52,8 @@ export const renderSubtask = () => {
                     subtaskValue.className = 'content__todoMenu_subtask-list-li-value';
                     subtaskLi.className = 'content__todoMenu_subtask-list-li';
                     deleteSubtask.className = 'bx bx-x';
-                    deleteSubtask.setAttribute('title', 'Delete subTask');
-                    checkbox.setAttribute('title', 'Complited subTask');
+                    deleteSubtask.setAttribute('title', tooltips.deleteSubtask);
+                    checkbox.setAttribute('title', tooltips.complitedSubtask);
                     subtaskValue.setAttribute('title', errorText.inputTodoErrorText);
 
                     deleteSubtask.onclick = () => {

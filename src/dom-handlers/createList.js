@@ -16,6 +16,7 @@ import { errorText } from '../shared/constants/errorText';
 import { showErrorNotification } from '../shared/error-handlers';
 import { onloadPage } from './onloadPage';
 import { pageNameInLS } from '../shared/textInLS';
+import { tooltips } from '../shared/constants/textFile';
 
 export const createList = () => {
     const createListBtn = document.querySelector('.createListBtn');
@@ -108,10 +109,10 @@ export const renderTitleLists = () => {
                         subMenuLists.style.visibility = 'visible';
                         titleLi.className = 'wrapper__content_sidebar-navLinks-link-subMenu-listName';
                         deleteTitleBtn.innerHTML = '<i class="bx bx-x"></i>';
-                        deleteTitleBtn.setAttribute('title', 'Delete List');
+                        deleteTitleBtn.setAttribute('title', tooltips.deleteList);
                         changeListNameBtn.innerHTML = '<i class="bx bx-cog" ></i>';
-                        changeListNameBtn.setAttribute('title', 'Change ListName');
-                        titleA.setAttribute('title', 'ListName can contain letters and numbers up to 20 characters');
+                        changeListNameBtn.setAttribute('title', tooltips.changeList);
+                        titleA.setAttribute('title', tooltips.listErrorText);
                         titleA.value = item.title;
 
                         titleA.onclick = () => {
@@ -132,17 +133,6 @@ export const renderTitleLists = () => {
                                         todos.forEach(todo => {
                                             if((getUID() === todo.uuid) && (item.title === todo.title)) {
                                                 deleteTodo(todo);
-                                            }
-                                        })
-                                    }
-                                })
-
-                            await getSubtask()
-                                .then(subtasks => {
-                                    if(subtasks) {
-                                        subtasks.forEach(subtask => {
-                                            if((getUID() === subtask.uuid) && (item.firstTitle === subtask.title)) {
-                                                deleteSubTask(subtask);
                                             }
                                         })
                                     }
