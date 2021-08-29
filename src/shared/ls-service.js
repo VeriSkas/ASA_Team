@@ -31,3 +31,13 @@ export const getPersonalData = () => JSON.parse(localStorage.getItem('PersonalDa
 export const setClickedPage = page => localStorage.setItem('clickedPage', page);
 
 export const getClickedPage = () => localStorage.getItem('clickedPage');
+
+export const setSortBtn = sortBtnClicked => localStorage.setItem('sortBtnClicked', sortBtnClicked);
+
+export const getSortBtn = () => localStorage.getItem('sortBtnClicked');
+
+export const removeSortBtn = () => localStorage.removeItem('sortBtnClicked');
+
+export const setSearchTodoLS = task => localStorage.setItem('searchTask', task);
+
+export const getSearchTodoLS = () => localStorage.getItem('searchTask');

@@ -1,25 +1,28 @@
 import { renderTodos, todoHandler } from "./todosRender";
 import { setClickedPage, setTitleLS } from '../shared/ls-service';
+import { onloadPage } from "./onloadPage";
+import { pageNameInLS } from "../shared/textInLS";
+import { innerTextTitle } from "../shared/constants/textFile";
 
 export const tasks_render = () => {
     const allTodos = document.querySelector('#nav-links_allTasks');
 
     todoHandler();
 
-    allTodos.addEventListener('click', event => {
+    allTodos.onclick = () => {
         const inputTodos = document.querySelector('.content__todo_form');
         const title = document.querySelector('.content__todo_title');
         const calendar = document.querySelector('.calendar__wrapper');
         const todoList = document.querySelector('.content__todo_todosMain');
 
-        title.innerText = 'My To-Do List';
+        title.innerText = innerTextTitle.mainPageText;
         inputTodos.style.display = 'flex';
         calendar.style.display = 'none';
         todoList.style.display = 'block';
 
-        event.preventDefault();
-        setTitleLS('tasks');
-        setClickedPage('tasks');
+        setTitleLS(pageNameInLS.tasks);
+        setClickedPage(pageNameInLS.tasks);
         renderTodos();
-    })
+        onloadPage();
+    }
 }

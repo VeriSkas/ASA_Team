@@ -1,11 +1,10 @@
 @import '../../styles/temps/colors.scss';
 
-body {
-    background: $colorStartPage;
-    background: linear-gradient(0deg, rgba(120,0,238,1) 0%, rgba(54,87,255,1) 100%);
-}
-
 .main_startPage {
+    background: $colorStartPage;
+    background: linear-gradient(0deg, $color6 0%, $color5 100%);
+    overflow: auto;
+
     &_header{
         position: relative;
         width: 100%;
@@ -25,8 +24,7 @@ body {
             z-index: 10;
         }
 
-        &:after {
-            content: '';
+        .afterDiv {
             position: absolute;
             top: 0;
             left: 0;
@@ -35,6 +33,7 @@ body {
             background: linear-gradient(to top, $colorStartPage, transparent);
             z-index: 10;
             mix-blend-mode: color;
+            cursor: pointer;
         }
 
         img {

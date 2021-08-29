@@ -1,32 +1,93 @@
 import moment from 'moment';
+import { deleteTodo, getSubtask, getTodos, updateTodo } from "../api/api-handlers";
 import {
-    getTodos,
-    createTodo,
-    deleteTodo,
-    updateTodo,
-    createDeleteTodoList,
-    getSubtask
-} from '../api/api-handlers';
-import { checkLengthTodo } from '../shared/validators';
+    getUID,
+    setClickedPage,
+    setTask,
+    setSearchTodoLS,
+    setTodo,
+    getSearchTodoLS
+} from "../shared/ls-service";
+import { onloadPage } from "./onloadPage";
+import { filterByTagMain, filterByTagUrgent, searchTaskFilter } from '../shared/filters';
+import { sortTodoRender } from "./filtersClick";
+import { todoMenuSidebar } from "./todoMenu";
+import { checkLengthSearchTodo } from "../shared/validators";
+import { pageNameInLS, searchTagTextInLS } from '../shared/textInLS';
 import { errorText } from '../shared/constants/errorText';
-import { getTitleLS, getUID, setTodo, setTask } from '../shared/ls-service';
-import { todoMenuSidebar } from './todoMenu.js';
-import { counterTasksRender } from './sidebar';
-import { sortTodoRender } from './filtersClick';
-import { tooltips } from '../shared/constants/textFile';
+import { innerTextTitle, tooltips } from '../shared/constants/textFile';
 
-export const renderTodos = async () => {
-    const titleLS = getTitleLS();
+export const searchLink = () => {
+    const searchLink = document.querySelector('#nav-links_searchTodos');
+    const title = document.querySelector('.content__todo_title');
+    const inputSearch = document.querySelector('.content__todo_formSearch-input');
+    const searchBtn = document.querySelector('.content__todo_formSearch-searchTodoBtn');
+    const tagMainSearch = document.querySelector('#content__todo-filter-filterTags-main');
+    const tagUrgentSearch = document.querySelector('#content__todo-filter-filterTags-urgent');
+    const inputSearchError = document.querySelector('#inputSearchTodosError');
+
+    searchLink.onclick = () => {
+        title.innerText = `${innerTextTitle.search} "${getSearchTodoLS() || ''}"`;
+        setClickedPage(pageNameInLS.search);
+        onloadPage();
+    }
+
+    inputSearch.oninput = () => {
+        checkLengthSearchTodo(inputSearch.value.trim()) ?
+            inputSearchError.innerHTML = '' :
+            inputSearchError.innerHTML = errorText.searchLength;
+    }
+
+    searchBtn.onclick = event => {
+        event.preventDefault();
+        let searchValue = inputSearch.value;
+        if (checkLengthSearchTodo(searchValue.trim())) {
+            getSearchTask(searchValue);
+            setSearchTodoLS(searchValue);
+            inputSearch.value = '';
+            title.innerText = `${innerTextTitle.search} "${getSearchTodoLS() || ''}"`;
+        }
+    }
+
+    tagMainSearch.onclick = () => {
+        inputSearch.value = '';
+        getSearchTask(searchTagTextInLS.tagMain);
+        setSearchTodoLS(searchTagTextInLS.tagMain);
+        title.innerText = `${innerTextTitle.search} "${getSearchTodoLS() || ''}"`;
+    }
+
+    tagUrgentSearch.onclick = () => {
+        inputSearch.value = '';
+        getSearchTask(searchTagTextInLS.tagUrgent);
+        setSearchTodoLS(searchTagTextInLS.tagUrgent);
+        title.innerText = `${innerTextTitle.search} "${getSearchTodoLS() || ''}"`;
+    }
+}
+
+export const getSearchTask = async value => {
     return getTodos()
         .then( todos => {
             const todosContainer = document.querySelector('.content__todo_todosMain');
             const taskMenu = document.querySelector('.content__todoMenu');
             const taskMenuTitle = document.querySelector('.content__todoMenu_subtask_title');
             todosContainer.innerHTML = null;
-            counterTasksRender();
 
-            if(todos) {
+            if (todos) {
                 todos = sortTodoRender(todos);
+
+                switch (value) {
+                    case searchTagTextInLS.tagMain:
+                        todos = filterByTagMain(todos);
+                        break;
+                    case searchTagTextInLS.tagUrgent:
+                        todos = filterByTagUrgent(todos);
+                        break;
+                    case value:
+                        todos = searchTaskFilter(todos, value);
+                        break;
+                    default:
+                        break;
+                }
 
                 todos.forEach( item => {
                     const {
@@ -43,7 +104,7 @@ export const renderTodos = async () => {
                         date,
                     } = item;
 
-                    if ((getUID() === uuid) && (title === titleLS) && !complited ) {
+                    if ((getUID() === uuid)) {
                         const todoLi = document.createElement('li');
                         const todoLiError = document.createElement('p');
                         const todoValueLi = document.createElement('textarea');
@@ -53,6 +114,7 @@ export const renderTodos = async () => {
                         const todoTimeDay = document.createElement('p');
                         const todoDelete = document.createElement('i');
                         const todoImportant = document.createElement('span');
+                        const titleListTodo = document.createElement('p');
                         const todoMenu = document.createElement('i');
                         const todoSubtask = document.createElement('span');
 
@@ -66,6 +128,7 @@ export const renderTodos = async () => {
                         complitedTodo.className = 'todo-complited';
                         todoMenu.className = 'bx bx-notepad todoMenu';
                         todoSubtask.className = 'todoSubtask';
+                        titleListTodo.className = 'titleListTodo';
 
                         todoDelete.setAttribute('title', tooltips.deleteTask);
                         todoImportant.setAttribute('title', tooltips.importantTask);
@@ -76,6 +139,7 @@ export const renderTodos = async () => {
                         todoTimeTime.innerHTML = `${moment(date).format('LT')}`;
                         todoTimeDay.innerHTML = `${moment(date).format('DD/MM/YY')} `;
                         todoTime.append(todoTimeTime, todoTimeDay);
+                        titleListTodo.innerText = `list: ${title}`;
 
                         if (todoValue.length > 150) {
                             todoValueLi.style.fontSize = '12px';
@@ -107,7 +171,7 @@ export const renderTodos = async () => {
                                     item.todoValue = todoValueLi.value;
 
                                     updateTodo( item )
-                                        .then(() => renderTodos());
+                                        .then(() => getSearchTask());
                                 } else {
                                     todoLiError.innerHTML = '';
                                     todoValueLi.value = item.todoValue;
@@ -121,7 +185,7 @@ export const renderTodos = async () => {
                                 item.todoValue = todoValueLi.value;
 
                                 updateTodo( item )
-                                .then(() => renderTodos());
+                                .then(() => getSearchTask());
                             } else {
                                 todoLiError.innerHTML = '';
                                 todoValueLi.value = item.todoValue;
@@ -131,7 +195,7 @@ export const renderTodos = async () => {
                         todoDelete.onclick = async () => {
                             await createDeleteTodoList(item);
                             await deleteTodo(item)
-                                .then(() => renderTodos());
+                                .then(() => getSearchTask());
 
                             taskMenu.classList.add('close');
                         }
@@ -151,14 +215,12 @@ export const renderTodos = async () => {
                                 todoImportant.setAttribute('clicked', true);
                                 todoImportant.innerHTML = '&#10029;';
                                 item.important = true;
-                                updateTodo( item )
-                                    .then(() => counterTasksRender());
+                                updateTodo( item );
                             } else {
                                 todoImportant.removeAttribute('clicked');
                                 todoImportant.innerHTML = '&#9734;';
                                 item.important = false;
-                                updateTodo( item )
-                                    .then(() => counterTasksRender());
+                                updateTodo( item );
                             }
                         }
 
@@ -177,14 +239,12 @@ export const renderTodos = async () => {
                                 complitedTodo.setAttribute('clicked', true);
                                 complitedTodo.innerHTML = '&#9746;';
                                 item.complited = true;
-                                updateTodo( item )
-                                .then(() => renderTodos());
+                                updateTodo( item );
                             } else {
                                 complitedTodo.removeAttribute('clicked');
                                 complitedTodo.innerHTML = '&#x2610;';
                                 item.complited = false;
-                                updateTodo( item )
-                                    .then(() => counterTasksRender());
+                                updateTodo( item );
                             }
                         }
 
@@ -232,50 +292,11 @@ export const renderTodos = async () => {
                             todoDelete,
                             todoImportant,
                             todoMenu,
+                            titleListTodo,
                             todoLiError
                         );
                     }
                 });
             };
         });
-};
-
-export const todoHandler = () => {
-    const todo_form = document.getElementById('content__todo_form');
-    const formInput = document.getElementById('content__todo_form-input');
-    const inputTodosError = document.querySelector('#inputTodosError');
-    const todo = {
-        title: null,
-        todoValue: null,
-        comment: null,
-        tagMain: null,
-        tagUrgent: null,
-        dateOfComment: null,
-        date: null,
-        complited: false,
-        important: false,
-        uuid: null,
-    };
-
-    formInput.oninput = () => {
-        checkLengthTodo(formInput.value.trim()) ?
-            inputTodosError.innerHTML = '' :
-            inputTodosError.innerHTML = errorText.inputTodoErrorText;
-    }
-
-    todo_form.addEventListener('submit', event => {
-        event.preventDefault();
-
-        if (checkLengthTodo(formInput.value.trim())) {
-            todo.title = getTitleLS()
-            todo.todoValue = formInput.value;
-            todo.date = moment().format();
-            todo.uuid = getUID();
-
-            createTodo(todo)
-                .then( () => renderTodos());
-        }
-
-        formInput.value = null;
-    });
-};
+}

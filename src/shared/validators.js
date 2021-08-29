@@ -17,3 +17,5 @@ export const checkValidPhotoFormat = photo => photo.match(REGEXP.validFormatsPho
 export const checkLengthComment = comment => comment.match(REGEXP.inputCommentLength);
 
 export const checkLengthEvent = event => event.match(REGEXP.inputEventLength);
+
+export const checkLengthSearchTodo = todo => todo.match(REGEXP.inputSearchLength);

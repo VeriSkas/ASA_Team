@@ -8,15 +8,20 @@
     display: flex;
     flex-direction: column;
     overflow: scroll;
+    position: fixed;
 
     &__header {
         height: 60px;
-        background: $colorSidebar;
+        width: 100vw;
+        position: fixed;
+        top: 0;
+        left: 0;
         z-index: 2;
+        background: $color2;
     }
 
     &__content {
-        height: 80%;
+        height: 100vh;
         display: flex;
         flex-direction: row;
         justify-content: space-between;

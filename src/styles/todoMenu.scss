@@ -122,12 +122,12 @@
                 }
 
                 &#activeTags_urgent {
-                    color: #a50404;
+                    color: $urgentTag;
                     display: none;
                 }
 
                 &#activeTags_main {
-                    color: #037b07;
+                    color: $mainTag;
                     display: none;
                 }
             }
@@ -164,11 +164,11 @@
                     cursor: pointer;
 
                     &#tagName_urgent {
-                        color: #a50404;
+                        color: $urgentTag;
                     }
 
                     &#tagName_main {
-                        color: #037b07;
+                        color: $mainTag;
                     }
 
                     &:hover {
@@ -206,7 +206,7 @@
             position: absolute;
             top: 110px;
             right: 15px;
-            color: #93918f;
+            color: $color9;
             font-size: 12px;
             font-weight: 600;
         }

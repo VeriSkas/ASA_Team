@@ -1,12 +1,13 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
     entry: './src/index.js',
     output: {
         filename: 'bundle.[chunghash].js',
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'build')
     },
     plugins: [
         new HTMLWebpackPlugin({
@@ -20,7 +21,8 @@ module.exports = {
         new HTMLWebpackPlugin({
             filename: 'startPage.html',
             template: './src/components/startPage/startPage.html'
-        })
+        }),
+        new CleanWebpackPlugin()
     ],
     module: {
         rules: [

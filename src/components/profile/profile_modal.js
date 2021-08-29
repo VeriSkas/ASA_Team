@@ -1,5 +1,5 @@
 import { updateUser, uploadPhoto } from "../../api/api-handlers";
-import { errorText } from "../../shared/constants/errorText";
+import { errorText, textConfirm } from "../../shared/constants/errorText";
 import { getPersonalData, setPersonalData } from "../../shared/ls-service";
 import { checkValidName, checkValidPhotoFormat } from "../../shared/validators";
 
@@ -40,16 +40,17 @@ export const profile_modal = () => {
     }
 
     saveUpdateBtn.onclick = () => {
-        const warming = confirm('Do you really want to change your profile?');
+        const warming = confirm(textConfirm.updateProfile);
         if (warming) {
             if (loginUpdateInput.value) {
                 userInfo.loginName = loginUpdateInput.value;
                 setPersonalData(userInfo);
                 updateUser(userInfo);
             }
+        } else {
+            loginUpdateInput.value = userInfo.loginName;
         }
 
-        loginUpdateInput.value = null;
         saveUpdateBtn.setAttribute('disabled', true);
     }
 
@@ -72,7 +73,7 @@ export const profile_modal = () => {
         }
 
         saveUpdateBtn.onclick = () => {
-            const warming = confirm('Do you really want to change your profile?');
+            const warming = confirm(textConfirm.updateProfile);
 
             if (warming) {
                 if (loginUpdateInput.value && imgName) {
@@ -82,9 +83,10 @@ export const profile_modal = () => {
                 } else if (imgName) {
                     uploadPhoto(event, imgName);
                 }
+            } else {
+                loginUpdateInput.value = userInfo.loginName;
             }
 
-            loginUpdateInput.value = null;
             photoInputInner.innerText = 'Сhange main photo';
             saveUpdateBtn.setAttribute('disabled', true);
         }

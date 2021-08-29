@@ -5,10 +5,11 @@ import axios from 'axios';
 
 import { databaseURL, firebaseConfig, authURL } from './api-config';
 import { showErrorNotification } from '../shared/error-handlers';
-import { setToken, getUID, setUID, getPersonalData, setPersonalData } from '../shared/ls-service';
+import { setToken, getUID, setUID, getPersonalData, setPersonalData, getTask, getTodo } from '../shared/ls-service';
 import { routes } from '../shared/constants/routes';
 import { userProfile } from '../dom-handlers/userInfo';
 import { refreshPhoto } from '../components/profile/profile_modal';
+import { hideSpiner, showSpiner } from '../dom-handlers/spiner';
 
 const headers = {
     'Content-Type': 'application/json'
@@ -21,16 +22,17 @@ export const initApi = async () => {
 initApi();
 
 export const createTodo = async todo => {
+    showSpiner();
+
     const {
         title,
         todoValue,
         comment,
         tagMain,
         tagUrgent,
+        subtask,
         dateOfComment,
         date,
-        dateTime,
-        dateDMY,
         complited,
         important,
         uuid
@@ -46,20 +48,24 @@ export const createTodo = async todo => {
                 comment,
                 tagMain,
                 tagUrgent,
+                subtask,
                 dateOfComment,
                 date,
-                dateDMY,
-                dateTime,
                 complited,
                 important,
                 uuid
             })
         }
     )
-        .then( response => response.json())
+        .then( response => {
+            response.json();
+            hideSpiner();
+        })
 };
 
 export const getTodos = async () => {
+    showSpiner();
+
     return fetch(
         `${databaseURL}/todos.json`,
         {
@@ -69,18 +75,20 @@ export const getTodos = async () => {
     )
         .then( response => response.json())
         .then( result => {
+            hideSpiner();
             if(result) {
                 const transformedArr = Object.keys(result).map( key => ({
                     ...result[key],
                     id: key
                 }))
-
                 return transformedArr;
             };
         })
 };
 
 export const deleteTodo = async ({ id }) => {
+    showSpiner();
+
     return fetch(
         `${databaseURL}/todos/${id}.json`,
         {
@@ -88,10 +96,15 @@ export const deleteTodo = async ({ id }) => {
             headers,
         }
     )
-        .then(response => response.json())
+        .then( response => {
+            response.json();
+            hideSpiner();
+        })
 };
 
 export const updateTodo = async todo => {
+    showSpiner();
+
     const {
         id,
         title,
@@ -99,10 +112,9 @@ export const updateTodo = async todo => {
         comment,
         tagMain,
         tagUrgent,
+        subtask,
         dateOfComment,
         date,
-        dateTime,
-        dateDMY,
         complited,
         important,
         uuid
@@ -118,10 +130,9 @@ export const updateTodo = async todo => {
                 comment,
                 tagMain,
                 tagUrgent,
+                subtask,
                 dateOfComment,
                 date,
-                dateTime,
-                dateDMY,
                 complited,
                 important,
                 uuid,
@@ -129,10 +140,15 @@ export const updateTodo = async todo => {
             })
         }
     )
-        .then(response => response.json())
+        .then( response => {
+            response.json();
+            hideSpiner();
+        })
 };
 
 export const createDeleteTodoList = async todo => {
+    showSpiner();
+
     const {
         id,
         title,
@@ -140,10 +156,9 @@ export const createDeleteTodoList = async todo => {
         comment,
         tagMain,
         tagUrgent,
+        subtask,
         dateOfComment,
         date,
-        dateTime,
-        dateDMY,
         complited,
         important,
         uuid
@@ -160,20 +175,24 @@ export const createDeleteTodoList = async todo => {
                 comment,
                 tagMain,
                 tagUrgent,
+                subtask,
                 dateOfComment,
                 date,
-                dateTime,
-                dateDMY,
                 complited,
                 important,
                 uuid
             })
         }
     )
-        .then( response => response.json())
+        .then( response => {
+            response.json();
+            hideSpiner();
+        })
 };
 
 export const getDeleteTodolist = async () => {
+    showSpiner();
+
     return fetch(
         `${databaseURL}/deleteTodos.json`,
         {
@@ -183,17 +202,21 @@ export const getDeleteTodolist = async () => {
     )
         .then( response => response.json())
         .then( result => {
+            hideSpiner();
             if (result) {
                 const tranformedArr = Object.keys(result).map( key => ({
                     ...result[key],
                     idDel: key
                 }))
+
                 return tranformedArr;
             };
         })
 };
 
 export const finalDeleteTodo = async ({ idDel }) => {
+    showSpiner();
+
     return fetch(
         `${databaseURL}/deleteTodos/${idDel}.json`,
         {
@@ -201,10 +224,15 @@ export const finalDeleteTodo = async ({ idDel }) => {
             headers,
         }
     )
-        .then(response => response.json())
+        .then( response => {
+            response.json();
+            hideSpiner();
+        })
 };
 
 export const createRecoverTodo = async recoverTodo => {
+    showSpiner();
+
     const {
         id,
         title,
@@ -214,8 +242,7 @@ export const createRecoverTodo = async recoverTodo => {
         tagUrgent,
         dateOfComment,
         date,
-        dateTime,
-        dateDMY,
+        subtask,
         complited,
         important,
         uuid
@@ -232,21 +259,24 @@ export const createRecoverTodo = async recoverTodo => {
                 comment,
                 tagMain,
                 tagUrgent,
+                subtask,
                 dateOfComment,
                 date,
-                dateDMY,
-                dateTime,
                 complited,
                 important,
                 uuid
             })
         }
     )
-        .then( response => response.json())
+        .then( response => {
+            response.json();
+            hideSpiner();
+        })
 }
 
 export const createTitleLists = async titleList => {
     const { title, firstTitle, uuid } = titleList;
+    showSpiner();
     return fetch( `${databaseURL}/todos/titleLists.json`,
         {
             method: 'POST',
@@ -258,10 +288,15 @@ export const createTitleLists = async titleList => {
             })
         }
     )
-        .then( response => response.json())
+        .then( response => {
+            response.json();
+            hideSpiner();
+        })
 };
 
 export const getTitleLists = async () => {
+    showSpiner();
+
     return fetch( `${databaseURL}/todos/titleLists.json`,
         {
             method: 'GET',
@@ -270,6 +305,7 @@ export const getTitleLists = async () => {
     )
         .then( response => response.json())
         .then( result => {
+            hideSpiner();
             if (result) {
                 const transformedArr = Object.keys(result).map( key => ({
                     ...result[key],
@@ -283,6 +319,8 @@ export const getTitleLists = async () => {
 
 export const updateTitleList = async titleList => {
     const { title, uuid, id } = titleList;
+    showSpiner();
+
     return fetch( `${databaseURL}/todos/titleLists/${id}.json`,
         {
             method: 'PUT',
@@ -293,20 +331,30 @@ export const updateTitleList = async titleList => {
             })
         }
     )
-        .then( response => response.json())
+        .then( response => {
+            response.json();
+            hideSpiner();
+        })
 };
 
 export const deleteTitleLists = async ({ id }) => {
+    showSpiner();
+
     return fetch( `${databaseURL}/todos/titleLists/${id}.json`,
         {
             method: 'DELETE',
             headers,
         }
     )
-        .then(response => response.json())
+        .then( response => {
+            response.json();
+            hideSpiner();
+        })
 };
 
 export const deleteList = async title => {
+    showSpiner();
+
     return fetch(
         `${databaseURL}/todos/${title}.json`,
         {
@@ -314,10 +362,15 @@ export const deleteList = async title => {
             headers,
         }
     )
-        .then(response => response.json())
+        .then( response => {
+            response.json();
+            hideSpiner();
+        })
 };
 
 export const createSubtask = async subtask => {
+    showSpiner();
+    const todo = getTodo();
     const {
         title,
         task,
@@ -328,7 +381,7 @@ export const createSubtask = async subtask => {
         uuid
     } = subtask;
     return fetch(
-        `${databaseURL}/todos/subtask.json`,
+        `${databaseURL}/todos/${todo.id}/subtask.json`,
         {
             method: 'POST',
             headers,
@@ -343,12 +396,16 @@ export const createSubtask = async subtask => {
             })
         }
     )
-        .then( response => response.json())
+        .then( response => {
+            response.json();
+            hideSpiner();
+        })
 }
 
-export const getSubtask = async () => {
+export const getSubtask = async todo => {
+    showSpiner();
     return fetch(
-        `${databaseURL}/todos/subtask.json`,
+        `${databaseURL}/todos/${todo.id}/subtask.json`,
         {
             method: 'GET',
             headers,
@@ -356,6 +413,7 @@ export const getSubtask = async () => {
     )
         .then( response => response.json())
         .then( result => {
+            hideSpiner();
             if(result) {
                 const transformedArr = Object.keys(result).map( key => ({
                     ...result[key],
@@ -367,6 +425,8 @@ export const getSubtask = async () => {
 }
 
 export const updateSubtask = async subtask => {
+    showSpiner();
+    const todo = getTodo();
     const {
         title,
         task,
@@ -377,7 +437,7 @@ export const updateSubtask = async subtask => {
         complited,
         id,
     } = subtask;
-    return fetch( `${databaseURL}/todos/subtask/${id}.json`,
+    return fetch( `${databaseURL}/todos/${todo.id}/subtask/${id}.json`,
         {
             method: 'PUT',
             headers,
@@ -392,20 +452,29 @@ export const updateSubtask = async subtask => {
             })
         }
     )
-        .then( response => response.json())
+        .then( response => {
+            response.json();
+            hideSpiner();
+        })
 }
 
 export const deleteSubTask =  async ({ id }) => {
-    return fetch( `${databaseURL}/todos/subtask/${id}.json`,
+    showSpiner();
+    const todo = getTodo();
+    return fetch( `${databaseURL}/todos/${todo.id}/subtask/${id}.json`,
         {
             method: 'DELETE',
             headers,
         }
     )
-        .then(response => response.json())
+        .then( response => {
+            response.json();
+            hideSpiner();
+        })
 };
 
 export const createEvents = async eventValue => {
+    showSpiner();
     const {
         title,
         start,
@@ -425,10 +494,14 @@ export const createEvents = async eventValue => {
             })
         }
     )
-        .then( response => response.json())
+        .then( response => {
+            response.json();
+            hideSpiner();
+        })
 };
 
 export const getEvents = async () => {
+    showSpiner();
     return fetch(
         `${databaseURL}/events.json`,
         {
@@ -438,6 +511,7 @@ export const getEvents = async () => {
     )
         .then( response => response.json())
         .then( result => {
+            hideSpiner();
             if(result) {
                 const transformedArr = Object.keys(result).map( key => ({
                     ...result[key],
@@ -450,6 +524,7 @@ export const getEvents = async () => {
 };
 
 export const updateEvent = async eventValue => {
+    showSpiner();
     const {
         id,
         title,
@@ -470,20 +545,29 @@ export const updateEvent = async eventValue => {
             })
         }
     )
-        .then( response => response.json())
+        .then( response => {
+            response.json();
+            hideSpiner();
+        })
 }
 
 export const deleteEvent =  async id => {
+    showSpiner();
+
     return fetch( `${databaseURL}/events/${id}.json`,
         {
             method: 'DELETE',
             headers,
         }
     )
-        .then(response => response.json())
+        .then( response => {
+            response.json();
+            hideSpiner();
+        })
 };
 
 export const signIn = async (email, password) => {
+    showSpiner();
     return axios.post(authURL, {
         email,
         password,
@@ -491,6 +575,7 @@ export const signIn = async (email, password) => {
     })
         .then( response => response )
         .then( result => {
+            hideSpiner();
             if (result) {
                 const token = result.data.idToken;
                 setToken(token);
@@ -500,7 +585,10 @@ export const signIn = async (email, password) => {
                 return token;
             }
         })
-        .catch(err => showErrorNotification(err));
+        .catch(err => {
+            showErrorNotification(err);
+            hideSpiner();
+        });
 }
 
 export const createAuthData = async ( email, password ) => {
@@ -525,16 +613,21 @@ export const createUser = user => {
 export const signUp = async user => {
     const { loginName, email, password } = user;
 
+    showSpiner();
     try {
         await createAuthData(email, password);
         await createUser(user);
         await signIn(email, password);
+        hideSpiner();
     } catch (error) {
         showErrorNotification(error);
+        hideSpiner();
     }
 };
 
 export const getUser = async () => {
+    showSpiner();
+
     return fetch(
         `${databaseURL}/users.json`,
         {
@@ -544,6 +637,7 @@ export const getUser = async () => {
     )
         .then( response => response.json())
         .then( result => {
+            hideSpiner();
             if(result) {
                 const transformedArr = Object.keys(result).map( key => ({
                     ...result[key],
@@ -556,17 +650,27 @@ export const getUser = async () => {
 };
 
 export const updateUser = async user => {
+    showSpiner();
     return axios.put(`${databaseURL}/users/${user.id}.json`, user)
         .then( () => {
             setPersonalData(user);
             userProfile();
+            hideSpiner();
         })
 }
 
 export const passwordRecovery = email => {
+    showSpiner();
+
     firebase.auth().sendPasswordResetEmail(email)
-        .then(() => window.location.href = routes.signIn_Up)
-        .catch(error => showErrorNotification(error))
+        .then(() => {
+            hideSpiner();
+            window.location.href = routes.signIn_Up;
+        })
+        .catch(error => {
+            showErrorNotification(error);
+            hideSpiner();
+        })
 };
 
 export const uploadPhoto = async (event, imgName) => {

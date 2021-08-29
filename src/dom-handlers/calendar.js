@@ -8,6 +8,8 @@ import { getUID, setClickedPage } from "../shared/ls-service";
 import { createEvents, deleteEvent, getEvents, updateEvent } from '../api/api-handlers';
 import { checkLengthEvent } from '../shared/validators';
 import { errorText } from '../shared/constants/errorText';
+import { onloadPage } from './onloadPage';
+import { pageNameInLS } from '../shared/textInLS';
 
 export const calendarLink = () => {
     const calendarLink = document.querySelector('#nav-links_calendar');
@@ -17,19 +19,19 @@ export const calendarLink = () => {
     const todoList = document.querySelector('.content__todo_todosMain');
     const dateStart = document.querySelector('#dateStart');
     const dateEnd = document.querySelector('#dateEnd');
-    const taskMenu = document.querySelector('.content__todoMenu');
+    const sortBtn = document.querySelector('.content__todo-filter-sort');
 
-    calendarLink.addEventListener('click', event => {
-        event.preventDefault();
-        taskMenu.classList.add('close');
+    calendarLink.onclick = () => {
         calendar.style.display = 'grid';
         title.innerText = 'Calendar';
         inputTodos.style.display = 'none';
         todoList.style.display = 'none';
+        sortBtn.style.visibility = 'hidden';
 
-        setClickedPage('calendar');
+        setClickedPage(pageNameInLS.calendar);
         renderCalendar();
-    })
+        onloadPage();
+    }
 
     eventHandler();
     dateStart.value = moment().format().slice(0, 10);
@@ -90,10 +92,11 @@ export const renderCalendar = () => {
                 start: event.event.startStr,
                 end: event.event.endStr,
                 id: event.event.id,
-                uuid: null,
+                uuid: getUID(),
             };
             const updateQestion = confirm(`Update event: '${eventValue.title}' ?`);
             if (updateQestion) {
+                eventValue.end = moment(eventValue.end).subtract(1, 'd').format('YYYY-MM-DD');
                 updateEvent(eventValue);
             }
         },
@@ -104,10 +107,11 @@ export const renderCalendar = () => {
                 start: event.event.startStr,
                 end: event.event.endStr,
                 id: event.event.id,
-                uuid: null,
+                uuid: getUID(),
             };
             const updateQestion = confirm(`Update event: '${eventValue.title}' ?`);
             if (updateQestion) {
+                eventValue.end = moment(eventValue.end).subtract(1, 'd').format('YYYY-MM-DD');
                 updateEvent(eventValue);
             }
         },
@@ -164,8 +168,27 @@ export const eventHandler = () => {
         isFormValid ? eventBtn.removeAttribute('disabled') : eventBtn.setAttribute('disabled', true);
     };
 
+    dateStart.value = moment().format().slice(0, 10);
+    dateEnd.value = dateStart.value;
+
+    if (dateStart.value > dateEnd.value) {
+        eventFormFields.endDate.isValid = false;
+        eventEndDateError.innerText = errorText.eventEndDateError;
+    } else {
+        eventFormFields.endDate.isValid = true;
+        eventEndDateError.innerText = '';
+    }
+
+    if (dateStart.value < todayDate) {
+        eventFormFields.startDate.isValid = false;
+        eventStartDateError.innerText = errorText.eventStartDateError;
+    } else {
+        eventFormFields.startDate.isValid = true;
+        eventStartDateError.innerText = '';
+    }
+
     inputEvent.oninput = () => {
-        if (checkLengthEvent(inputEvent.value)) {
+        if (checkLengthEvent(inputEvent.value.trim())) {
             eventFormFields.event.isValid = true;
             eventError.innerText = '';
         } else {
@@ -243,9 +266,9 @@ export const eventHandler = () => {
     formEvent.addEventListener('submit', event => {
         event.preventDefault();
         if (checkLengthEvent(inputEvent.value) &&
-            (dateStart.value < dateEnd.value) &&
-            (dateStart.value > todayDate)
-            ) {
+            (dateStart.value <= dateEnd.value) &&
+            (dateStart.value >= todayDate)
+        ) {
             eventValue.title = inputEvent.value;
             eventValue.start = dateStart.value;
             eventValue.end = dateEnd.value;
