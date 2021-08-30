@@ -566,6 +566,49 @@ export const deleteEvent =  async id => {
         })
 };
 
+export const createGroup = async group => {
+    const { title, creatorUUID, date } = group;
+    showSpiner();
+    return fetch( `${databaseURL}/todos/groups.json`,
+        {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({
+                title,
+                creatorUUID,
+                date
+            })
+        }
+    )
+        .then( response => {
+            response.json();
+            hideSpiner();
+        })
+};
+
+export const getGroups = async () => {
+    showSpiner();
+
+    return fetch( `${databaseURL}/todos/groups.json`,
+        {
+            method: 'GET',
+            headers,
+        }
+    )
+        .then( response => response.json())
+        .then( result => {
+            hideSpiner();
+            if (result) {
+                const transformedArr = Object.keys(result).map( key => ({
+                    ...result[key],
+                    id: key
+                }))
+
+                return transformedArr;
+            };
+        })
+};
+
 export const signIn = async (email, password) => {
     showSpiner();
     return axios.post(authURL, {

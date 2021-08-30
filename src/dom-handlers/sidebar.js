@@ -7,17 +7,23 @@ import { createList, renderTitleLists } from './createList';
 export const showSidebar = () => {
     const sidebar = document.querySelector('.wrapper__content_sidebar');
     const arrow = document.querySelector('.arrow');
+    const arrowGroup = document.querySelector('.arrowGroup');
     const listsLi = document.querySelector('#nav-links_lists');
+    const groupsLi = document.querySelector('#nav-links_groups');
     const sidebarBtn = document.querySelector('.bx-menu');
     const logOutBtn = document.getElementById('logOut');
 
-    sidebarBtn.addEventListener('click', () => {
+    sidebarBtn.onclick = () => {
         sidebar.classList.toggle('close');
-    });
+    };
 
-    arrow.addEventListener('click', () => {
+    arrow.onclick = () => {
         listsLi.classList.toggle('showMenu');
-    })
+    };
+
+    arrowGroup.onclick = () => {
+        groupsLi.classList.toggle('showMenu');
+    };
 
     logOutBtn.onclick = () => {
         window.location.href = routes.startPage;

@@ -29,7 +29,8 @@
         .wrapper__content_sidebar-navLinks {
             overflow: visible;
 
-            li#nav-links_inputList:hover {
+            li#nav-links_inputList:hover,
+            li#nav-links_groupCreate:hover {
                 background: none;
             }
 
@@ -68,11 +69,11 @@
                     }
                 }
 
-                .arrow {
+                .arrow, .arrowGroup {
                     display: none;
                 }
 
-                &-inputList {
+                &-inputList, &-groupCreate {
                     display: none;
                 }
 
@@ -100,7 +101,7 @@
                         }
                     }
 
-                    &-listName {
+                    &-listName, &-groupName {
                         textarea {
                             font-size: 13px;
                             width: 150px;
@@ -112,15 +113,12 @@
                             }
                         }
 
-                        a {
-                            i {
-                                min-width: 30px;
+                        i {
+                            min-width: 30px;
 
-                                &:hover {
-                                    color: $colorBtn;
-                                }
+                            &:hover {
+                                color: $colorBtn;
                             }
-
                         }
 
                         &:hover {
@@ -220,11 +218,12 @@
                 &:hover {
                     background: none;
                 }
+
                 .wrapper__content_sidebar-navLinks-link {
                     background: $color3;
 
-                    &-lists {
-                        a, i {
+                    &-lists, &-groups {
+                        i {
                             color: $color3;
                         }
                     }
@@ -232,41 +231,37 @@
                     &-subMenu {
                         display: block;
 
-                        &-listName {
+                        &-listName, &-groupName {
                             &:hover {
                                 textarea {
                                     color: $colorText;
                                 }
 
-                                a {
-                                    i {
-                                        color: $colorText;
-                                        cursor: pointer;
-                                    }
+                                i {
+                                    color: $colorText;
+                                    cursor: pointer;
                                 }
                             }
 
-                            a {
-                                i {
-                                    color: $colorTextInput;
-                                }
+                            i {
+                                color: $colorTextInput;
                             }
                         }
                     }
                 }
 
-                .arrow {
+                .arrow, .arrowGroup {
                     transform: rotate(-180deg);
                 }
             }
 
-            &-lists, &-inputList {
+            &-lists, &-inputList, &-groupCreate {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
             }
 
-            &-inputList {
+            &-inputList, &-groupCreate {
                 &:hover {
                     input {
                         color: $colorText;
@@ -295,7 +290,7 @@
                     }
                 }
 
-                .createListBtn {
+                .createListBtn, .createGroupBtn {
                     background: none;
                     border: none;
                     outline: none;
@@ -347,9 +342,10 @@
                     pointer-events: none;
                 }
 
-                &-listName {
+                &-listName, &-groupName {
                     display: flex;
                     justify-content: space-between;
+                    align-items: flex-end;
                     width: 100%;
                     height: 33px;
                     list-style: none;
@@ -357,14 +353,12 @@
                     transition: all 0.3s ease;
                     margin-top: 5px;
 
-                    a {
-                        i {
-                            font-size: 12px;
-                            height: 100%;
-                            display: flex;
-                            justify-content: center;
-                            align-items: flex-end;
-                        }
+                    i {
+                        font-size: 12px;
+                        height: 100%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: flex-end;
                     }
 
                     textarea {
@@ -378,6 +372,9 @@
                     }
                 }
 
+                &-groupName {
+                    justify-content: flex-end;
+                }
 
                 .link_name {
                     display: none;

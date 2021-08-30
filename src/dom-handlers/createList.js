@@ -103,14 +103,14 @@ export const renderTitleLists = () => {
                     if (getUID() === item.uuid) {
                         const titleLi = document.createElement('li');
                         const titleA = document.createElement('textarea');
-                        const deleteTitleBtn = document.createElement('a');
-                        const changeListNameBtn = document.createElement('a');
+                        const deleteTitleBtn = document.createElement('i');
+                        const changeListNameBtn = document.createElement('i');
 
                         subMenuLists.style.visibility = 'visible';
                         titleLi.className = 'wrapper__content_sidebar-navLinks-link-subMenu-listName';
-                        deleteTitleBtn.innerHTML = '<i class="bx bx-x"></i>';
+                        deleteTitleBtn.className ='bx bx-x';
                         deleteTitleBtn.setAttribute('title', tooltips.deleteList);
-                        changeListNameBtn.innerHTML = '<i class="bx bx-cog" ></i>';
+                        changeListNameBtn.className = 'bx bx-cog';
                         changeListNameBtn.setAttribute('title', tooltips.changeList);
                         titleA.setAttribute('title', tooltips.listErrorText);
                         titleA.value = item.title;

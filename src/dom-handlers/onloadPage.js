@@ -11,6 +11,7 @@ import { calendarLink, renderCalendar } from "./calendar";
 import { completedTasks_render, getCompletedTasks } from "./completed_todos";
 import { deletedTasks_render, getDeletedTasks } from "./deleted_todos";
 import { filtersClick } from "./filtersClick";
+import { createGroupLink, renderGroups } from "./groups";
 import { getImportantTasks, importantTasks_render } from "./important_todos";
 import { getSearchTask, searchLink } from "./search";
 import { tasks_render } from "./tasks";
@@ -36,6 +37,8 @@ export const onloadPage = async () => {
     calendarLink();
     filtersClick();
     searchLink();
+    createGroupLink();
+    renderGroups();
 
     switch (page) {
         case null:
