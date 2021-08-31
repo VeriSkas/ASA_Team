@@ -21,7 +21,7 @@ import { tooltips } from '../shared/constants/textFile';
 export const createList = () => {
     const createListBtn = document.querySelector('.createListBtn');
     const createListInput = document.querySelector('.wrapper__content_sidebar-navLinks-link-inputList-input');
-    const createListForm = document.querySelector('.wrapper__content_sidebar-navLinks-link-inputList');
+    const createListForm = document.querySelector('.wrapper__content_sidebar-navLinks-link-a.inputList');
     const titlePage = document.querySelector('.content__todo_title');
     const todoInput = document.querySelector('.content__todo_form');
 

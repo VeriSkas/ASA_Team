@@ -34,7 +34,8 @@
         width: 240px;
 
         &_title {
-            overflow-x: auto;
+            overflow: auto;
+            height: 35px;
         }
 
         &-form {

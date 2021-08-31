@@ -3,7 +3,7 @@ import { createGroup, getGroups } from '../api/api-handlers';
 import { getUID } from "../shared/ls-service";
 
 export const createGroupLink = () => {
-    const createGorupForm = document.querySelector('.wrapper__content_sidebar-navLinks-link-groupCreate');
+    const createGorupForm = document.querySelector('.wrapper__content_sidebar-navLinks-link-a.groupCreate');
     const createGroupInput = document.querySelector('.wrapper__content_sidebar-navLinks-link-groupCreate-input');
     const groupsLink = document.querySelector('#nav-links_groups');
     const groupsUl = document.querySelector('.wrapper__content_sidebar-navLinks-link-subMenu groups');
