@@ -101,10 +101,7 @@
                                 <span class="link_name">Groups:</span>
                                 <i class='bx bx-down-arrow arrow' id="arrowGroup"></i>
                             </div>
-                            <ul class="wrapper__content_sidebar-navLinks-link-subMenu groups">
-                                <li class="wrapper__content_sidebar-navLinks-link-subMenu-groupName">dvcdsc</li>
-                                <li>васуesdfcesf</li>
-                            </ul>
+                            <ul class="wrapper__content_sidebar-navLinks-link-subMenu groups"></ul>
                         </li>
                         <li class="wrapper__content_sidebar-navLinks-link profile">
                             <div class="wrapper__content_sidebar-navLinks-link_profile">
@@ -121,6 +118,23 @@
                 <div class="content__todo">
                     <h1 class="content__todo_title"></h1>
                     <h4 class="content__todo_todayDate"></h4>
+                    <div class="content__todo_formSearchGroup">
+                        <form id="content__todo_formSearchGroup">
+                            <button type="submit" class="content__todo_formSearchGroup-searchUser" title="Search user">
+                                <i class='bx bx-user-plus'></i>
+                            </button>
+                            <input
+                                type="email"
+                                class="content__todo_formSearchGroup-input"
+                                placeholder="Enter the user's email"
+                                title="Enter the user's email to invite him to the group"
+                            >
+                            <button type="submit" class="content__todo_formSearchGroup-searchTodoBtn" title="Search user">
+                                <i class='bx bx-search-alt-2' ></i>
+                            </button>
+                            <p id="inputSearchTodosError" class="inputError"></p>
+                        </form>
+                    </div>
                     <div class="content__todo-filter">
                         <div class="content__todo-filter-filterTags">
                             <i class='bx bxs-search-alt-2' id="content__todo-filter-filterTags-main" title="Search main todos"></i>
@@ -144,7 +158,7 @@
                         <button type="submit" class="content__todo_form-addTodoBtn" title="Add task"> &#9998; Add... </button>
                     </form>
                     <form id="content__todo_formSearch" class="content__todo_formSearch">
-                        <input type="text" class="content__todo_formSearch-input" placeholder="Enter for search">
+                        <input type="text" class="content__todo_formSearch-input" placeholder="Enter for search task">
                         <button type="submit" class="content__todo_formSearch-searchTodoBtn" title="Search task">
                             <i class='bx bx-search-alt-2' ></i>
                             Search...

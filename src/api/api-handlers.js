@@ -609,6 +609,21 @@ export const getGroups = async () => {
         })
 };
 
+export const deleteGroup=  async id => {
+    showSpiner();
+
+    return fetch( `${databaseURL}/todos/groups/${id}.json`,
+        {
+            method: 'DELETE',
+            headers,
+        }
+    )
+        .then( response => {
+            response.json();
+            hideSpiner();
+        })
+};
+
 export const signIn = async (email, password) => {
     showSpiner();
     return axios.post(authURL, {

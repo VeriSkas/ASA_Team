@@ -4,7 +4,8 @@ import {
     removeSortBtn,
     setClickedPage,
     setTitleLS,
-    getSearchTodoLS
+    getSearchTodoLS,
+    getGroupLS
 } from "../shared/ls-service"
 import { pageNameInLS } from "../shared/textInLS";
 import { calendarLink, renderCalendar } from "./calendar";
@@ -22,6 +23,7 @@ export const onloadPage = async () => {
     const inputSearch = document.querySelector('.content__todo_formSearch');
     const searchTagsBtn = document.querySelector('.content__todo-filter-filterTags');
     const inputTodos = document.querySelector('.content__todo_form');
+    const inputSearchGroup = document.querySelector('.content__todo_formSearchGroup');
     const title = document.querySelector('.content__todo_title');
     const todoList = document.querySelector('.content__todo_todosMain');
     const calendar = document.querySelector('.calendar__wrapper');
@@ -44,6 +46,7 @@ export const onloadPage = async () => {
         case null:
             inputSearch.style.display = 'none';
             calendar.style.display = 'none';
+            inputSearchGroup.style.display = 'none';
             todoList.style.display = 'block';
             sortBtn.style.visibility = 'visible';
             searchTagsBtn.style.visibility = 'hidden';
@@ -58,6 +61,7 @@ export const onloadPage = async () => {
             todosElementHandler();
             inputSearch.style.display = 'none';
             calendar.style.display = 'none';
+            inputSearchGroup.style.display = 'none';
             todoList.style.display = 'block';
             title.innerText = innerTextTitle.mainPageText;
             inputTodos.style.display = 'flex';
@@ -71,6 +75,7 @@ export const onloadPage = async () => {
         case pageNameInLS.importantTasks:
             inputSearch.style.display = 'none';
             calendar.style.display = 'none';
+            inputSearchGroup.style.display = 'none';
             todoList.style.display = 'block';
             title.innerText = innerTextTitle.importantTasks;
             inputTodos.style.display = 'none';
@@ -82,6 +87,7 @@ export const onloadPage = async () => {
         case pageNameInLS.complitedTasks:
             inputSearch.style.display = 'none';
             calendar.style.display = 'none';
+            inputSearchGroup.style.display = 'none';
             todoList.style.display = 'block';
             title.innerText = innerTextTitle.complitedTasks;
             inputTodos.style.display = 'none';
@@ -93,6 +99,7 @@ export const onloadPage = async () => {
         case pageNameInLS.deletedTasks:
             inputSearch.style.display = 'none';
             calendar.style.display = 'none';
+            inputSearchGroup.style.display = 'none';
             todoList.style.display = 'block';
             title.innerText = innerTextTitle.deletedTasks;
             inputTodos.style.display = 'none';
@@ -105,6 +112,7 @@ export const onloadPage = async () => {
             inputSearch.style.display = 'none';
             title.innerText = innerTextTitle.calendar;
             inputTodos.style.display = 'none';
+            inputSearchGroup.style.display = 'none';
             todoList.style.display = 'none';
             sortBtn.style.visibility = 'hidden';
             searchTagsBtn.style.visibility = 'hidden';
@@ -113,6 +121,7 @@ export const onloadPage = async () => {
         case pageNameInLS.search:
             inputSearch.style.display = 'block';
             calendar.style.display = 'none';
+            inputSearchGroup.style.display = 'none';
             title.innerText = `${innerTextTitle.search} "${getSearchTodoLS() || ''}"`;
             sortBtn.style.visibility = 'visible';
             searchTagsBtn.style.visibility = 'visible';
@@ -121,9 +130,22 @@ export const onloadPage = async () => {
             getSearchTodoLS() ? getSearchTask(getSearchTodoLS()) :
                 todoList.innerHTML = null;
             break;
+        case pageNameInLS.groups:
+            const group = getGroupLS();
+            group ?
+                title.innerText = `${innerTextTitle.groups} "${group.title}"`:
+                title.innerText = `${innerTextTitle.groups} ""`;
+            inputSearch.style.display = 'none';
+            inputSearchGroup.style.display = 'flex';
+            inputTodos.style.display = 'flex';
+            calendar.style.display = 'none';
+            sortBtn.style.visibility = 'visible';
+            searchTagsBtn.style.visibility = 'hidden';
+            break;
         case page:
             inputSearch.style.display = 'none';
             calendar.style.display = 'none';
+            inputSearchGroup.style.display = 'none';
             todoList.style.display = 'block';
             todosElementHandler();
             title.innerText = page;

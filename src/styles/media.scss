@@ -271,6 +271,11 @@
     .content__todo {
         width: 20%;
 
+        #content__todo_formSearchGroup {
+            margin: 0 0 10px 0;
+            min-width: 260px;
+        }
+
         &_todosMain {
             .todoLi {
                 grid-template: 1fr/10% 75% 5% 5% 5%;

@@ -75,7 +75,7 @@ export const createList = () => {
                         titleList.firstTitle = createListInput.value;
                         titlePage.innerHTML = createListInput.value;
                         createTitleLists(titleList)
-                            .then(renderTitleLists);
+                            .then(() => renderTitleLists());
                         setTitleLS(createListInput.value);
                         createListInput.value = null;
                         todoInput.style.display = 'flex';
@@ -96,7 +96,6 @@ export const renderTitleLists = () => {
 
             subMenuLists.innerHTML = null;
             todosContainer.innerHTML = null;
-            subMenuLists.style.visibility = 'hidden';
 
             if ( titleGroup ) {
                 titleGroup.forEach( item => {

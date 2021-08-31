@@ -10,6 +10,7 @@ export const pageNameInLS = {
     deletedTasks: 'deletedTasks',
     calendar: 'calendar',
     search: 'search',
+    groups: 'groups',
 }
 
 export const filterBtnInLS = {

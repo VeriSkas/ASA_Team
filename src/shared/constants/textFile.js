@@ -4,7 +4,8 @@ export const innerTextTitle = {
     complitedTasks: 'Completed tasks',
     deletedTasks: 'Deleted tasks',
     calendar: 'Calendar',
-    search: 'Search:'
+    search: 'Search:',
+    groups: 'Group:'
 }
 
 export const tooltips = {

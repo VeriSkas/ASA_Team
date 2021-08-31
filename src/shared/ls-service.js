@@ -24,7 +24,7 @@ export const getTask = () => localStorage.getItem('task');
 
 export const clearLS = () => localStorage.clear();
 
-export const setPersonalData = user => localStorage.setItem('PersonalData',JSON.stringify(user));
+export const setPersonalData = user => localStorage.setItem('PersonalData', JSON.stringify(user));
 
 export const getPersonalData = () => JSON.parse(localStorage.getItem('PersonalData'));
 
@@ -41,3 +41,7 @@ export const removeSortBtn = () => localStorage.removeItem('sortBtnClicked');
 export const setSearchTodoLS = task => localStorage.setItem('searchTask', task);
 
 export const getSearchTodoLS = () => localStorage.getItem('searchTask');
+
+export const setGroupLS = group => localStorage.setItem('group', JSON.stringify(group));
+
+export const getGroupLS = () => JSON.parse(localStorage.getItem('group'));
