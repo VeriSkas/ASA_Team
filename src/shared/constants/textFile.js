@@ -22,4 +22,5 @@ export const tooltips = {
     listErrorText: 'ListName can contain letters and numbers up to 20 characters',
     deleteSubtask: 'Delete subTask',
     complitedSubtask: 'Complited subTask',
+    deleteUser: 'Delete user of group'
 }

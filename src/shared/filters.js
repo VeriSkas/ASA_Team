@@ -71,3 +71,17 @@ export const filterByTagUrgent = todos => {
         .filter(todo => todo.tagUrgent);
     return urgent;
 }
+
+export const searchUser = (users, searchEmail) => {
+    const filterUsers = users.filter(user => {
+        if(user.email) {
+            const userEmail = user.email;
+            const reg = new RegExp( '^' + searchEmail + '$', 'gi');
+            if (userEmail.match(reg)) {
+                return user;
+            }
+        }
+    });
+
+    return filterUsers;
+}

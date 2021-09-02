@@ -609,6 +609,37 @@ export const getGroups = async () => {
         })
 };
 
+export const updateGroup = async group => {
+    showSpiner();
+    const {
+        id,
+        title,
+        date,
+        participant,
+        todos,
+        creatorUUID,
+    } = group;
+
+    return fetch( `${databaseURL}/todos/groups/${id}.json`,
+        {
+            method: 'PUT',
+            headers,
+            body: JSON.stringify({
+                id,
+                title,
+                date,
+                participant,
+                todos,
+                creatorUUID,
+            })
+        }
+    )
+        .then( response => {
+            response.json();
+            hideSpiner();
+        })
+}
+
 export const deleteGroup=  async id => {
     showSpiner();
 

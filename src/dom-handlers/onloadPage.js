@@ -15,6 +15,7 @@ import { filtersClick } from "./filtersClick";
 import { createGroupLink, renderGroups } from "./groups";
 import { getImportantTasks, importantTasks_render } from "./important_todos";
 import { getSearchTask, searchLink } from "./search";
+import { renderParticipants, userGroupBtn } from "./searchUsers";
 import { tasks_render } from "./tasks";
 import { todosElementHandler } from "./todoElement";
 import { renderTodos, todoHandler } from "./todosRender";
@@ -141,6 +142,8 @@ export const onloadPage = async () => {
             calendar.style.display = 'none';
             sortBtn.style.visibility = 'visible';
             searchTagsBtn.style.visibility = 'hidden';
+            userGroupBtn();
+            renderParticipants();
             break;
         case page:
             inputSearch.style.display = 'none';

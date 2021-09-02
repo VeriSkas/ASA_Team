@@ -14,7 +14,7 @@
 
     &_formSearchGroup {
         display: flex;
-        justify-content: flex-end;
+        justify-content: center;
         flex-direction: row;
         width: 100%;
 
@@ -22,7 +22,6 @@
             background: $color6;
             width: 50%;
             min-width: 300px;
-            margin-right: 60px;
             position: relative;
             color: $color3;
             border-radius: 5px;
@@ -57,12 +56,47 @@
                     color: $color3;
                 }
             }
-    
+
             .content__todo_formSearchGroup-searchTodoBtn {
                 right: 10px;
             }
-
         }
+
+        &-usersBtn {
+            position: relative;
+            margin: 10px 60px 0 10px;
+
+            i.bxs-user-account {
+                font-size: 30px;
+                cursor: pointer;
+            }
+
+            &-users {
+                display: block;
+                position: absolute;
+                top: 35px;
+                right: 30px;
+                padding: 15px;
+                z-index: 2;
+                background-color: $color7;
+                list-style: none;
+                border-radius: 5px;
+
+                &.close {
+                    display: none;
+                }
+
+                &-user {
+                    display: flex;
+                    justify-content: space-between;
+
+                    i.bx-x {
+                        margin-left: 10px;
+                    }
+                }
+            }
+        }
+
     }
 
     &-filter {

@@ -38,9 +38,7 @@ export const createGroupLink = () => {
             setClickedPage(pageNameInLS.groups);
             setGroupLS(group);
             createGroup(group)
-                .then(() => {
-                    onloadPage();
-                });
+                .then(() => onloadPage());
             createGroupInput.value = null;
         }
     }

@@ -120,7 +120,7 @@
                     <h4 class="content__todo_todayDate"></h4>
                     <div class="content__todo_formSearchGroup">
                         <form id="content__todo_formSearchGroup">
-                            <button type="submit" class="content__todo_formSearchGroup-searchUser" title="Search user">
+                            <button type="submit" class="content__todo_formSearchGroup-searchUser" title="Add user">
                                 <i class='bx bx-user-plus'></i>
                             </button>
                             <input
@@ -129,11 +129,19 @@
                                 placeholder="Enter the user's email"
                                 title="Enter the user's email to invite him to the group"
                             >
-                            <button type="submit" class="content__todo_formSearchGroup-searchTodoBtn" title="Search user">
-                                <i class='bx bx-search-alt-2' ></i>
+                            <button type="submit" class="content__todo_formSearchGroup-searchTodoBtn" title="Add user">
+                                <i class='bx bx-plus-medical' ></i>
                             </button>
-                            <p id="inputSearchTodosError" class="inputError"></p>
+                            <p id="inputSearchUsersError" class="inputError"></p>
                         </form>
+                        <div class="content__todo_formSearchGroup-usersBtn">
+                            <i class='bx bxs-user-account usersGroup' title="Users on group"></i>
+                            <ul class="content__todo_formSearchGroup-usersBtn-users close">
+                                <li class="content__todo_formSearchGroup-usersBtn-users-user">dsvrfgwesfw3efwe3fsdv</li>
+                                <li class="content__todo_formSearchGroup-usersBtn-users-user">dsvsedfeswfcedv</li>
+                                <li class="content__todo_formSearchGroup-usersBtn-users-user">dsvsewfwesfdv</li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="content__todo-filter">
                         <div class="content__todo-filter-filterTags">
