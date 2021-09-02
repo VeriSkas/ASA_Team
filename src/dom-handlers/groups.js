@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { createGroup, deleteGroup, getGroups } from '../api/api-handlers';
 import { innerTextTitle } from '../shared/constants/textFile';
-import { getClickedPage, getGroupLS, getUID, setClickedPage, setGroupLS } from "../shared/ls-service";
+import { getClickedPage, getGroupLS, getPersonalData, getUID, setClickedPage, setGroupLS } from "../shared/ls-service";
 import { pageNameInLS } from '../shared/textInLS';
 import { onloadPage } from './onloadPage';
 
@@ -14,7 +14,8 @@ export const createGroupLink = () => {
     const group = {
         title: null,
         creatorUUID: getUID(),
-        date: null
+        date: null,
+        participant: [getPersonalData()]
     }
 
     createGroupBtn.setAttribute('disabled', true);
@@ -57,7 +58,8 @@ export const renderGroups = () => {
         .then( groups => {
             if ( groups ) {
                 groups.forEach( group => {
-                    if (getUID() === group.creatorUUID) {
+                    const userGroupParticipant = group.participant.filter(user => user.uuid === getUID());
+                    if (getUID() === group.creatorUUID || userGroupParticipant.length) {
                         const groupLi = document.createElement('li');
                         const groupTitle = document.createElement('textarea');
                         const deleteGroupBtn = document.createElement('i');
@@ -80,7 +82,6 @@ export const renderGroups = () => {
                                     if (getClickedPage() === pageNameInLS.groups
                                         && getGroupLS().id === group.id
                                     ) {
-                                        console.log('check');
                                         setGroupLS(null);
                                         setClickedPage(pageNameInLS.tasks);
                                         onloadPage();

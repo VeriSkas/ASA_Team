@@ -567,7 +567,7 @@ export const deleteEvent =  async id => {
 };
 
 export const createGroup = async group => {
-    const { title, creatorUUID, date } = group;
+    const { title, creatorUUID, date, participant } = group;
     showSpiner();
     return fetch( `${databaseURL}/todos/groups.json`,
         {
@@ -576,7 +576,8 @@ export const createGroup = async group => {
             body: JSON.stringify({
                 title,
                 creatorUUID,
-                date
+                date,
+                participant
             })
         }
     )

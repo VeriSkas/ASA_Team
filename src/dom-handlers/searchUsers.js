@@ -2,7 +2,7 @@ import { getGroups, getUser, updateGroup } from "../api/api-handlers";
 import { errorText } from "../shared/constants/errorText";
 import { tooltips } from "../shared/constants/textFile";
 import { searchUser } from "../shared/filters";
-import { getGroupLS, setGroupLS } from "../shared/ls-service";
+import { getGroupLS, getUID, setGroupLS } from "../shared/ls-service";
 import { checkValidEmail } from "../shared/validators";
 
 export const userGroupBtn = () => {
@@ -39,21 +39,19 @@ export const searchUserOnBD = async user => {
 
             if (users) {
                 const searchUserEmail = searchUser(users, user);
-                const group = getGroupLS();
 
-                if (searchUserEmail) {
+                if (searchUserEmail[0]) {
+                    const group = getGroupLS();
+                    console.log(searchUserEmail[0].uuid);
                     if (searchUserEmail[0].uuid !== group.creatorUUID) {
-                       if (group.participant) {
-                           const repeatedItem = group.participant.filter(item => item.uuid === searchUserEmail[0].uuid);
-                           if (!repeatedItem) {
-                               group.participant = group.participant.concat(searchUserEmail);
-                           }
-                       } else {
-                           group.participant = searchUserEmail;
-                       }
-                       updateGroup(group)
-                           .then(() => setGroupLS(group))
-                           .then(() => renderParticipants());
+                        const repeatedItem = group.participant.filter(item => item.uuid === searchUserEmail[0].uuid);
+                        if (!repeatedItem.length) {
+                            group.participant = group.participant.concat(searchUserEmail);
+                        }
+
+                        updateGroup(group)
+                            .then(() => setGroupLS(group))
+                            .then(() => renderParticipants());
                     }
 
                 }
@@ -73,7 +71,9 @@ export const renderParticipants = () => {
 
                 groups.forEach( group => {
                     if(groupLS.id === group.id) {
-                        if(group.participant) {
+                        const userGroupParticipant = group.participant.filter(user => user.uuid !== getUID());
+                        if(userGroupParticipant.length) {
+                            usersGroupIcon.style.color = 'red';
                             group.participant.forEach(participant => {
                                 const userEmail = document.createElement('li');
                                 const userDelete = document.createElement('i');
@@ -88,6 +88,12 @@ export const renderParticipants = () => {
                                 userEmail.append(userDelete);
 
                             })
+                        } else {
+                            const userEmail = document.createElement('li');
+                            userEmail.className = 'content__todo_formSearchGroup-usersBtn-users-user';
+                            userEmail.innerText = 'Not users in a group';
+                            usersGroupIcon.style.color = 'black';
+                            usersList.append(userEmail);
                         }
                     }
                 })
