@@ -5,7 +5,8 @@ import {
     setClickedPage,
     setTitleLS,
     getSearchTodoLS,
-    getGroupLS
+    getGroupLS,
+    removeTitleLS
 } from "../shared/ls-service"
 import { pageNameInLS } from "../shared/textInLS";
 import { calendarLink, renderCalendar } from "./calendar";
@@ -16,6 +17,7 @@ import { createGroupLink, renderGroups } from "./groups";
 import { getImportantTasks, importantTasks_render } from "./important_todos";
 import { getSearchTask, searchLink } from "./search";
 import { renderParticipants, userGroupBtn } from "./searchUsers";
+import { createGroupTodos, renderGroupTodos } from './groupTodos';
 import { tasks_render } from "./tasks";
 import { todosElementHandler } from "./todoElement";
 import { renderTodos, todoHandler } from "./todosRender";
@@ -142,8 +144,11 @@ export const onloadPage = async () => {
             calendar.style.display = 'none';
             sortBtn.style.visibility = 'visible';
             searchTagsBtn.style.visibility = 'hidden';
+            removeTitleLS();
             userGroupBtn();
             renderParticipants();
+            createGroupTodos();
+            renderGroupTodos();
             break;
         case page:
             inputSearch.style.display = 'none';
@@ -176,6 +181,8 @@ export const renderTodosAfterUpdate = () => {
             break;
         case pageNameInLS.search:
             getSearchTask(getSearchTodoLS());
+            break;
+        case pageNameInLS.groups:
             break;
         case clickedPage:
             renderTodos();

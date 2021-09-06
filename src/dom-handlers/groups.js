@@ -15,7 +15,8 @@ export const createGroupLink = () => {
         title: null,
         creatorUUID: getUID(),
         date: null,
-        participant: [getPersonalData()]
+        participant: [getPersonalData()],
+        todosGroup: null,
     }
 
     createGroupBtn.setAttribute('disabled', true);
@@ -36,6 +37,7 @@ export const createGroupLink = () => {
             titlePage.innerText = `${innerTextTitle.groups} "${createGroupInput.value || ''}"`;
             group.title = createGroupInput.value;
             group.date = moment().format();
+            group.todosGroup = [];
             setClickedPage(pageNameInLS.groups);
             setGroupLS(group);
             createGroup(group)

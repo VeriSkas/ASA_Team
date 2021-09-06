@@ -619,6 +619,7 @@ export const updateGroup = async group => {
         participant,
         todos,
         creatorUUID,
+        todosGroup,
     } = group;
 
     return fetch( `${databaseURL}/todos/groups/${id}.json`,
@@ -632,6 +633,7 @@ export const updateGroup = async group => {
                 participant,
                 todos,
                 creatorUUID,
+                todosGroup
             })
         }
     )

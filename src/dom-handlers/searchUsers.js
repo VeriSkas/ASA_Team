@@ -1,3 +1,4 @@
+
 import { getGroups, getUser, updateGroup } from "../api/api-handlers";
 import { errorText } from "../shared/constants/errorText";
 import { tooltips } from "../shared/constants/textFile";
@@ -42,7 +43,6 @@ export const searchUserOnBD = async user => {
 
                 if (searchUserEmail[0]) {
                     const group = getGroupLS();
-                    console.log(searchUserEmail[0].uuid);
                     if (searchUserEmail[0].uuid !== group.creatorUUID) {
                         const repeatedItem = group.participant.filter(item => item.uuid === searchUserEmail[0].uuid);
                         if (!repeatedItem.length) {
@@ -74,7 +74,7 @@ export const renderParticipants = () => {
                         const userGroupParticipant = group.participant.filter(user => user.uuid !== getUID());
                         if(userGroupParticipant.length) {
                             usersGroupIcon.style.color = 'red';
-                            group.participant.forEach(participant => {
+                            group.participant.forEach((participant, i) => {
                                 const userEmail = document.createElement('li');
                                 const userDelete = document.createElement('i');
 
@@ -84,9 +84,15 @@ export const renderParticipants = () => {
 
                                 userEmail.innerText = participant.email;
 
+                                userDelete.onclick = () => {
+                                    group.participant.splice(i, 1);
+                                    updateGroup(group)
+                                        .then(() => setGroupLS(group))
+                                        .then(() => renderParticipants());
+                                }
+
                                 usersList.append(userEmail);
                                 userEmail.append(userDelete);
-
                             })
                         } else {
                             const userEmail = document.createElement('li');
@@ -97,9 +103,6 @@ export const renderParticipants = () => {
                         }
                     }
                 })
-
             }
-
         })
-
 }
