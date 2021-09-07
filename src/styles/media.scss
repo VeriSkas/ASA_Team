@@ -423,4 +423,8 @@
     .wrapper__content_sidebar-navLinks {
         max-height: 500px;
     }
+    .content__todo {
+        max-height: 500px;
+        overflow: auto;
+    }
 }
