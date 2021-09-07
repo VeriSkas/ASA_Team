@@ -420,11 +420,6 @@
 }
 
 @media (max-height: 800px) {
-    .content__todo {
-        max-height: 450px;
-        overflow: auto;
-    }
-    
     .wrapper__content_sidebar-navLinks {
         max-height: 500px;
     }
