@@ -585,7 +585,6 @@ export const createGroup = async group => {
             hideSpiner();
             return response.json();
         })
-        // .then(result => console.log(result))
 };
 
 export const getGroups = async () => {

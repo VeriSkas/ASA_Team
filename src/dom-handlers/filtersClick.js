@@ -71,7 +71,6 @@ export const filtersClick = () => {
         sortByTagUrgentBtn.style.display = 'none';
         sortByImportantBtn.style.display = 'block';
         sortByComplitedBtn.style.display = 'block';
-        console.log('test');
     } else {
         sortByTagMainBtn.style.display = 'block';
         sortByTagUrgentBtn.style.display = 'block';
