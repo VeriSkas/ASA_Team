@@ -16,11 +16,12 @@ import { errorText } from '../shared/constants/errorText';
 import { showErrorNotification } from '../shared/error-handlers';
 import { onloadPage } from './onloadPage';
 import { pageNameInLS } from '../shared/textInLS';
+import { tooltips } from '../shared/constants/textFile';
 
 export const createList = () => {
     const createListBtn = document.querySelector('.createListBtn');
     const createListInput = document.querySelector('.wrapper__content_sidebar-navLinks-link-inputList-input');
-    const createListForm = document.querySelector('.wrapper__content_sidebar-navLinks-link-inputList');
+    const createListForm = document.querySelector('.wrapper__content_sidebar-navLinks-link-a.inputList');
     const titlePage = document.querySelector('.content__todo_title');
     const todoInput = document.querySelector('.content__todo_form');
 
@@ -74,7 +75,7 @@ export const createList = () => {
                         titleList.firstTitle = createListInput.value;
                         titlePage.innerHTML = createListInput.value;
                         createTitleLists(titleList)
-                            .then(renderTitleLists);
+                            .then(() => renderTitleLists());
                         setTitleLS(createListInput.value);
                         createListInput.value = null;
                         todoInput.style.display = 'flex';
@@ -95,23 +96,22 @@ export const renderTitleLists = () => {
 
             subMenuLists.innerHTML = null;
             todosContainer.innerHTML = null;
-            subMenuLists.style.visibility = 'hidden';
 
             if ( titleGroup ) {
                 titleGroup.forEach( item => {
                     if (getUID() === item.uuid) {
                         const titleLi = document.createElement('li');
                         const titleA = document.createElement('textarea');
-                        const deleteTitleBtn = document.createElement('a');
-                        const changeListNameBtn = document.createElement('a');
+                        const deleteTitleBtn = document.createElement('i');
+                        const changeListNameBtn = document.createElement('i');
 
                         subMenuLists.style.visibility = 'visible';
                         titleLi.className = 'wrapper__content_sidebar-navLinks-link-subMenu-listName';
-                        deleteTitleBtn.innerHTML = '<i class="bx bx-x"></i>';
-                        deleteTitleBtn.setAttribute('title', 'Delete List');
-                        changeListNameBtn.innerHTML = '<i class="bx bx-cog" ></i>';
-                        changeListNameBtn.setAttribute('title', 'Change ListName');
-                        titleA.setAttribute('title', 'ListName can contain letters and numbers up to 20 characters');
+                        deleteTitleBtn.className ='bx bx-x';
+                        deleteTitleBtn.setAttribute('title', tooltips.deleteList);
+                        changeListNameBtn.className = 'bx bx-cog';
+                        changeListNameBtn.setAttribute('title', tooltips.changeList);
+                        titleA.setAttribute('title', tooltips.listErrorText);
                         titleA.value = item.title;
 
                         titleA.onclick = () => {
@@ -132,17 +132,6 @@ export const renderTitleLists = () => {
                                         todos.forEach(todo => {
                                             if((getUID() === todo.uuid) && (item.title === todo.title)) {
                                                 deleteTodo(todo);
-                                            }
-                                        })
-                                    }
-                                })
-
-                            await getSubtask()
-                                .then(subtasks => {
-                                    if(subtasks) {
-                                        subtasks.forEach(subtask => {
-                                            if((getUID() === subtask.uuid) && (item.firstTitle === subtask.title)) {
-                                                deleteSubTask(subtask);
                                             }
                                         })
                                     }

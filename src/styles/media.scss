@@ -44,7 +44,7 @@
                 }
 
                 .todoSubtask {
-                    left: 140px;
+                    left: 160px;
                 }
             }
         }
@@ -244,7 +244,7 @@
 
 @media (max-width: 600px) {
     .wrapper__content_sidebar.close {
-        width: 40px;
+        width: 35px;
         .wrapper__content_sidebar-logoDetails {
             i {
                 min-width: 35px;
@@ -270,6 +270,11 @@
 
     .content__todo {
         width: 20%;
+
+        #content__todo_formSearchGroup {
+            margin: 0 0 10px 60px;
+            min-width: 230px;
+        }
 
         &_todosMain {
             .todoLi {
@@ -411,5 +416,11 @@
     .content__todo {
         width: 19%;
         left: 45px;
+    }
+}
+
+@media (max-height: 800px) {
+    .wrapper__content_sidebar-navLinks {
+        max-height: 500px;
     }
 }

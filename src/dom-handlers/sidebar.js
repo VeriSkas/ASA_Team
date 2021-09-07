@@ -1,23 +1,29 @@
 import { getDeleteTodolist, getTodos } from '../api/api-handlers';
 import { routes } from '../shared/constants/routes';
 import { clearLS, getTitleLS, getUID } from '../shared/ls-service';
-
+import { pageNameInLS } from '../shared/textInLS';
 import { createList, renderTitleLists } from './createList';
 
 export const showSidebar = () => {
     const sidebar = document.querySelector('.wrapper__content_sidebar');
-    const arrow = document.querySelector('.arrow');
+    const arrowLists = document.querySelector('#arrowLists');
+    const arrowGroup = document.querySelector('#arrowGroup');
     const listsLi = document.querySelector('#nav-links_lists');
+    const groupsLi = document.querySelector('#nav-links_groups');
     const sidebarBtn = document.querySelector('.bx-menu');
     const logOutBtn = document.getElementById('logOut');
 
-    sidebarBtn.addEventListener('click', () => {
+    sidebarBtn.onclick = () => {
         sidebar.classList.toggle('close');
-    });
+    };
 
-    arrow.addEventListener('click', () => {
+    arrowLists.onclick = () => {
         listsLi.classList.toggle('showMenu');
-    })
+    };
+
+    arrowGroup.onclick = () => {
+        groupsLi.classList.toggle('showMenu');
+    };
 
     logOutBtn.onclick = () => {
         window.location.href = routes.startPage;
@@ -49,7 +55,7 @@ export const counterTasksRender = async () => {
                         counterImportantTasks.innerHTML = counterImportant;
                         counterComplitedTasks.innerHTML = counterComplited;
 
-                        if (!item.complited && (item.title === 'tasks'))  {
+                        if (!item.complited && (item.title === pageNameInLS.tasks)) {
                             counter++;
                             counterTasks.innerHTML = counter;
                         }

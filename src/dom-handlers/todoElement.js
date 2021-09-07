@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { innerTextTitle } from '../shared/constants/textFile';
 
 export const todosElementHandler = () => {
     const titlePage = document.querySelector('.content__todo_title');
@@ -6,7 +7,7 @@ export const todosElementHandler = () => {
     const todoInput = document.querySelector('.content__todo_form-input');
     const todayDate = document.querySelector('.content__todo_todayDate');
 
-    titlePage.innerHTML = 'My To-Do List';
+    titlePage.innerHTML = innerTextTitle.mainPageText;
     todayDate.innerHTML = moment().format('LL');
     todoInput.onfocus = () => {
         todoAddPlus.innerHTML = '&#x2610;';
