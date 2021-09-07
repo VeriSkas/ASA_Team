@@ -50,7 +50,6 @@ export const renderGroupTodos = async () => {
         .then( groups => {
             const todosContainer = document.querySelector('.content__todo_todosMain');
             todosContainer.innerHTML = null;
-            console.log(groups);
             if (groups) {
                 const groupLS = getGroupLS();
 
@@ -93,7 +92,6 @@ export const renderGroupTodos = async () => {
                                 todoValueLi.innerHTML = todoValue;
                                 todoTimeTime.innerHTML = `${moment(date).format('LT')}`;
                                 todoTimeDay.innerHTML = `${moment(date).format('DD/MM/YY')} `;
-                                console.log();
                                 userAuthor.innerHTML = ` Author: ${userNameAuthor}`;
                                 todoTime.append(todoTimeTime, todoTimeDay);
 
