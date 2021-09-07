@@ -418,3 +418,9 @@
         left: 45px;
     }
 }
+
+@media (max-height: 800px) {
+    .wrapper__content_sidebar-navLinks {
+        max-height: 500px;
+    }
+}
