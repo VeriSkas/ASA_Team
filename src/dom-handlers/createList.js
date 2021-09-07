@@ -21,7 +21,7 @@ import { tooltips } from '../shared/constants/textFile';
 export const createList = () => {
     const createListBtn = document.querySelector('.createListBtn');
     const createListInput = document.querySelector('.wrapper__content_sidebar-navLinks-link-inputList-input');
-    const createListForm = document.querySelector('.wrapper__content_sidebar-navLinks-link-inputList');
+    const createListForm = document.querySelector('.wrapper__content_sidebar-navLinks-link-a.inputList');
     const titlePage = document.querySelector('.content__todo_title');
     const todoInput = document.querySelector('.content__todo_form');
 
@@ -75,7 +75,7 @@ export const createList = () => {
                         titleList.firstTitle = createListInput.value;
                         titlePage.innerHTML = createListInput.value;
                         createTitleLists(titleList)
-                            .then(renderTitleLists);
+                            .then(() => renderTitleLists());
                         setTitleLS(createListInput.value);
                         createListInput.value = null;
                         todoInput.style.display = 'flex';
@@ -96,21 +96,20 @@ export const renderTitleLists = () => {
 
             subMenuLists.innerHTML = null;
             todosContainer.innerHTML = null;
-            subMenuLists.style.visibility = 'hidden';
 
             if ( titleGroup ) {
                 titleGroup.forEach( item => {
                     if (getUID() === item.uuid) {
                         const titleLi = document.createElement('li');
                         const titleA = document.createElement('textarea');
-                        const deleteTitleBtn = document.createElement('a');
-                        const changeListNameBtn = document.createElement('a');
+                        const deleteTitleBtn = document.createElement('i');
+                        const changeListNameBtn = document.createElement('i');
 
                         subMenuLists.style.visibility = 'visible';
                         titleLi.className = 'wrapper__content_sidebar-navLinks-link-subMenu-listName';
-                        deleteTitleBtn.innerHTML = '<i class="bx bx-x"></i>';
+                        deleteTitleBtn.className ='bx bx-x';
                         deleteTitleBtn.setAttribute('title', tooltips.deleteList);
-                        changeListNameBtn.innerHTML = '<i class="bx bx-cog" ></i>';
+                        changeListNameBtn.className = 'bx bx-cog';
                         changeListNameBtn.setAttribute('title', tooltips.changeList);
                         titleA.setAttribute('title', tooltips.listErrorText);
                         titleA.value = item.title;

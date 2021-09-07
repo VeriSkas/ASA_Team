@@ -13,82 +13,62 @@
             <div class="wrapper__content">
                 <div class="wrapper__content_sidebar close">
                     <div class="wrapper__content_sidebar-logoDetails">
-                        <i class='bx bx-menu'></i>
+                        <i class='bx bx-menu logoDetails'></i>
                         <span class="wrapper__content_sidebar-logoDetails-logoName">Do I.T.</span>
                     </div>
                     <ul class="wrapper__content_sidebar-navLinks">
                         <li id="nav-links_allTasks" class="wrapper__content_sidebar-navLinks-link">
                             <a class="wrapper__content_sidebar-navLinks-link-a">
-                                <i class='bx bxs-calendar-check' ></i>
+                                <i class='bx bxs-calendar-check' title=" My tasks"></i>
                                 <span class="link_name">Tasks</span>
                                 <div class="counterTasks" id="tasks_counter"></div>
                             </a>
-                            <ul class="wrapper__content_sidebar-navLinks-link-subMenu blank">
-                                <li><a class="link_name">Tasks</a></li>
-                            </ul>
                         </li>
                         <li class="wrapper__content_sidebar-navLinks-link" id="nav-links_importantTodos">
                             <a class="wrapper__content_sidebar-navLinks-link-a">
-                                <i class='bx bxs-star-half'></i>
+                                <i class='bx bxs-star-half' title="Important tasks"></i>
                                 <span class="link_name"> Important </span>
                                 <div class="counterTasks" id="importantTasks_counter"></div>
                             </a>
-                            <ul class="wrapper__content_sidebar-navLinks-link-subMenu blank">
-                                <li><a class="link_name">Important </a></li>
-                            </ul>
                         </li>
                         <li class="wrapper__content_sidebar-navLinks-link" id="nav-links_completedTodos">
                             <a class="wrapper__content_sidebar-navLinks-link-a">
-                                <i class='bx bx-task-x' ></i>
+                                <i class='bx bx-task-x' title="Completed tasks" ></i>
                                 <span class="link_name">Completed</span>
                                 <div class="counterTasks" id="complitedTasks_counter"></div>
                             </a>
-                            <ul class="wrapper__content_sidebar-navLinks-link-subMenu blank">
-                                <li><a class="link_name">Completed</a></li>
-                            </ul>
                         </li>
                         <li class="wrapper__content_sidebar-navLinks-link" id="nav-links_lists">
-                            <div class="wrapper__content_sidebar-navLinks-link-lists">
-                                <a class="wrapper__content_sidebar-navLinks-link-a">
-                                    <i class='bx bx-list-ul'></i>
-                                    <span class="link_name">Lists:</span>
-                                    <i class='bx bx-down-arrow arrow'></i>
-                                </a>
+                            <div class="wrapper__content_sidebar-navLinks-link-a listsMain">
+                                <i class='bx bx-list-ul'></i>
+                                <span class="link_name">Lists:</span>
+                                <i class='bx bx-down-arrow arrow' id="arrowLists"></i>
                             </div>
                             <ul class="wrapper__content_sidebar-navLinks-link-subMenu lists"></ul>
                         </li>
                         <li class="wrapper__content_sidebar-navLinks-link" id="nav-links_calendar">
                             <a class="wrapper__content_sidebar-navLinks-link-a">
-                                <i class='bx bx-calendar'></i>
+                                <i class='bx bx-calendar' title="Calendar"></i>
                                 <span class="link_name">Calendar</span>
                                 <div class="counterTasks"></div>
                             </a>
-                            <ul class="wrapper__content_sidebar-navLinks-link-subMenu blank">
-                                <li><a class="link_name">Calendar</a></li>
-                            </ul>
                         </li>
                         <li class="wrapper__content_sidebar-navLinks-link" id="nav-links_searchTodos">
                             <a class="wrapper__content_sidebar-navLinks-link-a">
-                                <i class='bx bx-search-alt'></i>
+                                <i class='bx bx-search-alt' title="Search tasks"></i>
                                 <span class="link_name">Search</span>
                                 <div class="counterTasks"></div>
                             </a>
-                            <ul class="wrapper__content_sidebar-navLinks-link-subMenu blank">
-                                <li><a class="link_name">Search</a></li>
-                            </ul>
                         </li>
                         <li class="wrapper__content_sidebar-navLinks-link" id="nav-links_deletedTodos">
                             <a class="wrapper__content_sidebar-navLinks-link-a">
-                                <i class='bx bxs-trash' ></i>
+                                <i class='bx bxs-trash' title="Deleted tasks" ></i>
                                 <span class="link_name">Deleted</span>
                                 <div class="counterTasks" id="deletedTasks_counter"></div>
                             </a>
-                            <ul class="wrapper__content_sidebar-navLinks-link-subMenu blank">
-                                <li><a class="link_name">Deleted</a></li>
-                            </ul>
                         </li>
                         <li class="wrapper__content_sidebar-navLinks-link" id="nav-links_inputList">
-                            <form class="wrapper__content_sidebar-navLinks-link-inputList">
+                            <form class="wrapper__content_sidebar-navLinks-link-a inputList">
                                 <i class='bx bx-plus' ></i>
                                 <input
                                     type="text"
@@ -96,8 +76,32 @@
                                     placeholder="Create a list"
                                     title="ListName can contain letters and numbers up to 20 characters"
                                 >
-                                <button type="submit" class="createListBtn"><i class='bx bx-list-plus' title="Add list"></i></button>
+                                <button type="submit" class="createListBtn">
+                                    <i class='bx bx-list-plus' title="Add list"></i>
+                                </button>
                             </form>
+                        </li>
+                        <li class="wrapper__content_sidebar-navLinks-link" id="nav-links_groupCreate">
+                            <form class="wrapper__content_sidebar-navLinks-link-a groupCreate">
+                                <i class='bx bxs-user-plus'></i>
+                                <input
+                                    type="text"
+                                    class="wrapper__content_sidebar-navLinks-link-groupCreate-input"
+                                    placeholder="Create group"
+                                    title="Group name can contain letters and numbers up to 20 characters"
+                                >
+                                <button type="submit" class="createGroupBtn">
+                                    <i class='bx bx-list-plus' title="Add group"></i>
+                                </button>
+                            </form>
+                        </li>
+                        <li class="wrapper__content_sidebar-navLinks-link" id="nav-links_groups">
+                            <div class="wrapper__content_sidebar-navLinks-link-a groups">
+                                <i class='bx bxs-group' ></i>
+                                <span class="link_name">Groups:</span>
+                                <i class='bx bx-down-arrow arrow' id="arrowGroup"></i>
+                            </div>
+                            <ul class="wrapper__content_sidebar-navLinks-link-subMenu groups"></ul>
                         </li>
                         <li class="wrapper__content_sidebar-navLinks-link profile">
                             <div class="wrapper__content_sidebar-navLinks-link_profile">
@@ -106,9 +110,7 @@
                                     <div class="profile-name"></div>
                                     <div class="profile-email"></div>
                                 </div>
-                                <a>
-                                    <i class='bx bx-log-out' id="logOut"></i>
-                                </a>
+                                <i class='bx bx-log-out' id="logOut"></i>
                             </div>
                         </li>
                     </ul>
@@ -116,6 +118,27 @@
                 <div class="content__todo">
                     <h1 class="content__todo_title"></h1>
                     <h4 class="content__todo_todayDate"></h4>
+                    <div class="content__todo_formSearchGroup">
+                        <form id="content__todo_formSearchGroup">
+                            <button type="submit" class="content__todo_formSearchGroup-searchUser" title="Add user">
+                                <i class='bx bx-user-plus'></i>
+                            </button>
+                            <input
+                                type="email"
+                                class="content__todo_formSearchGroup-input"
+                                placeholder="Enter the user's email"
+                                title="Enter the user's email to invite him to the group"
+                            >
+                            <button type="submit" class="content__todo_formSearchGroup-searchTodoBtn" title="Add user">
+                                <i class='bx bx-plus-medical' ></i>
+                            </button>
+                            <p id="inputSearchUsersError" class="inputError"></p>
+                        </form>
+                        <div class="content__todo_formSearchGroup-usersBtn">
+                            <i class='bx bxs-user-account usersGroup' title="Users on group"></i>
+                            <ul class="content__todo_formSearchGroup-usersBtn-users close"></ul>
+                        </div>
+                    </div>
                     <div class="content__todo-filter">
                         <div class="content__todo-filter-filterTags">
                             <i class='bx bxs-search-alt-2' id="content__todo-filter-filterTags-main" title="Search main todos"></i>
@@ -124,12 +147,38 @@
                         <div class="content__todo-filter-sort">
                             <i class='bx bx-sort-alt-2' title="Sort by..."></i>
                             <ul class="content__todo-filter-sort-ul close">
-                                <li class="content__todo-filter-sort-ul-item" id="sortByNameAscending">sort by name &uuarr;</li>
-                                <li class="content__todo-filter-sort-ul-item" id="sortByNameDescending">sort by name &ddarr;</li>
-                                <li class="content__todo-filter-sort-ul-item" id="sortByDateAscending">sort by date &uuarr;</li>
-                                <li class="content__todo-filter-sort-ul-item" id="sortByDateDescending">sort by date &ddarr;</li>
-                                <li class="content__todo-filter-sort-ul-item" id="sortByTagMain">with tag main <i class="bx bxs-circle main"></i> </li>
-                                <li class="content__todo-filter-sort-ul-item" id="sortByTagUrgent">with tag urgent <i class="bx bxs-circle urgent"></i></li>
+                                <li class="content__todo-filter-sort-ul-item" id="sortByNameAscending">
+                                    <i class='bx bxs-up-arrow-alt' ></i>
+                                    sort by name
+                                </li>
+                                <li class="content__todo-filter-sort-ul-item" id="sortByNameDescending">
+                                    <i class='bx bxs-down-arrow-alt' ></i>
+                                    sort by name
+                                </li>
+                                <li class="content__todo-filter-sort-ul-item" id="sortByDateAscending">
+                                    <i class='bx bxs-up-arrow-alt' ></i>
+                                    sort by dat
+                                </li>
+                                <li class="content__todo-filter-sort-ul-item" id="sortByDateDescending">
+                                    <i class='bx bxs-down-arrow-alt' ></i>
+                                    sort by date
+                                </li>
+                                <li class="content__todo-filter-sort-ul-item" id="sortByTagMain">
+                                    <i class="bx bxs-circle main"></i>
+                                    with tag main
+                                </li>
+                                <li class="content__todo-filter-sort-ul-item" id="sortByTagUrgent">
+                                    <i class="bx bxs-circle urgent"></i>
+                                    with tag urgent
+                                </li>
+                                <li class="content__todo-filter-sort-ul-item" id="sortByImportant">
+                                    <i class='bx bxs-star'></i>
+                                    important
+                                </li>
+                                <li class="content__todo-filter-sort-ul-item" id="sortByComplited">
+                                    <i class='bx bx-check-square' ></i>
+                                    complited
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -137,9 +186,10 @@
                         <button type="submit" class="content__todo_form-todoAddPlus" title="Add task">&#10133;</button>
                         <input type="text" id="content__todo_form-input" class="content__todo_form-input" placeholder="Add task">
                         <button type="submit" class="content__todo_form-addTodoBtn" title="Add task"> &#9998; Add... </button>
+                        <p id="inputTodosError" class="inputError"></p>
                     </form>
                     <form id="content__todo_formSearch" class="content__todo_formSearch">
-                        <input type="text" class="content__todo_formSearch-input" placeholder="Search task">
+                        <input type="text" class="content__todo_formSearch-input" placeholder="Enter for search task">
                         <button type="submit" class="content__todo_formSearch-searchTodoBtn" title="Search task">
                             <i class='bx bx-search-alt-2' ></i>
                             Search...
@@ -147,7 +197,6 @@
                         <p id="inputSearchTodosError" class="inputError"></p>
                     </form>
                     <div class="dividing"></div>
-                    <p id="inputTodosError" class="inputError"></p>
                     <ul class="content__todo_todosMain"></ul>
                     <div class="calendar__wrapper">
                         <div class="calendar__wrapper-content">

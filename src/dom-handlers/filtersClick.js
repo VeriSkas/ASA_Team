@@ -1,4 +1,6 @@
 import {
+    filterComplitedGroupTodos,
+    filterImportantGroupTodos,
     sortByTagMain,
     sortByTagUrgent,
     sortDateAscending,
@@ -6,8 +8,8 @@ import {
     sortNameAscending,
     sortNameDescending
 } from "../shared/filters";
-import { getSortBtn, setSortBtn } from "../shared/ls-service";
-import { filterBtnInLS } from "../shared/textInLS";
+import { getClickedPage, getSortBtn, setSortBtn } from "../shared/ls-service";
+import { filterBtnInLS, pageNameInLS } from "../shared/textInLS";
 import { onloadPage } from "./onloadPage";
 
 export const filtersClick = () => {
@@ -17,6 +19,8 @@ export const filtersClick = () => {
     const sortByDateDescendingBtn = document.querySelector('#sortByDateDescending');
     const sortByTagMainBtn = document.querySelector('#sortByTagMain');
     const sortByTagUrgentBtn = document.querySelector('#sortByTagUrgent');
+    const sortByImportantBtn = document.querySelector('#sortByImportant');
+    const sortByComplitedBtn = document.querySelector('#sortByComplited');
     const filterBtn = document.querySelector('.bx.bx-sort-alt-2');
     const filterItem = document.querySelector('.content__todo-filter-sort-ul');
 
@@ -51,6 +55,29 @@ export const filtersClick = () => {
         setSortBtn(filterBtnInLS.sortByTagUrgentBtn);
         onloadPage();
     };
+
+    sortByImportantBtn.onclick = () => {
+        setSortBtn(filterBtnInLS.filterImportantBtn);
+        onloadPage();
+    };
+
+    sortByComplitedBtn.onclick = () => {
+        setSortBtn(filterBtnInLS.filterComplitedBtn);
+        onloadPage();
+    };
+
+    if (getClickedPage() === pageNameInLS.groups) {
+        sortByTagMainBtn.style.display = 'none';
+        sortByTagUrgentBtn.style.display = 'none';
+        sortByImportantBtn.style.display = 'block';
+        sortByComplitedBtn.style.display = 'block';
+        console.log('test');
+    } else {
+        sortByTagMainBtn.style.display = 'block';
+        sortByTagUrgentBtn.style.display = 'block';
+        sortByImportantBtn.style.display = 'none';
+        sortByComplitedBtn.style.display = 'none';
+    }
 }
 
 export const sortTodoRender = todos => {
@@ -74,6 +101,12 @@ export const sortTodoRender = todos => {
 
         case filterBtnInLS.sortByTagUrgentBtn:
             return sortByTagUrgent(todos);
+
+        case filterBtnInLS.filterImportantBtn:
+            return filterImportantGroupTodos(todos);
+
+        case filterBtnInLS.filterComplitedBtn:
+            return filterComplitedGroupTodos(todos);
 
         default:
             return todos;

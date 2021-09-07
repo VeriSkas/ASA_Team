@@ -7,7 +7,7 @@ import { innerTextTitle } from "../shared/constants/textFile";
 export const tasks_render = () => {
     const allTodos = document.querySelector('#nav-links_allTasks');
 
-    todoHandler();
+    // todoHandler();    // возможно придется включить, чтоб при загрузке загружалось создание тасок
 
     allTodos.onclick = () => {
         const inputTodos = document.querySelector('.content__todo_form');
