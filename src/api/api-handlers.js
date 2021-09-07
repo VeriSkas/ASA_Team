@@ -582,9 +582,10 @@ export const createGroup = async group => {
         }
     )
         .then( response => {
-            response.json();
             hideSpiner();
+            return response.json();
         })
+        // .then(result => console.log(result))
 };
 
 export const getGroups = async () => {

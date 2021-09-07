@@ -38,11 +38,31 @@ export const sortByTagMain = todos => {
 
 export const sortByTagUrgent = todos => {
     const urgent = todos
-        .filter(todo => todo.tagUrgent);
+    .filter(todo => todo.tagUrgent);
     const notUrgent = todos
-        .filter(todo => !todo.tagUrgent);
+    .filter(todo => !todo.tagUrgent);
     const sortNameArr = notUrgent.concat(urgent);
+    
+    return sortNameArr;
+}
 
+export const filterImportantGroupTodos = todos => {
+    const important = todos
+        .filter(todo => todo.important);
+    const notImportant = todos
+        .filter(todo => !todo.important);
+    const sortNameArr = notImportant.concat(important);
+
+    return sortNameArr;
+}
+
+export const filterComplitedGroupTodos = todos => {
+    const complited = todos
+        .filter(todo => todo.complited);
+    const notComplited = todos
+        .filter(todo => !todo.complited);
+    const sortNameArr = notComplited.concat(complited);
+    
     return sortNameArr;
 }
 

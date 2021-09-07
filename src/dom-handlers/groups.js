@@ -1,7 +1,14 @@
 import moment from 'moment';
 import { createGroup, deleteGroup, getGroups } from '../api/api-handlers';
 import { innerTextTitle } from '../shared/constants/textFile';
-import { getClickedPage, getGroupLS, getPersonalData, getUID, setClickedPage, setGroupLS } from "../shared/ls-service";
+import {
+    getClickedPage,
+    getGroupLS,
+    getPersonalData,
+    getUID,
+    setClickedPage,
+    setGroupLS
+} from "../shared/ls-service";
 import { pageNameInLS } from '../shared/textInLS';
 import { onloadPage } from './onloadPage';
 
@@ -39,8 +46,9 @@ export const createGroupLink = () => {
             group.date = moment().format();
             group.todosGroup = [];
             setClickedPage(pageNameInLS.groups);
-            setGroupLS(group);
             createGroup(group)
+                .then(result => group.id = result.name)
+                .then(() => setGroupLS(group))
                 .then(() => onloadPage());
             createGroupInput.value = null;
         }
@@ -51,7 +59,6 @@ export const renderGroups = () => {
     const groupsUl = document.querySelector('.wrapper__content_sidebar-navLinks-link-subMenu.groups');
     const titlePage = document.querySelector('.content__todo_title');
     const todosContainer = document.querySelector('.content__todo_todosMain');
-    const todoInput = document.querySelector('.content__todo_form');
 
     groupsUl.innerHTML = null;
     todosContainer.innerHTML = null;
@@ -70,6 +77,10 @@ export const renderGroups = () => {
                         groupLi.className = 'wrapper__content_sidebar-navLinks-link-subMenu-groupName';
                         deleteGroupBtn.className = 'bx bx-x';
                         groupTitle.value = group.title;
+
+                        if (getUID() !== group.creatorUUID) {
+                            groupTitle.style.color = 'red';
+                        }
 
                         groupTitle.onclick = () => {
                             setGroupLS(group);

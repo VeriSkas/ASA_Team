@@ -20,4 +20,6 @@ export const filterBtnInLS = {
     dateDescendingBtn: 'DateDescendingBtn',
     sortByTagMainBtn: 'sortByTagMainBtn',
     sortByTagUrgentBtn: 'sortByTagUrgentBtn',
+    filterImportantBtn: 'filterImportantBtn',
+    filterComplitedBtn: 'filterComplitedBtn',
 }

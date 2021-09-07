@@ -147,12 +147,38 @@
                         <div class="content__todo-filter-sort">
                             <i class='bx bx-sort-alt-2' title="Sort by..."></i>
                             <ul class="content__todo-filter-sort-ul close">
-                                <li class="content__todo-filter-sort-ul-item" id="sortByNameAscending">sort by name &uuarr;</li>
-                                <li class="content__todo-filter-sort-ul-item" id="sortByNameDescending">sort by name &ddarr;</li>
-                                <li class="content__todo-filter-sort-ul-item" id="sortByDateAscending">sort by date &uuarr;</li>
-                                <li class="content__todo-filter-sort-ul-item" id="sortByDateDescending">sort by date &ddarr;</li>
-                                <li class="content__todo-filter-sort-ul-item" id="sortByTagMain">with tag main <i class="bx bxs-circle main"></i> </li>
-                                <li class="content__todo-filter-sort-ul-item" id="sortByTagUrgent">with tag urgent <i class="bx bxs-circle urgent"></i></li>
+                                <li class="content__todo-filter-sort-ul-item" id="sortByNameAscending">
+                                    <i class='bx bxs-up-arrow-alt' ></i>
+                                    sort by name
+                                </li>
+                                <li class="content__todo-filter-sort-ul-item" id="sortByNameDescending">
+                                    <i class='bx bxs-down-arrow-alt' ></i>
+                                    sort by name
+                                </li>
+                                <li class="content__todo-filter-sort-ul-item" id="sortByDateAscending">
+                                    <i class='bx bxs-up-arrow-alt' ></i>
+                                    sort by dat
+                                </li>
+                                <li class="content__todo-filter-sort-ul-item" id="sortByDateDescending">
+                                    <i class='bx bxs-down-arrow-alt' ></i>
+                                    sort by date
+                                </li>
+                                <li class="content__todo-filter-sort-ul-item" id="sortByTagMain">
+                                    <i class="bx bxs-circle main"></i>
+                                    with tag main
+                                </li>
+                                <li class="content__todo-filter-sort-ul-item" id="sortByTagUrgent">
+                                    <i class="bx bxs-circle urgent"></i>
+                                    with tag urgent
+                                </li>
+                                <li class="content__todo-filter-sort-ul-item" id="sortByImportant">
+                                    <i class='bx bxs-star'></i>
+                                    important
+                                </li>
+                                <li class="content__todo-filter-sort-ul-item" id="sortByComplited">
+                                    <i class='bx bx-check-square' ></i>
+                                    complited
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -160,6 +186,7 @@
                         <button type="submit" class="content__todo_form-todoAddPlus" title="Add task">&#10133;</button>
                         <input type="text" id="content__todo_form-input" class="content__todo_form-input" placeholder="Add task">
                         <button type="submit" class="content__todo_form-addTodoBtn" title="Add task"> &#9998; Add... </button>
+                        <p id="inputTodosError" class="inputError"></p>
                     </form>
                     <form id="content__todo_formSearch" class="content__todo_formSearch">
                         <input type="text" class="content__todo_formSearch-input" placeholder="Enter for search task">
@@ -170,7 +197,6 @@
                         <p id="inputSearchTodosError" class="inputError"></p>
                     </form>
                     <div class="dividing"></div>
-                    <p id="inputTodosError" class="inputError"></p>
                     <ul class="content__todo_todosMain"></ul>
                     <div class="calendar__wrapper">
                         <div class="calendar__wrapper-content">

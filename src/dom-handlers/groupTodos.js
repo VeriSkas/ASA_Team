@@ -4,13 +4,14 @@ import { errorText } from "../shared/constants/errorText";
 import { tooltips } from "../shared/constants/textFile";
 import { getGroupLS, getUID, setGroupLS } from "../shared/ls-service";
 import { checkLengthTodo } from "../shared/validators";
+import { sortTodoRender } from "./filtersClick";
 
 export const createGroupTodos = () => {
     const todo_form = document.getElementById('content__todo_form');
     const formInput = document.getElementById('content__todo_form-input');
     const inputTodosError = document.querySelector('#inputTodosError');
     const todo = {
-        todoGroupValue: null,
+        todoValue: null,
         date: null,
         complited: false,
         important: false,
@@ -28,7 +29,7 @@ export const createGroupTodos = () => {
         const groupLS = getGroupLS();
 
         if (checkLengthTodo(formInput.value.trim())) {
-            todo.todoGroupValue = formInput.value;
+            todo.todoValue = formInput.value;
             todo.date = moment().format();
             todo.uuid = getUID();
             groupLS.todosGroup ?
@@ -56,10 +57,11 @@ export const renderGroupTodos = async () => {
                 groups.forEach( group => {
                     if(groupLS.id === group.id) {
                         if (group.todosGroup) {
-                            group.todosGroup.forEach( todo => {
-                                console.log(todo);
 
-                                const { todoGroupValue, date, important, complited, uuid } = todo;
+                            group.todosGroup = sortTodoRender(group.todosGroup);
+
+                            group.todosGroup.forEach(( todo, ind ) => {
+                                const { todoValue, date, important, complited, uuid } = todo;
 
                                 const todoLi = document.createElement('li');
                                 const todoLiError = document.createElement('p');
@@ -70,6 +72,9 @@ export const renderGroupTodos = async () => {
                                 const todoTimeDay = document.createElement('p');
                                 const todoDelete = document.createElement('i');
                                 const todoImportant = document.createElement('span');
+                                const userAuthor = document.createElement('span');
+                                const userNameAuthor = group.participant
+                                    .filter(user => user.uuid === uuid)[0].loginName;
 
                                 todoLi.className = 'todoLi';
                                 todoLiError.className = 'inputError';
@@ -79,120 +84,138 @@ export const renderGroupTodos = async () => {
                                 todoImportant.className = 'todo-important';
                                 todoDelete.className = 'bx bxs-trash todos-deleteImg';
                                 complitedTodo.className = 'todo-complited';
+                                userAuthor.className = 'todo-author';
 
                                 todoDelete.setAttribute('title', tooltips.deleteTask);
                                 todoImportant.setAttribute('title', tooltips.importantTask);
                                 complitedTodo.setAttribute('title', tooltips.complitedTask);
 
-                                todoValueLi.innerHTML = todoGroupValue;
+                                todoValueLi.innerHTML = todoValue;
                                 todoTimeTime.innerHTML = `${moment(date).format('LT')}`;
                                 todoTimeDay.innerHTML = `${moment(date).format('DD/MM/YY')} `;
+                                console.log();
+                                userAuthor.innerHTML = ` Author: ${userNameAuthor}`;
                                 todoTime.append(todoTimeTime, todoTimeDay);
 
-                                if (todoGroupValue.length > 150) {
+                                if (todoValue.length > 150) {
                                     todoValueLi.style.fontSize = '12px';
                                     todoValueLi.style.height = '45px';
-                                } else if (todoGroupValue.length < 50) {
+                                } else if (todoValue.length < 50) {
                                     todoValueLi.style.height = '15px';
                                 }
 
-                                if (getUID() === uuid) {
-                                    todoValueLi.style.color = 'red';
+                                getUID() === uuid ?
+                                    todoLi.style.background = '#cfbaf7' :
+                                    todoLi.append(userAuthor);
+
+                                todoValueLi.oninput = () => {
+                                    checkLengthTodo(todoValueLi.value.trim()) ?
+                                        todoLiError.innerHTML = '' :
+                                        todoLiError.innerHTML = errorText.inputTodoErrorText;
                                 }
 
-                                // todoValueLi.oninput = () => {
-                                //     checkLengthTodo(todoValueLi.value.trim()) ?
-                                //         todoLiError.innerHTML = '' :
-                                //         todoLiError.innerHTML = errorText.inputTodoErrorText;
-                                // }
-        
-                                // todoValueLi.onkeyup = event => {
-                                //     if (event.key === 'Enter') {
-                                //         todoValueLi.value = todoValueLi.value.replace(/\n$/, '');
-        
-                                //         if ((todoValueLi.value !== todoGroupValue) && checkLengthTodo(todoValueLi.value)) {
-                                //             todo.date = moment().format();
-                                //             todo.todoGroupValue = todoValueLi.value;
-        
-                                //             // updateGroup ( todo )
-                                //             //     .then(() => renderTodos());
-                                //         } else {
-                                //             todoLiError.innerHTML = '';
-                                //             todoValueLi.value = todo.todoGroupValue;
-                                //         }
-                                //     }
-                                // }
-        
-                                // todoValueLi.onblur = () => {
-                                //     if ((todoValueLi.value !== todoGroupValue) && checkLengthTodo(todoValueLi.value)) {
-                                //         todo.date = moment().format();
-                                //         todo.todoGroupValue = todoValueLi.value;
-        
-                                //         // updateTodo( item )
-                                //         // .then(() => renderTodos());
-                                //     } else {
-                                //         todoLiError.innerHTML = '';
-                                //         todoValueLi.value = todo.todoGroupValue;
-                                //     }
-                                // }
-        
-                                // todoDelete.onclick = async () => {
-                                    // await createDeleteTodoList(item);
-                                    // await deleteTodo(item)
-                                    //     .then(() => renderTodos());
-                                // }
-        
-                                // if (important) {
-                                //     todoImportant.innerHTML = '&#10029;';
-                                //     todoImportant.setAttribute('clicked', true);
-                                // } else {
-                                //     todoImportant.innerHTML = '&#9734;';
-                                //     todoImportant.removeAttribute('clicked');
-                                // }
-        
-                                // todoImportant.onclick = () => {
-                                //     let isClicked = todoImportant.getAttribute('clicked');
-        
-                                //     if (!isClicked) {
-                                //         todoImportant.setAttribute('clicked', true);
-                                //         todoImportant.innerHTML = '&#10029;';
-                                //         todo.important = true;
-                                //         // updateTodo( item )
-                                //         //     .then(() => counterTasksRender());
-                                //     } else {
-                                //         todoImportant.removeAttribute('clicked');
-                                //         todoImportant.innerHTML = '&#9734;';
-                                //         todo.important = false;
-                                //         // updateTodo( item )
-                                //         //     .then(() => counterTasksRender());
-                                //     }
-                                // }
-        
-                                // if (complited) {
-                                //     complitedTodo.innerHTML = '&#9746;';
-                                //     complitedTodo.setAttribute('clicked', true);
-                                // } else {
-                                //     complitedTodo.innerHTML = '&#x2610;';
-                                //     complitedTodo.removeAttribute('clicked');
-                                // }
-        
-                                // complitedTodo.onclick = () => {
-                                //     let isClicked = complitedTodo.getAttribute('clicked');
-        
-                                //     if (!isClicked) {
-                                //         complitedTodo.setAttribute('clicked', true);
-                                //         complitedTodo.innerHTML = '&#9746;';
-                                //         todo.complited = true;
-                                //         // updateTodo( item )
-                                //         // .then(() => renderTodos());
-                                //     } else {
-                                //         complitedTodo.removeAttribute('clicked');
-                                //         complitedTodo.innerHTML = '&#x2610;';
-                                //         todo.complited = false;
-                                //         // updateTodo( item )
-                                //         //     .then(() => counterTasksRender());
-                                //     }
-                                // }
+                                todoValueLi.onkeyup = event => {
+                                    if (event.key === 'Enter') {
+                                        todoValueLi.value = todoValueLi.value.replace(/\n$/, '');
+
+                                        if ((todoValueLi.value !== todoValue) && checkLengthTodo(todoValueLi.value)) {
+                                            todo.date = moment().format();
+                                            todo.todoValue = todoValueLi.value;
+
+                                            updateGroup(group)
+                                                .then(() => setGroupLS(group))
+                                                .then(() => renderGroupTodos())
+                                        } else {
+                                            todoLiError.innerHTML = '';
+                                            todoValueLi.value = todo.todoValue;
+                                        }
+                                    }
+                                }
+
+                                todoValueLi.onblur = () => {
+                                    if ((todoValueLi.value !== todoValue) && checkLengthTodo(todoValueLi.value)) {
+                                        todo.date = moment().format();
+                                        todo.todoValue = todoValueLi.value;
+
+                                        updateGroup(group)
+                                            .then(() => setGroupLS(group))
+                                            .then(() => renderGroupTodos())
+                                    } else {
+                                        todoLiError.innerHTML = '';
+                                        todoValueLi.value = todo.todoValue;
+                                    }
+                                }
+
+                                todoDelete.onclick = () => {
+                                    const deleteQuestion = confirm(`Delete todo: ' ${todoValue} '?`);
+                                    if (deleteQuestion) {
+                                        group.todosGroup.splice(ind, 1);
+
+                                        updateGroup(group)
+                                            .then(() => setGroupLS(group))
+                                            .then(() => renderGroupTodos())
+                                    }
+                                }
+
+                                if (important) {
+                                    todoImportant.innerHTML = '&#10029;';
+                                    todoImportant.setAttribute('clicked', true);
+                                    todoValueLi.style.color = 'red';
+                                } else {
+                                    todoImportant.innerHTML = '&#9734;';
+                                    todoImportant.removeAttribute('clicked');
+                                }
+
+                                todoImportant.onclick = () => {
+                                    let isClicked = todoImportant.getAttribute('clicked');
+
+                                    if (!isClicked) {
+                                        todoImportant.setAttribute('clicked', true);
+                                        todoImportant.innerHTML = '&#10029;';
+                                        todoValueLi.style.color = 'red';
+                                        todo.important = true;
+                                        updateGroup(group)
+                                            .then(() => setGroupLS(group))
+                                            .then(() => renderGroupTodos())
+                                    } else {
+                                        todoImportant.removeAttribute('clicked');
+                                        todoImportant.innerHTML = '&#9734;';
+                                        todo.important = false;
+                                        updateGroup(group)
+                                            .then(() => setGroupLS(group))
+                                            .then(() => renderGroupTodos())
+                                    }
+                                }
+
+                                if (complited) {
+                                    complitedTodo.innerHTML = '&#9746;';
+                                    complitedTodo.setAttribute('clicked', true);
+                                    todoValueLi.style.textDecoration = 'line-through';
+                                    todoLi.style.opacity = '0.5';
+                                } else {
+                                    complitedTodo.innerHTML = '&#x2610;';
+                                    complitedTodo.removeAttribute('clicked');
+                                }
+
+                                complitedTodo.onclick = () => {
+                                    let isClicked = complitedTodo.getAttribute('clicked');
+
+                                    if (!isClicked) {
+                                        complitedTodo.setAttribute('clicked', true);
+                                        complitedTodo.innerHTML = '&#9746;';
+                                        todoValueLi.style.textDecoration = 'line-through';
+                                        todoLi.style.opacity = '0.5';
+                                        todo.complited = true;
+                                    } else {
+                                        complitedTodo.removeAttribute('clicked');
+                                        complitedTodo.innerHTML = '&#x2610;';
+                                        todo.complited = false;
+                                    }
+
+                                    updateGroup(group)
+                                        .then(() => setGroupLS(group))
+                                        .then(() => renderGroupTodos())
+                                }
 
                                 todosContainer.prepend(todoLi);
                                 todoLi.append(
@@ -201,7 +224,7 @@ export const renderGroupTodos = async () => {
                                     todoTime,
                                     todoDelete,
                                     todoImportant,
-                                    todoLiError
+                                    todoLiError,
                                 );
                             })
                         }
