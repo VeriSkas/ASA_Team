@@ -4,7 +4,8 @@ export const innerTextTitle = {
     complitedTasks: 'Completed tasks',
     deletedTasks: 'Deleted tasks',
     calendar: 'Calendar',
-    search: 'Search:'
+    search: 'Search:',
+    groups: 'Group:'
 }
 
 export const tooltips = {
@@ -21,4 +22,5 @@ export const tooltips = {
     listErrorText: 'ListName can contain letters and numbers up to 20 characters',
     deleteSubtask: 'Delete subTask',
     complitedSubtask: 'Complited subTask',
+    deleteUser: 'Delete user of group'
 }

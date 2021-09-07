@@ -10,6 +10,7 @@ export const pageNameInLS = {
     deletedTasks: 'deletedTasks',
     calendar: 'calendar',
     search: 'search',
+    groups: 'groups',
 }
 
 export const filterBtnInLS = {
@@ -19,4 +20,6 @@ export const filterBtnInLS = {
     dateDescendingBtn: 'DateDescendingBtn',
     sortByTagMainBtn: 'sortByTagMainBtn',
     sortByTagUrgentBtn: 'sortByTagUrgentBtn',
+    filterImportantBtn: 'filterImportantBtn',
+    filterComplitedBtn: 'filterComplitedBtn',
 }

@@ -566,6 +566,99 @@ export const deleteEvent =  async id => {
         })
 };
 
+export const createGroup = async group => {
+    const { title, creatorUUID, date, participant } = group;
+    showSpiner();
+    return fetch( `${databaseURL}/todos/groups.json`,
+        {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({
+                title,
+                creatorUUID,
+                date,
+                participant
+            })
+        }
+    )
+        .then( response => {
+            hideSpiner();
+            return response.json();
+        })
+        // .then(result => console.log(result))
+};
+
+export const getGroups = async () => {
+    showSpiner();
+
+    return fetch( `${databaseURL}/todos/groups.json`,
+        {
+            method: 'GET',
+            headers,
+        }
+    )
+        .then( response => response.json())
+        .then( result => {
+            hideSpiner();
+            if (result) {
+                const transformedArr = Object.keys(result).map( key => ({
+                    ...result[key],
+                    id: key
+                }))
+
+                return transformedArr;
+            };
+        })
+};
+
+export const updateGroup = async group => {
+    showSpiner();
+    const {
+        id,
+        title,
+        date,
+        participant,
+        todos,
+        creatorUUID,
+        todosGroup,
+    } = group;
+
+    return fetch( `${databaseURL}/todos/groups/${id}.json`,
+        {
+            method: 'PUT',
+            headers,
+            body: JSON.stringify({
+                id,
+                title,
+                date,
+                participant,
+                todos,
+                creatorUUID,
+                todosGroup
+            })
+        }
+    )
+        .then( response => {
+            response.json();
+            hideSpiner();
+        })
+}
+
+export const deleteGroup=  async id => {
+    showSpiner();
+
+    return fetch( `${databaseURL}/todos/groups/${id}.json`,
+        {
+            method: 'DELETE',
+            headers,
+        }
+    )
+        .then( response => {
+            response.json();
+            hideSpiner();
+        })
+};
+
 export const signIn = async (email, password) => {
     showSpiner();
     return axios.post(authURL, {

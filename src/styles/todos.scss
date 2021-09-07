@@ -9,6 +9,96 @@
 
     &_title, .todayDate {
         color: $colorText;
+    }
+
+    &_formSearchGroup {
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        width: 100%;
+        margin-top: 20px;
+
+        #content__todo_formSearchGroup {
+            background: $color6;
+            width: 50%;
+            min-width: 300px;
+            position: relative;
+            color: $color3;
+            border-radius: 5px;
+            padding: 10px 20px;
+
+            .content__todo_formSearchGroup-searchUser,
+            .content__todo_formSearchGroup-searchTodoBtn {
+                position: absolute;
+                top: 10px;
+                background: none;
+                border: none;
+                outline: none;
+                color: $color3;
+                cursor: pointer;
+
+                i {
+                    font-size: 20px;
+                    font-weight: bold;
+                }
+            }
+
+            .content__todo_formSearchGroup-input {
+                width: 100%;
+                background: none;
+                outline: none;
+                border: none;
+                padding: 0 30px;
+                color: $color3;
+                font-weight: 600;
+
+                &::placeholder {
+                    color: $color3;
+                }
+            }
+
+            .content__todo_formSearchGroup-searchTodoBtn {
+                right: 10px;
+            }
+        }
+
+        &-usersBtn {
+            position: relative;
+            margin: 10px 60px 0 10px;
+
+            i.bxs-user-account {
+                font-size: 30px;
+                cursor: pointer;
+            }
+
+            &-users {
+                display: block;
+                position: absolute;
+                top: 35px;
+                right: 30px;
+                padding: 15px;
+                z-index: 2;
+                background-color: $color7;
+                list-style: none;
+                border-radius: 5px;
+                white-space: nowrap;
+                box-shadow: 1px 1px 10px 1px;
+
+                &.close {
+                    display: none;
+                }
+
+                &-user {
+                    display: flex;
+                    justify-content: space-between;
+
+                    i.bx-x {
+                        margin-left: 10px;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
 
     }
 
@@ -47,12 +137,13 @@
                 position: absolute;
                 top: 7px;
                 right: 25px;
-                min-width: 150px;
+                min-width: 145px;
                 min-height: 150px;
-                padding: 10px;
+                padding: 8px;
                 border-radius: 10px;
                 z-index: 2;
                 background-color: $color7;
+                box-shadow: 1px 1px 10px 1px;
                 list-style: none;
 
                 &.close {
@@ -84,6 +175,7 @@
         display: flex;
         align-items: center;
         height: 50px;
+        position: relative;
 
         &-input {
             border: 0;
@@ -106,6 +198,12 @@
 
         &-todoAddPlus {
             width: 10%;
+        }
+
+        #inputTodosError {
+            position: absolute;
+            top: 35px;
+            left: 60px;
         }
     }
 
@@ -150,11 +248,6 @@
         background: $colorText;
     }
 
-    #inputTodosError {
-        position: absolute;
-        top: 135px;
-        left: 60px;
-    }
 
     &_todosMain {
         margin: 0;
@@ -189,7 +282,7 @@
                 display: block;
                 width: 95%;
                 max-height: 60px;
-                background: $color3;
+                background: inherit;
                 border: none;
                 resize: none;
                 outline: none;
@@ -238,6 +331,13 @@
             .todoRecover {
                 cursor: pointer;
                 font-size: 22px;
+            }
+
+            .todo-author {
+                position: absolute;
+                top: 10px;
+                left: 80px;
+                font-size: 12px;
             }
         }
     }
