@@ -4,6 +4,7 @@ import { getTodos, deleteTodo, updateTodo, createDeleteTodoList } from '../api/a
 import { innerTextTitle, tooltips } from '../shared/constants/textFile';
 import { getUID, setClickedPage } from '../shared/ls-service';
 import { pageNameInLS } from '../shared/textInLS';
+import { checkLengthTodo } from '../shared/validators';
 import { sortTodoRender } from './filtersClick';
 import { onloadPage } from './onloadPage';
 import { counterTasksRender } from './sidebar';

@@ -1,4 +1,10 @@
-import { getUID, setTitleLS, getTitleLS, setClickedPage, getClickedPage } from '../shared/ls-service';
+import {
+    getUID,
+    setTitleLS,
+    getTitleLS,
+    setClickedPage,
+    getClickedPage
+} from '../shared/ls-service';
 import {
     createTitleLists,
     getTitleLists,
@@ -7,8 +13,6 @@ import {
     getTodos,
     updateTodo,
     deleteTodo,
-    getSubtask,
-    deleteSubTask
 } from '../api/api-handlers';
 import { todoHandler, renderTodos } from './todosRender';
 import { checkValidListName } from '../shared/validators';

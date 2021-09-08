@@ -5,7 +5,14 @@ import axios from 'axios';
 
 import { databaseURL, firebaseConfig, authURL } from './api-config';
 import { showErrorNotification } from '../shared/error-handlers';
-import { setToken, getUID, setUID, getPersonalData, setPersonalData, getTask, getTodo } from '../shared/ls-service';
+import {
+    setToken,
+    getUID,
+    setUID,
+    getPersonalData,
+    setPersonalData,
+    getTodo
+} from '../shared/ls-service';
 import { routes } from '../shared/constants/routes';
 import { userProfile } from '../dom-handlers/userInfo';
 import { refreshPhoto } from '../components/profile/profile_modal';

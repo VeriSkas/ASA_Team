@@ -1,4 +1,4 @@
-import { renderTodos, todoHandler } from "./todosRender";
+import { renderTodos } from "./todosRender";
 import { setClickedPage, setTitleLS } from '../shared/ls-service';
 import { onloadPage } from "./onloadPage";
 import { pageNameInLS } from "../shared/textInLS";
@@ -6,8 +6,6 @@ import { innerTextTitle } from "../shared/constants/textFile";
 
 export const tasks_render = () => {
     const allTodos = document.querySelector('#nav-links_allTasks');
-
-    // todoHandler();    // возможно придется включить, чтоб при загрузке загружалось создание тасок
 
     allTodos.onclick = () => {
         const inputTodos = document.querySelector('.content__todo_form');

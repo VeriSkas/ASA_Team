@@ -36,27 +36,12 @@ export const signInHandler = () => {
     };
 
     authPassword.oninput = () => {
-        // возможно еще пригодится
-        // if (checkValidPassword(authPassword.value)) {
-        //     authFormFields.password.isValid = true;
-        //     inputErrorPasswordText.innerText = '';
-        // } else {
-        //     authFormFields.password.isValid = false;
-        //     inputErrorPasswordText.innerText = errorText.validPasswordText;
-        // }
-        // checkFormValid();
-
         if (authPassword.value.length > 25) {
             authPassword.style.fontSize = '15px';
         } else {
             authPassword.style.fontSize = '20px';
         }
     };
-
-    // пусть пока повисит, возмжно вернемся к этому
-    // authPassword.onblur = () => {
-    //     inputErrorPasswordText.innerText = '';
-    // };
 
     authEmail.oninput = () => {
         if (checkValidEmail(authEmail.value)) {
@@ -68,11 +53,6 @@ export const signInHandler = () => {
         }
         checkFormValid();
     };
-
-    // пусть пока повисит, возмжно вернемся к этому
-    // authEmail.onblur = () => {
-    //     inputErrorEmailText.innerText = '';
-    // };
 
     modal();
 };

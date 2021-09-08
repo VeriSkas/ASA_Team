@@ -6,7 +6,6 @@ import { getToken } from './shared/ls-service';
 import { signInHandler } from './components/sign_in/sign-in';
 import { signUpHandler } from './components/sign_up/sign-up';
 import { startPageStyle } from './components/startPage/startPage';
-import './dom-handlers/todoMenu';
 import { profile_modal } from './components/profile/profile_modal';
 import { checkMediaQuery } from './shared/media';
 import { onloadPage } from './dom-handlers/onloadPage';
@@ -49,4 +48,3 @@ window.onload = async () => {
             break;
     }
 };
-
