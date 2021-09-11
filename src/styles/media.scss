@@ -425,3 +425,9 @@
     }
 }
 
+@media (max-height: 600px) {
+    .wrapper__content_sidebar-navLinks {
+        max-height: 300px;
+        padding-top: 0;
+    }
+}

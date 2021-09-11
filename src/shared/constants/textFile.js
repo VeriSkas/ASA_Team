@@ -24,3 +24,8 @@ export const tooltips = {
     complitedSubtask: 'Complited subTask',
     deleteUser: 'Delete user of group'
 }
+
+export const textInner = {
+    notUsersInGroup: 'Not users in a group',
+    changePhoto: 'Сhange main photo',
+}

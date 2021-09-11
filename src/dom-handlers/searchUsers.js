@@ -1,7 +1,7 @@
 
 import { getGroups, getUser, updateGroup } from "../api/api-handlers";
 import { errorText } from "../shared/constants/errorText";
-import { tooltips } from "../shared/constants/textFile";
+import { textInner, tooltips } from "../shared/constants/textFile";
 import { searchUser } from "../shared/filters";
 import { getGroupLS, getUID, setGroupLS } from "../shared/ls-service";
 import { checkValidEmail } from "../shared/validators";
@@ -72,6 +72,7 @@ export const renderParticipants = () => {
                 groups.forEach( group => {
                     if(groupLS.id === group.id) {
                         const userGroupParticipant = group.participant.filter(user => user.uuid !== getUID());
+                        console.log(groups);
                         if(userGroupParticipant.length) {
                             usersGroupIcon.style.color = 'red';
                             group.participant.forEach((participant, i) => {
@@ -92,12 +93,14 @@ export const renderParticipants = () => {
                                 }
 
                                 usersList.append(userEmail);
-                                userEmail.append(userDelete);
+                                if (participant.uuid !== getUID()) {
+                                    userEmail.append(userDelete);
+                                }
                             })
                         } else {
                             const userEmail = document.createElement('li');
                             userEmail.className = 'content__todo_formSearchGroup-usersBtn-users-user';
-                            userEmail.innerText = 'Not users in a group';
+                            userEmail.innerText = textInner.notUsersInGroup;
                             usersGroupIcon.style.color = 'black';
                             usersList.append(userEmail);
                         }

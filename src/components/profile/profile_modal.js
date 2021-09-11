@@ -1,5 +1,6 @@
 import { updateUser, uploadPhoto } from "../../api/api-handlers";
 import { errorText, textConfirm } from "../../shared/constants/errorText";
+import { textInner } from "../../shared/constants/textFile";
 import { getPersonalData, setPersonalData } from "../../shared/ls-service";
 import { checkValidName, checkValidPhotoFormat } from "../../shared/validators";
 
@@ -16,7 +17,7 @@ export const profile_modal = () => {
     const userInfo = getPersonalData();
 
     loginUpdateInput.value = userInfo.loginName;
-    photoInputInner.innerText = 'Сhange main photo';
+    photoInputInner.innerText = textInner.changePhoto;
     photoInput.value = null;
 
     saveUpdateBtn.setAttribute('disabled', true);
@@ -87,7 +88,7 @@ export const profile_modal = () => {
                 loginUpdateInput.value = userInfo.loginName;
             }
 
-            photoInputInner.innerText = 'Сhange main photo';
+            photoInputInner.innerText = textInner.changePhoto;
             saveUpdateBtn.setAttribute('disabled', true);
         }
     }

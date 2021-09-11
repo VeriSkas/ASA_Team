@@ -10,6 +10,7 @@ import { checkLengthEvent } from '../shared/validators';
 import { errorText } from '../shared/constants/errorText';
 import { onloadPage } from './onloadPage';
 import { pageNameInLS } from '../shared/textInLS';
+import { innerTextTitle } from '../shared/constants/textFile';
 
 export const calendarLink = () => {
     const calendarLink = document.querySelector('#nav-links_calendar');
@@ -23,7 +24,7 @@ export const calendarLink = () => {
 
     calendarLink.onclick = () => {
         calendar.style.display = 'grid';
-        title.innerText = 'Calendar';
+        title.innerText = innerTextTitle.calendar;
         inputTodos.style.display = 'none';
         todoList.style.display = 'none';
         sortBtn.style.visibility = 'hidden';
