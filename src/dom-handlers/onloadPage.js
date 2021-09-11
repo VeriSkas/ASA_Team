@@ -43,7 +43,6 @@ export const onloadPage = async () => {
     filtersClick();
     searchLink();
     createGroupLink();
-    renderGroups();
 
     switch (page) {
         case null:

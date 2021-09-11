@@ -72,7 +72,6 @@ export const renderParticipants = () => {
                 groups.forEach( group => {
                     if(groupLS.id === group.id) {
                         const userGroupParticipant = group.participant.filter(user => user.uuid !== getUID());
-                        console.log(groups);
                         if(userGroupParticipant.length) {
                             usersGroupIcon.style.color = 'red';
                             group.participant.forEach((participant, i) => {

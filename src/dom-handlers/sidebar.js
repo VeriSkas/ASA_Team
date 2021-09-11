@@ -1,8 +1,9 @@
 import { getDeleteTodolist, getTodos } from '../api/api-handlers';
 import { routes } from '../shared/constants/routes';
-import { clearLS, getTitleLS, getUID } from '../shared/ls-service';
+import { clearLS, getUID } from '../shared/ls-service';
 import { pageNameInLS } from '../shared/textInLS';
 import { createList, renderTitleLists } from './createList';
+import { renderGroups } from './groups';
 
 export const showSidebar = () => {
     const sidebar = document.querySelector('.wrapper__content_sidebar');
@@ -32,6 +33,7 @@ export const showSidebar = () => {
 
     createList();
     renderTitleLists();
+    renderGroups();
     counterTasksRender();
 };
 
@@ -40,7 +42,6 @@ export const counterTasksRender = async () => {
     const counterComplitedTasks = document.querySelector('#complitedTasks_counter');
     const counterDeletedTasks = document.querySelector('#deletedTasks_counter');
     const counterTasks = document.querySelector('#tasks_counter');
-    const titleLS = getTitleLS();
     let counter = '';
     let counterComplited = '';
     let counterDeleted = '';

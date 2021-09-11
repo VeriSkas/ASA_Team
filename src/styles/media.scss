@@ -276,9 +276,19 @@
             min-width: 230px;
         }
 
+        &_form {
+            #inputTodosError {
+                left: 0;
+            }
+        }
+
         &_todosMain {
             .todoLi {
                 grid-template: 1fr/10% 75% 5% 5% 5%;
+
+                #todoLiError {
+                    left: 0;
+                }
 
                 .todos-time {
                     display: none;

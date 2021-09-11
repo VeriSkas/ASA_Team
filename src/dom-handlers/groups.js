@@ -49,7 +49,8 @@ export const createGroupLink = () => {
             createGroup(group)
                 .then(result => group.id = result.name)
                 .then(() => setGroupLS(group))
-                .then(() => onloadPage());
+                .then(() => onloadPage())
+                .then(() => renderGroups());
             createGroupInput.value = null;
         }
     }
@@ -97,8 +98,10 @@ export const renderGroups = () => {
                                     ) {
                                         setGroupLS(null);
                                         setClickedPage(pageNameInLS.tasks);
+                                        renderGroups();
                                         onloadPage();
                                     } else {
+                                        renderGroups();
                                         onloadPage();
                                     }
                                 });
