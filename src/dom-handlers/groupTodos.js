@@ -27,22 +27,26 @@ export const createGroupTodos = () => {
 
     todo_form.addEventListener('submit', event => {
         event.preventDefault();
-        const groupLS = getGroupLS();
+        renderGroupTodos()
+        .then(() => {
+            const groupLS = getGroupLS();
 
-        if (checkLengthTodo(formInput.value.trim())) {
-            todo.todoValue = formInput.value;
-            todo.date = moment().format();
-            todo.uuid = getUID();
-            groupLS.todosGroup ?
-                groupLS.todosGroup.push(todo) :
-                groupLS.todosGroup = [todo];
+            if (checkLengthTodo(formInput.value.trim())) {
+                todo.todoValue = formInput.value;
+                todo.date = moment().format();
+                todo.uuid = getUID();
+                groupLS.todosGroup ?
+                    groupLS.todosGroup.push(todo) :
+                    groupLS.todosGroup = [todo];
 
-            updateGroup(groupLS)
-                .then(() => setGroupLS(groupLS))
-                .then(() => renderGroupTodos())
-        }
+                updateGroup(groupLS)
+                    .then(() => setGroupLS(groupLS))
+                    .then(() => renderGroupTodos())
+            }
 
-        formInput.value = null;
+            formInput.value = null;
+
+        })
     });
 };
 
