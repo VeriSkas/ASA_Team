@@ -29,7 +29,7 @@ window.onload = async () => {
             await userProfile();
             showSidebar();
             profile_modal();
-            onloadPage();
+            await onloadPage();
             break;
 
         case paths.signIn_Up:

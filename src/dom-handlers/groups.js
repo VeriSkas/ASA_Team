@@ -13,7 +13,7 @@ import { pageNameInLS } from '../shared/textInLS';
 import { onloadPage } from './onloadPage';
 
 export const createGroupLink = () => {
-    const createGorupForm = document.querySelector('.wrapper__content_sidebar-navLinks-link-a.groupCreate');
+    const createGroupForm = document.querySelector('.wrapper__content_sidebar-navLinks-link-a.groupCreate');
     const createGroupInput = document.querySelector('.wrapper__content_sidebar-navLinks-link-groupCreate-input');
     const createGroupBtn = document.querySelector('.createGroupBtn');
     const titlePage = document.querySelector('.content__todo_title');
@@ -38,7 +38,7 @@ export const createGroupLink = () => {
         }
     }
 
-    createGorupForm.onclick = event => {
+    createGroupForm.onclick = event => {
         event.preventDefault();
         if (createGroupInput.value && createGroupInput.value.length < 20) {
             titlePage.innerText = `${innerTextTitle.groups} "${createGroupInput.value || ''}"`;

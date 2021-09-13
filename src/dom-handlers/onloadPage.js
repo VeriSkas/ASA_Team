@@ -13,7 +13,7 @@ import { calendarLink, renderCalendar } from "./calendar";
 import { completedTasks_render, getCompletedTasks } from "./completed_todos";
 import { deletedTasks_render, getDeletedTasks } from "./deleted_todos";
 import { filtersClick } from "./filtersClick";
-import { createGroupLink, renderGroups } from "./groups";
+import { createGroupLink } from "./groups";
 import { getImportantTasks, importantTasks_render } from "./important_todos";
 import { getSearchTask, searchLink } from "./search";
 import { renderParticipants, userGroupBtn } from "./searchUsers";
@@ -46,18 +46,8 @@ export const onloadPage = async () => {
 
     switch (page) {
         case null:
-            inputSearch.style.display = 'none';
-            calendar.style.display = 'none';
-            inputSearchGroup.style.display = 'none';
-            todoList.style.display = 'block';
-            sortBtn.style.visibility = 'visible';
-            searchTagsBtn.style.visibility = 'hidden';
-            title.innerText = innerTextTitle.mainPageText;
-            setTitleLS(pageNameInLS.tasks);
-            todosElementHandler();
             setClickedPage(pageNameInLS.tasks);
-            await renderTodos();
-            removeSortBtn();
+            onloadPage();
             break;
         case pageNameInLS.tasks:
             todosElementHandler();

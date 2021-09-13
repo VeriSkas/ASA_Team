@@ -56,6 +56,8 @@ export const renderGroupTodos = async () => {
 
                 groups.forEach( group => {
                     if(groupLS.id === group.id) {
+                        setGroupLS(group);
+
                         if (group.todosGroup) {
 
                             group.todosGroup = sortTodoRender(group.todosGroup);
