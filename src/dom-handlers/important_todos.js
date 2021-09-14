@@ -145,16 +145,21 @@ export const getImportantTasks = () => {
                             let isClicked = todoImportant.getAttribute('clicked');
 
                             if (!isClicked) {
-                                todoImportant.setAttribute('clicked', true);
-                                todoImportant.innerHTML = '&#10029;';
                                 item.important = true;
-                                updateTodo( item );
+                                updateTodo( item )
+                                    .then(() => counterTasksRender())
+                                    .then(() => {
+                                        todoImportant.setAttribute('clicked', true);
+                                        todoImportant.innerHTML = '&#10029;';
+                                    })
                             } else {
-                                todoImportant.removeAttribute('clicked');
-                                todoImportant.innerHTML = '&#9734;';
                                 item.important = false;
                                 updateTodo( item )
-                                    .then(() => getImportantTasks());
+                                    .then(() => counterTasksRender())
+                                    .then(() => {
+                                        todoImportant.removeAttribute('clicked');
+                                        todoImportant.innerHTML = '&#9734;';
+                                    })
                             }
                         }
 

@@ -212,15 +212,19 @@ export const getSearchTask = async value => {
                             let isClicked = todoImportant.getAttribute('clicked');
 
                             if (!isClicked) {
-                                todoImportant.setAttribute('clicked', true);
-                                todoImportant.innerHTML = '&#10029;';
                                 item.important = true;
-                                updateTodo( item );
+                                updateTodo( item )
+                                    .then(() => {
+                                        todoImportant.setAttribute('clicked', true);
+                                        todoImportant.innerHTML = '&#10029;';
+                                    })
                             } else {
-                                todoImportant.removeAttribute('clicked');
-                                todoImportant.innerHTML = '&#9734;';
                                 item.important = false;
-                                updateTodo( item );
+                                updateTodo( item )
+                                    .then(() => {
+                                        todoImportant.removeAttribute('clicked');
+                                        todoImportant.innerHTML = '&#9734;';
+                                    })
                             }
                         }
 

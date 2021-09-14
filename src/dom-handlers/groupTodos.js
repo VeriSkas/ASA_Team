@@ -25,29 +25,25 @@ export const createGroupTodos = () => {
         inputTodosError.innerHTML = errorText.inputTodoErrorText;
     }
 
-    todo_form.addEventListener('submit', event => {
+    todo_form.onclick = event => {
         event.preventDefault();
-        renderGroupTodos()
-        .then(() => {
-            const groupLS = getGroupLS();
+        const groupLS = getGroupLS();
 
-            if (checkLengthTodo(formInput.value.trim())) {
-                todo.todoValue = formInput.value;
-                todo.date = moment().format();
-                todo.uuid = getUID();
-                groupLS.todosGroup ?
-                    groupLS.todosGroup.push(todo) :
-                    groupLS.todosGroup = [todo];
+        if (checkLengthTodo(formInput.value.trim())) {
+            todo.todoValue = formInput.value;
+            todo.date = moment().format();
+            todo.uuid = getUID();
+            groupLS.todosGroup ?
+                groupLS.todosGroup.push(todo) :
+                groupLS.todosGroup = [todo];
 
-                updateGroup(groupLS)
-                    .then(() => setGroupLS(groupLS))
-                    .then(() => renderGroupTodos())
-            }
+            updateGroup(groupLS)
+                .then(() => setGroupLS(groupLS))
+                .then(() => renderGroupTodos())
+        }
 
-            formInput.value = null;
-
-        })
-    });
+        formInput.value = null;
+    };
 };
 
 export const renderGroupTodos = async () => {
@@ -175,19 +171,23 @@ export const renderGroupTodos = async () => {
                                     let isClicked = todoImportant.getAttribute('clicked');
 
                                     if (!isClicked) {
-                                        todoImportant.setAttribute('clicked', true);
-                                        todoImportant.innerHTML = '&#10029;';
-                                        todoValueLi.style.color = 'red';
                                         todo.important = true;
                                         updateGroup(group)
                                             .then(() => setGroupLS(group))
+                                            .then(() => {
+                                                todoImportant.setAttribute('clicked', true);
+                                                todoImportant.innerHTML = '&#10029;';
+                                                todoValueLi.style.color = 'red';
+                                            })
                                             .then(() => renderGroupTodos())
                                     } else {
-                                        todoImportant.removeAttribute('clicked');
-                                        todoImportant.innerHTML = '&#9734;';
                                         todo.important = false;
                                         updateGroup(group)
                                             .then(() => setGroupLS(group))
+                                            .then(() => {
+                                                todoImportant.removeAttribute('clicked');
+                                                todoImportant.innerHTML = '&#9734;';
+                                            })
                                             .then(() => renderGroupTodos())
                                     }
                                 }

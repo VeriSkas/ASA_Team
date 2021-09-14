@@ -149,17 +149,21 @@ export const renderTodos = async () => {
                             let isClicked = todoImportant.getAttribute('clicked');
 
                             if (!isClicked) {
-                                todoImportant.setAttribute('clicked', true);
-                                todoImportant.innerHTML = '&#10029;';
                                 item.important = true;
                                 updateTodo( item )
-                                    .then(() => counterTasksRender());
+                                    .then(() => counterTasksRender())
+                                    .then(() => {
+                                        todoImportant.setAttribute('clicked', true);
+                                        todoImportant.innerHTML = '&#10029;';
+                                    })
                             } else {
-                                todoImportant.removeAttribute('clicked');
-                                todoImportant.innerHTML = '&#9734;';
                                 item.important = false;
                                 updateTodo( item )
-                                    .then(() => counterTasksRender());
+                                    .then(() => counterTasksRender())
+                                    .then(() => {
+                                        todoImportant.removeAttribute('clicked');
+                                        todoImportant.innerHTML = '&#9734;';
+                                    })
                             }
                         }
 
@@ -179,7 +183,7 @@ export const renderTodos = async () => {
                                 complitedTodo.innerHTML = '&#9746;';
                                 item.complited = true;
                                 updateTodo( item )
-                                .then(() => renderTodos());
+                                    .then(() => renderTodos());
                             } else {
                                 complitedTodo.removeAttribute('clicked');
                                 complitedTodo.innerHTML = '&#x2610;';
