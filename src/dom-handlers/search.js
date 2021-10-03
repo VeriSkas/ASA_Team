@@ -1,5 +1,11 @@
 import moment from 'moment';
-import { deleteTodo, getSubtask, getTodos, updateTodo } from "../api/api-handlers";
+import {
+    createDeleteTodoList,
+    deleteTodo,
+    getSubtask,
+    getTodos,
+    updateTodo
+} from "../api/api-handlers";
 import {
     getUID,
     setClickedPage,
@@ -171,7 +177,7 @@ export const getSearchTask = async value => {
                                     item.todoValue = todoValueLi.value;
 
                                     updateTodo( item )
-                                        .then(() => getSearchTask());
+                                        .then(() => getSearchTask(getSearchTodoLS()));
                                 } else {
                                     todoLiError.innerHTML = '';
                                     todoValueLi.value = item.todoValue;
@@ -185,7 +191,7 @@ export const getSearchTask = async value => {
                                 item.todoValue = todoValueLi.value;
 
                                 updateTodo( item )
-                                .then(() => getSearchTask());
+                                    .then(() => getSearchTask(getSearchTodoLS()));
                             } else {
                                 todoLiError.innerHTML = '';
                                 todoValueLi.value = item.todoValue;
@@ -195,7 +201,7 @@ export const getSearchTask = async value => {
                         todoDelete.onclick = async () => {
                             await createDeleteTodoList(item);
                             await deleteTodo(item)
-                                .then(() => getSearchTask());
+                                .then(() => getSearchTask(getSearchTodoLS()));
 
                             taskMenu.classList.add('close');
                         }

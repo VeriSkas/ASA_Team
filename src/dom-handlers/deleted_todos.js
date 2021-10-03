@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { getDeleteTodolist, finalDeleteTodo, createRecoverTodo } from '../api/api-handlers';
-import { innerTextTitle, tooltips } from '../shared/constants/textFile';
+import { tooltips } from '../shared/constants/textFile';
 import { getUID, setClickedPage } from '../shared/ls-service';
 import { pageNameInLS } from '../shared/textInLS';
 import { sortTodoRender } from './filtersClick';
@@ -108,18 +108,8 @@ export const getDeletedTasks = () => {
 
 export const deletedTasks_render = () => {
     const deletedTodos = document.querySelector('#nav-links_deletedTodos');
-    const calendar = document.querySelector('.calendar__wrapper');
-    const todoList = document.querySelector('.content__todo_todosMain');
 
     deletedTodos.onclick = () => {
-        const title = document.querySelector('.content__todo_title');
-        const inputTodos = document.querySelector('.content__todo_form');
-
-        title.innerText = innerTextTitle.deletedTasks;
-        inputTodos.style.display = 'none';
-        calendar.style.display = 'none';
-        todoList.style.display = 'block';
-
         getDeletedTasks();
         setClickedPage(pageNameInLS.deletedTasks);
         onloadPage();

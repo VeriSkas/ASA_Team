@@ -43,6 +43,13 @@ export const onloadPage = async () => {
     filtersClick();
     searchLink();
     createGroupLink();
+    inputSearch.style.display = 'none';
+    calendar.style.display = 'none';
+    inputSearchGroup.style.display = 'none';
+    todoList.style.display = 'none';
+    inputTodos.style.display = 'none';
+    sortBtn.style.visibility = 'hidden';
+    searchTagsBtn.style.visibility = 'hidden';
 
     switch (page) {
         case null:
@@ -50,75 +57,48 @@ export const onloadPage = async () => {
             onloadPage();
             break;
         case pageNameInLS.tasks:
-            todosElementHandler();
-            inputSearch.style.display = 'none';
-            calendar.style.display = 'none';
-            inputSearchGroup.style.display = 'none';
             todoList.style.display = 'block';
-            title.innerText = innerTextTitle.mainPageText;
             inputTodos.style.display = 'flex';
             sortBtn.style.visibility = 'visible';
-            searchTagsBtn.style.visibility = 'hidden';
+            title.innerText = innerTextTitle.mainPageText;
+            todosElementHandler();
             setTitleLS(pageNameInLS.tasks);
             todoHandler();
             await renderTodos();
             removeSortBtn();
             break;
         case pageNameInLS.importantTasks:
-            inputSearch.style.display = 'none';
-            calendar.style.display = 'none';
-            inputSearchGroup.style.display = 'none';
-            todoList.style.display = 'block';
             title.innerText = innerTextTitle.importantTasks;
-            inputTodos.style.display = 'none';
+            todoList.style.display = 'block';
             sortBtn.style.visibility = 'visible';
-            searchTagsBtn.style.visibility = 'hidden';
             await getImportantTasks();
             removeSortBtn();
             break;
         case pageNameInLS.complitedTasks:
-            inputSearch.style.display = 'none';
-            calendar.style.display = 'none';
-            inputSearchGroup.style.display = 'none';
-            todoList.style.display = 'block';
             title.innerText = innerTextTitle.complitedTasks;
-            inputTodos.style.display = 'none';
+            todoList.style.display = 'block';
             sortBtn.style.visibility = 'visible';
-            searchTagsBtn.style.visibility = 'hidden';
             await getCompletedTasks();
             removeSortBtn();
             break;
         case pageNameInLS.deletedTasks:
-            inputSearch.style.display = 'none';
-            calendar.style.display = 'none';
-            inputSearchGroup.style.display = 'none';
-            todoList.style.display = 'block';
             title.innerText = innerTextTitle.deletedTasks;
-            inputTodos.style.display = 'none';
+            todoList.style.display = 'block';
             sortBtn.style.visibility = 'visible';
-            searchTagsBtn.style.visibility = 'hidden';
             await getDeletedTasks();
             removeSortBtn();
             break;
         case pageNameInLS.calendar:
-            inputSearch.style.display = 'none';
+            calendar.style.display = 'grid';
             title.innerText = innerTextTitle.calendar;
-            inputTodos.style.display = 'none';
-            inputSearchGroup.style.display = 'none';
-            todoList.style.display = 'none';
-            sortBtn.style.visibility = 'hidden';
-            searchTagsBtn.style.visibility = 'hidden';
             renderCalendar();
             break;
         case pageNameInLS.search:
-            inputSearch.style.display = 'block';
-            calendar.style.display = 'none';
-            inputSearchGroup.style.display = 'none';
             title.innerText = `${innerTextTitle.search} "${getSearchTodoLS() || ''}"`;
+            inputSearch.style.display = 'block';
             sortBtn.style.visibility = 'visible';
             searchTagsBtn.style.visibility = 'visible';
             todoList.style.display = 'block';
-            inputTodos.style.display = 'none';
             getSearchTodoLS() ? getSearchTask(getSearchTodoLS()) :
                 todoList.innerHTML = null;
             break;
@@ -127,12 +107,9 @@ export const onloadPage = async () => {
             group ?
                 title.innerText = `${innerTextTitle.groups} "${group.title}"`:
                 title.innerText = `${innerTextTitle.groups} ""`;
-            inputSearch.style.display = 'none';
             inputSearchGroup.style.display = 'flex';
             inputTodos.style.display = 'flex';
-            calendar.style.display = 'none';
             sortBtn.style.visibility = 'visible';
-            searchTagsBtn.style.visibility = 'hidden';
             removeTitleLS();
             userGroupBtn();
             renderParticipants();
@@ -140,15 +117,11 @@ export const onloadPage = async () => {
             renderGroupTodos();
             break;
         case page:
-            inputSearch.style.display = 'none';
-            calendar.style.display = 'none';
-            inputSearchGroup.style.display = 'none';
             todoList.style.display = 'block';
-            todosElementHandler();
             title.innerText = page;
             inputTodos.style.display = 'flex';
             sortBtn.style.visibility = 'visible';
-            searchTagsBtn.style.visibility = 'hidden';
+            todosElementHandler();
             setTitleLS(page);
             todoHandler();
             await renderTodos();

@@ -10,25 +10,13 @@ import { checkLengthEvent } from '../shared/validators';
 import { errorText } from '../shared/constants/errorText';
 import { onloadPage } from './onloadPage';
 import { pageNameInLS } from '../shared/textInLS';
-import { innerTextTitle } from '../shared/constants/textFile';
 
 export const calendarLink = () => {
     const calendarLink = document.querySelector('#nav-links_calendar');
-    const calendar = document.querySelector('.calendar__wrapper');
-    const title = document.querySelector('.content__todo_title');
-    const inputTodos = document.querySelector('.content__todo_form');
-    const todoList = document.querySelector('.content__todo_todosMain');
     const dateStart = document.querySelector('#dateStart');
     const dateEnd = document.querySelector('#dateEnd');
-    const sortBtn = document.querySelector('.content__todo-filter-sort');
 
     calendarLink.onclick = () => {
-        calendar.style.display = 'grid';
-        title.innerText = innerTextTitle.calendar;
-        inputTodos.style.display = 'none';
-        todoList.style.display = 'none';
-        sortBtn.style.visibility = 'hidden';
-
         setClickedPage(pageNameInLS.calendar);
         renderCalendar();
         onloadPage();

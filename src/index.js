@@ -14,7 +14,9 @@ import { hideSpiner, showSpiner } from './dom-handlers/spiner';
 showSpiner();
 
 window.onload = async () => {
+    const body = document.querySelector('body');
     const pathName = Object.values(paths).find( path => path === window.location.pathname);
+    body.style.display = 'block';
 
     hideSpiner();
 

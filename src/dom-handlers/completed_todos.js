@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 import { getTodos, deleteTodo, updateTodo, createDeleteTodoList } from '../api/api-handlers';
-import { innerTextTitle, tooltips } from '../shared/constants/textFile';
+import { tooltips } from '../shared/constants/textFile';
 import { getUID, setClickedPage } from '../shared/ls-service';
 import { pageNameInLS } from '../shared/textInLS';
 import { checkLengthTodo } from '../shared/validators';
@@ -144,18 +144,8 @@ export const getCompletedTasks = () => {
 
 export const completedTasks_render = () => {
     const completedTodos = document.querySelector('#nav-links_completedTodos');
-    const calendar = document.querySelector('.calendar__wrapper');
-    const todoList = document.querySelector('.content__todo_todosMain');
 
     completedTodos.onclick = () => {
-        const title = document.querySelector('.content__todo_title');
-        const inputTodos = document.querySelector('.content__todo_form');
-
-        title.innerText = innerTextTitle.complitedTasks;
-        calendar.style.display = 'none';
-        inputTodos.style.display = 'none';
-        todoList.style.display = 'block';
-
         getCompletedTasks();
         setClickedPage(pageNameInLS.complitedTasks);
         onloadPage()
